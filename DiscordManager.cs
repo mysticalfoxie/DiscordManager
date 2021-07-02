@@ -7,8 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,7 +20,6 @@ namespace DCM
         private readonly List<Plugin> _plugins = new();
         private readonly IServiceProvider _provider;
         private readonly IEventMapper _eventMapper;
-        private readonly IPluginManager _pluginManager;
         private readonly Discord _discord;
         private Task _discordTask = Task.CompletedTask;
         private LoginCredentials _credentials;
@@ -36,19 +33,18 @@ namespace DCM
         {
             _provider = new ServiceCollection()
                 .AddSingleton<IEventMapper, EventMapper>()
-                .AddSingleton<IEventEmitter, EventEmitter>()
+                .AddSingleton<IEventEmitter>(prov => EventEmitter)
                 .AddSingleton<IPluginManager, PluginManager>()
-                .AddSingleton<IList<Plugin>>(_plugins)
-                .AddSingleton<IList<Type>>(_pluginTypes)
-                .AddSingleton<IList<FileInfo>>(_pluginLibraries)
-                .AddSingleton<DependencyContainer>(prov => _pluginDependencies)
+                .AddScoped<IList<Plugin>>(prov => _plugins)
+                .AddScoped<IList<Type>>(prov => _pluginTypes)
+                .AddScoped<IList<FileInfo>>(prov => _pluginLibraries)
+                .AddScoped<DependencyContainer>(prov => _pluginDependencies)
                 .AddSingleton<DiscordManager>(this)
                 .AddSingleton<AssemblyLoader>()
                 .AddSingleton<Discord>()
                 .BuildServiceProvider();
 
             _eventMapper = _provider.GetService<IEventMapper>();
-            _pluginManager = _provider.GetService<IPluginManager>();
             _discord = _provider.GetService<Discord>();
         }
 
@@ -103,18 +99,20 @@ namespace DCM
 
         private async Task StartClient(LoginCredentials credentials)
         {
-            _pluginManager.LoadAll();
+            var pluginManager = _provider.GetService<IPluginManager>();
+
+            pluginManager.LoadAll();
             EventEmitter.Emit<LogEvent>(new("All plugins loaded."));
 
             _eventMapper.MapAllEvents();
 
-            await _pluginManager.InvokeInitialize();
+            await pluginManager.InvokeInitialize();
             EventEmitter.Emit<TraceEvent>(new("Successfully executed all initialization methods."));
 
             await _discord.StartClient(credentials.LoginToken);
             EventEmitter.Emit<LogEvent>(new("Discord client ready."));
 
-            await _pluginManager.InvokeStart();
+            await pluginManager.InvokeStart();
             EventEmitter.Emit<TraceEvent>(new("Successfully executed all start methods."));
 
             await Task.Delay(-1);

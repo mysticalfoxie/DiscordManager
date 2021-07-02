@@ -61,11 +61,15 @@ namespace DCM
 
             // Extraction
             var assemblies = _assemblyLoader.LoadAll(libraries);
-            var pluginTypes = assemblies.SelectMany(assembly => ExtractPluginTypes(assembly)).Concat(types);
+            var pluginTypes = assemblies
+                .SelectMany(assembly => ExtractPluginTypes(assembly))
+                .Concat(types)
+                .ToArray();
 
             // Loading
             var provider = RegisterPlugins(pluginTypes);
-            var plugins = InstantiatePlugins(pluginTypes, provider).ToArray();
+            foreach (var plugin in InstantiatePlugins(pluginTypes, provider))
+                _plugins.Add(plugin);
         }
 
         public async Task InvokeInitialize()
@@ -128,6 +132,7 @@ namespace DCM
             catch (Exception ex)
             {
                 _eventEmitter.Emit<ErrorEvent>(new(new PluginException($"An error occured in the plugin '{plugin.GetType().Name}' when invoking the method '{methodName}'.", ex)));
+                plugin.IsRunning = false;
             }
         }
 
@@ -140,6 +145,7 @@ namespace DCM
             catch (Exception ex)
             {
                 _eventEmitter.Emit<ErrorEvent>(new(new PluginException($"An error occured in the plugin '{plugin.GetType().Name}' when invoking the method '{methodName}'.", ex)));
+                plugin.IsRunning = false;
             }
         }
 

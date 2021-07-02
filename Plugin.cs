@@ -8,7 +8,7 @@ namespace DCM
         /// An indicator for the plugin manager if the plugin is still executed.
         /// If an error occures in the from DCM invoked Methods this Property is automatically false.
         /// </summary>
-        public virtual bool IsRunning => true;
+        public virtual bool IsRunning { get; internal set; } = true;
 
         /// <summary>
         /// The Initialize method is being called before Discord has started. 
