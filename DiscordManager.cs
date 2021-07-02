@@ -6,6 +6,7 @@ using Discord;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -15,7 +16,7 @@ namespace DCM
 {
     public class DiscordManager : IDisposable
     {
-        private readonly List<AssemblyName> _pluginLibraries = new();
+        private readonly List<FileInfo> _pluginLibraries = new();
         private readonly List<Type> _pluginTypes = new();
         private readonly List<Plugin> _plugins = new();
         private readonly IServiceProvider _provider;
@@ -39,7 +40,7 @@ namespace DCM
                 .AddSingleton<IPluginManager, PluginManager>()
                 .AddSingleton<IList<Plugin>>(_plugins)
                 .AddSingleton<IList<Type>>(_pluginTypes)
-                .AddSingleton<IList<AssemblyName>>(_pluginLibraries)
+                .AddSingleton<IList<FileInfo>>(_pluginLibraries)
                 .AddSingleton<DependencyContainer>(prov => new(_pluginDependencies))
                 .AddSingleton<DiscordManager>(this)
                 .AddSingleton<AssemblyLoader>()
@@ -75,12 +76,7 @@ namespace DCM
 
         public DiscordManager AddPluginCollector(AssemblyCollector pluginCollector)
         {
-            var libraries = pluginCollector.Files
-                .Select(file => file.FullName)
-                .Select(path => new AssemblyName(path))
-                .ToArray();
-
-            _pluginLibraries.AddRange(libraries);
+            _pluginLibraries.AddRange(pluginCollector.Files);
             return this;
         }
 
@@ -90,7 +86,7 @@ namespace DCM
             return this;
         }
 
-        public DiscordManager AddPlugin(AssemblyName pluginLibrary)
+        public DiscordManager AddPlugin(FileInfo pluginLibrary)
         {
             _pluginLibraries.Add(pluginLibrary);
             return this;
@@ -128,6 +124,16 @@ namespace DCM
 
             Func<LoginCredentials, Task> startMethod = StartClient;
             _discordTask = startMethod.StartHandled(_credentials, _token);
+        }
+
+        /// <summary>
+        /// Starts the discord client on this thread. It never completes!
+        /// </summary>
+        /// <returns>a Task that never completes. It is reserved for Discord.</returns>
+        public Task StartAsync()
+        {
+            Start();
+            return _discordTask;
         }
 
         public void Dispose()

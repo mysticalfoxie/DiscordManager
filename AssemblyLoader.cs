@@ -1,6 +1,7 @@
 ﻿using DCM.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 
 namespace DCM
@@ -10,7 +11,7 @@ namespace DCM
         public event Action<string> AssemblyLoad;
         public event Action<Exception> Error;
 
-        public bool TryLoad(AssemblyName assemblyName, out Assembly assembly)
+        public bool TryLoad(FileInfo assemblyName, out Assembly assembly)
         {
             try
             {
@@ -28,9 +29,9 @@ namespace DCM
             }
         }
 
-        public IEnumerable<Assembly> LoadAll(AssemblyName[] assemblyFiles)
+        public IEnumerable<Assembly> LoadAll(FileInfo[] assemblyFiles)
         {
-            foreach (var file in assemblyFiles ?? Array.Empty<AssemblyName>())
+            foreach (var file in assemblyFiles ?? Array.Empty<FileInfo>())
                 if (TryLoad(file, out var assembly))
                     yield return assembly;
         }

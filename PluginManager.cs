@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using DCM;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 
 namespace DCM
 {
@@ -25,14 +26,14 @@ namespace DCM
     {
         private readonly AssemblyLoader _assemblyLoader;
         private readonly Discord _discord;
-        private readonly IList<AssemblyName> _pluginLibraries;
+        private readonly IList<FileInfo> _pluginLibraries;
         private readonly IList<Type> _pluginTypes;
         private readonly IList<Plugin> _plugins;
         private readonly DependencyContainer _dependencies;
         private readonly IEventEmitter _eventEmitter;
 
         public PluginManager(
-            IList<AssemblyName> pluginLibraries,
+            IList<FileInfo> pluginLibraries,
             IList<Type> pluginTypes,
             IList<Plugin> plugins,
             DependencyContainer dependencies,
