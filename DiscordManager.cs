@@ -16,6 +16,7 @@ namespace DCM
 {
     public class DiscordManager : IDisposable
     {
+        private readonly DependencyContainer _pluginDependencies = new(new ServiceCollection());
         private readonly List<FileInfo> _pluginLibraries = new();
         private readonly List<Type> _pluginTypes = new();
         private readonly List<Plugin> _plugins = new();
@@ -24,7 +25,6 @@ namespace DCM
         private readonly IPluginManager _pluginManager;
         private readonly Discord _discord;
         private Task _discordTask = Task.CompletedTask;
-        private IServiceCollection _pluginDependencies;
         private LoginCredentials _credentials;
         private CancellationToken _token;
 
@@ -41,7 +41,7 @@ namespace DCM
                 .AddSingleton<IList<Plugin>>(_plugins)
                 .AddSingleton<IList<Type>>(_pluginTypes)
                 .AddSingleton<IList<FileInfo>>(_pluginLibraries)
-                .AddSingleton<DependencyContainer>(prov => new(_pluginDependencies))
+                .AddSingleton<DependencyContainer>(prov => _pluginDependencies)
                 .AddSingleton<DiscordManager>(this)
                 .AddSingleton<AssemblyLoader>()
                 .AddSingleton<Discord>()
@@ -66,10 +66,13 @@ namespace DCM
 
         public DiscordManager WithServices(IServiceCollection services)
         {
-            _pluginDependencies = services;
+            if (services is null)
+                throw new ArgumentNullException(nameof(services));
 
-            _pluginDependencies.AddSingleton<IDiscordClient>(prov => _discord.Client);
-            _pluginDependencies.AddSingleton<IEventEmitter>(prov => EventEmitter);
+            _pluginDependencies.Services = services;
+
+            _pluginDependencies.Services.AddSingleton<IDiscordClient>(prov => _discord.Client);
+            _pluginDependencies.Services.AddSingleton<IEventEmitter>(prov => EventEmitter);
 
             return this;
         }
