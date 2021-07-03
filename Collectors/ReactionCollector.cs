@@ -1,37 +1,51 @@
 ﻿using DCM.Events.Discord;
 using DCM.Interfaces;
 using Discord;
+using Discord.WebSocket;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DCM.Collectors
 {
+    /// <summary>
+    /// An observer for the <see cref="IMessage"/>. 
+    /// It hooks the event when a <see cref="SocketReaction"/> was added to the <see cref="IMessage"/>
+    /// 
+    /// Instantiate this class by invoking the Extension Method for the <see cref="IMessage"/>.
+    /// </summary>
     public class ReactionCollector : ICollector<IMessage, ReactionAddedEvent>, IDisposable
     {
-        private readonly DiscordManager _client;
         private readonly IMessage _message;
-        private readonly Func<ReactionAddedEvent, bool> _predicate;
+        private readonly DiscordSocketClient _discordClient;
 
-        public ReactionCollector(IMessage message)
+        public ReactionCollector(IMessage message, DiscordSocketClient discordClient)
         {
-            _client = client;
             _message = message;
-            _predicate = predicate;
+            _discordClient = discordClient;
 
-            _client.EventEmitter.AddListener<ReactionAddedEvent>(OnReactionAdded);
+            _discordClient.ReactionAdded += OnReactionAdded;
         }
 
-        public event Action<ReactionAddedEvent> ReactionAdded;
+        public List<Func<SocketReaction, bool>> Filters;
+        public event Action<SocketReaction> ReactionAdded;
 
-        private void OnReactionAdded(ReactionAddedEvent eventArgs)
+        private Task OnReactionAdded(
+            Cacheable<IUserMessage, ulong> message, 
+            ISocketMessageChannel channel,
+            SocketReaction reaction)
         {
-            if (eventArgs.Message.Id != _message.Id) return;
-            if (!_predicate?.Invoke(eventArgs) ?? false) return;
-            ReactionAdded?.Invoke(eventArgs);
+            if (message.Id != _message.Id) return Task.CompletedTask;
+            if (Filters.Any(filter => filter?.Invoke(reaction) ?? true == false)) return Task.CompletedTask;
+
+            ReactionAdded?.Invoke(reaction);
+            return Task.CompletedTask;
         }
 
         public void Dispose()
         {
-            _client.EventEmitter.RemoveListener<ReactionAddedEvent>(OnReactionAdded);
+            _discordClient.ReactionAdded -= OnReactionAdded;
             GC.SuppressFinalize(this);
         }
     }

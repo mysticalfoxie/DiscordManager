@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DCM.Collectors;
+using DCM.Interfaces;
+using Discord;
+using System;
 
 namespace DCM
 {
@@ -15,6 +14,21 @@ namespace DCM
             _discord = discord;
         }
 
+        public ICollector<TSource, TEvent> GetCollector<TSource, TEvent>(TSource source) 
+            where TEvent : IEvent 
+            where TSource : class
+        {
+            var collectorType = GetCollectorType(typeof(TSource));
+            var collectorCtor = collectorType.GetConstructor(new Type[] { typeof(TSource), _discord.Client.GetType() });
+            return (ICollector<TSource, TEvent>)collectorCtor.Invoke(new object[] { source, _discord.Client });
+        }
 
+        private static Type GetCollectorType(Type source)
+        {
+            if (typeof(IMessage).IsAssignableTo(source))
+                return typeof(ReactionCollector);
+            else
+                throw new NotSupportedException($"Cannot build a collector for a source of type '{source.FullName}'.");
+        }
     }
 }
