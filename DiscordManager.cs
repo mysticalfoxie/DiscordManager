@@ -97,6 +97,12 @@ namespace DCM
             return this;
         }
 
+        public DiscordManager AddPlugin<TPlugin>() where TPlugin : Plugin
+        {
+            _pluginTypes.Add(typeof(TPlugin));
+            return this;
+        }
+
         private async Task StartClient(LoginCredentials credentials)
         {
             var pluginManager = _provider.GetService<IPluginManager>();
