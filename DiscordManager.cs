@@ -25,6 +25,7 @@ namespace DCM
         private LoginCredentials _credentials;
         private CancellationToken _token;
 
+        internal static IDiscordClient ActiveClient { get; set; }
         public IReadOnlyList<Plugin> Plugins => _plugins;
         public IServiceProvider InjectableServices { get; set; }
         public IEventEmitter EventEmitter { get; } = new EventEmitter();
