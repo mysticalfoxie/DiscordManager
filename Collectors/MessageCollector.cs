@@ -30,7 +30,7 @@ namespace DCM.Collectors
         public List<Func<SocketMessage, bool>> Filters;
         public event Action<SocketMessage> MessageReceived;
 
-        public MessageCollector Where(Func<SocketMessage, bool> filterPredicate)
+        public MessageCollector WithFilter(Func<SocketMessage, bool> filterPredicate)
         {
             if (filterPredicate is not null) 
                 Filters.Add(filterPredicate);

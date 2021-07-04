@@ -32,7 +32,7 @@ namespace DCM.Collectors
         public List<Func<SocketReaction, bool>> Filters;
         public event Action<SocketReaction> ReactionAdded;
 
-        public ReactionCollector Where(Func<SocketReaction, bool> filterPredicate)
+        public ReactionCollector WithFilter(Func<SocketReaction, bool> filterPredicate)
         {
             if (filterPredicate is not null) 
                 Filters.Add(filterPredicate);
