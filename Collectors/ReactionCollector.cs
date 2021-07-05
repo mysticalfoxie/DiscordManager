@@ -5,6 +5,7 @@ using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DCM.Collectors
@@ -19,6 +20,7 @@ namespace DCM.Collectors
     {
         private readonly IEventEmitter _eventEmitter;
         private readonly IMessage _message;
+        private readonly CancellationTokenSource _disposeCts = new();
 
         // TODO: Try getting the EventEmitter Instance on some better, other way.
         public ReactionCollector(IEventEmitter eventEmitter, IMessage message)
@@ -26,35 +28,61 @@ namespace DCM.Collectors
             _eventEmitter = eventEmitter;
             _message = message;
 
-            _eventEmitter.AddListener<ReactionAddedEvent>(ReactionAddedEventHandler);
+            _eventEmitter.AddListener<ReactionAddedEvent>(OnReactionAdded);
         }
 
-        public List<Func<SocketReaction, bool>> Filters;
+        public List<Func<SocketReaction, bool>> Filters { get; } = new();
+        public List<Action<SocketReaction>> Listeners { get; } = new();
+        public List<(Func<SocketReaction, Task> listener, bool awaitRequested)> AsyncListeners { get; } = new();
         public event Action<SocketReaction> ReactionAdded;
 
         public ReactionCollector WithFilter(Func<SocketReaction, bool> filterPredicate)
         {
-            if (filterPredicate is not null) 
-                Filters.Add(filterPredicate);
-
+            Filters.Add(filterPredicate ?? throw new ArgumentNullException(nameof(filterPredicate)));
             return this;
         }
 
-        // TODO: ReactionCollector OnReactionAdded(Action<SocketReaction> listener)
-        // TODO: ReactionCollector OnReactionAdded(Func<SocketReaction, Task> listener)
-        // TODO: Task<SocketReaction> WaitForReaction()
+        public ReactionCollector AddListener(Action<SocketReaction> listener)
+        {
+            Listeners.Add(listener ?? throw new ArgumentNullException(nameof(listener)));
+            return this;
+        }
 
-        private void ReactionAddedEventHandler(ReactionAddedEvent eventArgs)
+        public ReactionCollector AddListener(Func<SocketReaction, Task> listener, bool awaitTask = true)
+        {
+            AsyncListeners.Add((listener ?? throw new ArgumentNullException(nameof(listener)), awaitTask));
+            return this;
+        }
+
+        private void OnReactionAdded(ReactionAddedEvent eventArgs)
         {
             if (eventArgs.Message.Id != _message.Id) return;
-            if (Filters.Any(filter => filter?.Invoke(eventArgs.Reaction) ?? true == false)) return;
+            if (Filters.Any(filter => filter.Invoke(eventArgs.Reaction) == false)) return;
 
             ReactionAdded?.Invoke(eventArgs.Reaction);
+            foreach (var listener in Listeners)
+                listener.Invoke(eventArgs.Reaction);
+
+            foreach (var (listener, awaitRequested) in AsyncListeners)
+            {
+                try
+                {
+                    var task = listener.Invoke(eventArgs.Reaction);
+                    if (awaitRequested)
+                        task.Wait(_disposeCts.Token);
+                    else
+                        Task.Run(async () => await task, _disposeCts.Token);
+                } 
+                catch (TaskCanceledException) { }
+                catch (OperationCanceledException) { }
+            }
         }
 
         public void Dispose()
         {
-            _eventEmitter.RemoveListener<ReactionAddedEvent>(ReactionAddedEventHandler);
+            _eventEmitter.RemoveListener<ReactionAddedEvent>(OnReactionAdded);
+            _disposeCts.Cancel();
+            _disposeCts.Dispose();
             GC.SuppressFinalize(this);
         }
     }

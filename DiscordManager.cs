@@ -68,9 +68,6 @@ namespace DCM
 
             _pluginDependencies.Services = services;
 
-            _pluginDependencies.Services.AddSingleton<IDiscordClient>(prov => _discord.Client);
-            _pluginDependencies.Services.AddSingleton<IEventEmitter>(prov => EventEmitter);
-
             return this;
         }
 

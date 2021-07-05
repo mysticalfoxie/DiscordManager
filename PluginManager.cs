@@ -51,6 +51,9 @@ namespace DCM
 
             _assemblyLoader.AssemblyLoad += AssemblyLoader_AssemblyLoad;
             _assemblyLoader.Error += AssemblyLoader_Error;
+
+            _dependencies.Services.AddSingleton<IDiscordClient>(prov => _discord.Client);
+            _dependencies.Services.AddSingleton<IEventEmitter>(prov => _eventEmitter);
         }
 
         public void LoadAll()
