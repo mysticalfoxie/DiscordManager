@@ -25,10 +25,8 @@ namespace DCM
         private LoginCredentials _credentials;
         private CancellationToken _token;
 
-        internal static IDiscordClient ActiveClient { get; set; }
-        public IReadOnlyList<Plugin> Plugins => _plugins;
-        public IServiceProvider InjectableServices { get; set; }
         public IEventEmitter EventEmitter { get; } = new EventEmitter();
+        public string CommandPrefix { get; set; }
 
         public DiscordManager()
         {
@@ -47,6 +45,12 @@ namespace DCM
 
             _eventMapper = _provider.GetService<IEventMapper>();
             _discord = _provider.GetService<Discord>();
+        }
+
+        public DiscordManager WithCommandPrefix(string prefix)
+        {
+            CommandPrefix = prefix;
+            return this;
         }
 
         public DiscordManager WithCredentials(LoginCredentials credentials)
@@ -92,6 +96,12 @@ namespace DCM
         public DiscordManager AddPlugin(Type pluginType)
         {
             _pluginTypes.Add(pluginType);
+            return this;
+        }
+
+        public DiscordManager AddPlugin<TPlugin>() where TPlugin : Plugin
+        {
+            _pluginTypes.Add(typeof(TPlugin));
             return this;
         }
 
