@@ -9,10 +9,10 @@ namespace DCM.Extensions
     public static class CollectorExtensions
     {
         public static ReactionCollector CreateReactionCollector(this IMessage message, IEventEmitter eventEmitter)
-            => new(eventEmitter, message);
+            => new(message, eventEmitter);
 
-        public static MessageCollector CreateMessageCollector(this ISocketMessageChannel channel, IEventEmitter eventEmitter)
-            => new(eventEmitter, channel);
+        public static MessageCollector CreateMessageCollector(this IMessageChannel channel, IEventEmitter eventEmitter)
+            => new(channel, eventEmitter);
 
         public static Task<SocketReaction> WaitForReaction(this ReactionCollector collector)
         {
@@ -33,11 +33,11 @@ namespace DCM.Extensions
         {
             var tcs = new TaskCompletionSource<SocketMessage>();
 
-            collector.MessageReceived += Collector_MessageReceived;
+            collector.Collect += Collector_MessageReceived;
             void Collector_MessageReceived(SocketMessage reaction)
             {
                 tcs.SetResult(reaction);
-                collector.MessageReceived -= Collector_MessageReceived;
+                collector.Collect -= Collector_MessageReceived;
                 collector.Dispose();
             }
 

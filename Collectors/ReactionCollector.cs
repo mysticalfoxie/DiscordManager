@@ -20,10 +20,10 @@ namespace DCM.Collectors
     {
         private readonly IEventEmitter _eventEmitter;
         private readonly IMessage _message;
-        private readonly CancellationTokenSource _disposeCts = new();
+        private readonly CancellationTokenSource _listenerCts = new();
 
         // TODO: Try getting the EventEmitter Instance on some better, other way.
-        public ReactionCollector(IEventEmitter eventEmitter, IMessage message)
+        public ReactionCollector(IMessage message, IEventEmitter eventEmitter)
         {
             _eventEmitter = eventEmitter;
             _message = message;
@@ -69,9 +69,9 @@ namespace DCM.Collectors
                 {
                     var task = listener.Invoke(eventArgs.Reaction);
                     if (awaitRequested)
-                        task.Wait(_disposeCts.Token);
+                        task.Wait(_listenerCts.Token);
                     else
-                        Task.Run(async () => await task, _disposeCts.Token);
+                        Task.Run(async () => await task, _listenerCts.Token);
                 } 
                 catch (TaskCanceledException) { }
                 catch (OperationCanceledException) { }
@@ -81,8 +81,8 @@ namespace DCM.Collectors
         public void Dispose()
         {
             _eventEmitter.RemoveListener<ReactionAddedEvent>(OnReactionAdded);
-            _disposeCts.Cancel();
-            _disposeCts.Dispose();
+            _listenerCts.Cancel();
+            _listenerCts.Dispose();
             GC.SuppressFinalize(this);
         }
     }

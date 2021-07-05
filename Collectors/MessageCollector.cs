@@ -1,58 +1,64 @@
 ﻿using DCM.Events.Discord;
 using DCM.Interfaces;
+using Discord;
 using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace DCM.Collectors
 {
     /// <summary>
-    /// An observer for the <see cref="ISocketMessageChannel"/>. 
-    /// It hooks the event when a <see cref="SocketReaction"/> was added to the <see cref="ISocketMessageChannel"/>
+    /// An observer for the <see cref="IMessageChannel"/>. 
+    /// It hooks the event when a <see cref="SocketReaction"/> was added to the <see cref="IMessageChannel"/>
     /// 
-    /// Instantiate this class by invoking the Extension Method for the <see cref="ISocketMessageChannel"/>.
+    /// Instantiate this class by invoking the Extension Method for the <see cref="IMessageChannel"/>.
     /// </summary>
-    public class MessageCollector : IDisposable // TODO: Implement Factory -> ICollector<ISocketMessageChannel, MessageReceivedEvent>
+    public class MessageCollector : CollectorBase<IMessageChannel, SocketMessage>, IDisposable // TODO: Implement Factory -> ICollector<ISocketMessageChannel, MessageReceivedEvent>
     {
+        private readonly IMessageChannel _channel;
         private readonly IEventEmitter _eventEmitter;
-        private readonly ISocketMessageChannel _channel;
 
-        // TODO: Try getting the EventEmitter Instance on some better, other way.
-        public MessageCollector(IEventEmitter eventEmitter, ISocketMessageChannel channel)
+        public MessageCollector(IMessageChannel channel, IEventEmitter eventEmitter)
         {
-            _eventEmitter = eventEmitter;
             _channel = channel;
+            _eventEmitter = eventEmitter;
 
-            _eventEmitter.AddListener<MessageReceivedEvent>(MessageReceivedEventHandler);
+            _eventEmitter.AddListener<MessageReceivedEvent>(OnMessageReceived);
         }
 
-        public List<Func<SocketMessage, bool>> Filters;
-        public event Action<SocketMessage> MessageReceived;
+        private void OnMessageReceived(MessageReceivedEvent eventArgs)
+            => OnEventEmitted(eventArgs.Message);
 
-        public MessageCollector WithFilter(Func<SocketMessage, bool> filterPredicate)
+        protected override void OnEventEmitted(SocketMessage eventArgs)
         {
-            if (filterPredicate is not null) 
-                Filters.Add(filterPredicate);
+            if (eventArgs.Channel.Id != _channel.Id) return;
 
+            base.OnEventEmitted(eventArgs);
+        }
+
+        // Overrides required for the return type of MessageCollector
+        public override MessageCollector AddListener(Action<SocketMessage> listener)
+        {
+            base.AddListener(listener);
             return this;
         }
 
-        // TODO: MessageCollector OnMessageReceived(Action<SocketMessage> listener)
-        // TODO: MessageCollector OnMessageReceived(Func<SocketMessage, Task> listener)
-        // TODO: Task<SocketMessage> WaitForMessage()
-
-        private void MessageReceivedEventHandler(MessageReceivedEvent eventArgs)
+        public override MessageCollector AddListener(Func<SocketMessage, Task> listener, bool awaitListener = false)
         {
-            if (eventArgs.Message.Channel.Id != _channel.Id) return;
-            if (Filters.Any(filter => filter?.Invoke(eventArgs.Message) ?? true == false)) return;
-
-            MessageReceived?.Invoke(eventArgs.Message);
+            base.AddListener(listener, awaitListener);
+            return this;
         }
 
-        public void Dispose()
+        public override MessageCollector WithFilter(Func<SocketMessage, bool> filterPredicate)
         {
-            _eventEmitter.RemoveListener<MessageReceivedEvent>(MessageReceivedEventHandler);
+            base.WithFilter(filterPredicate);
+            return this;
+        }
+
+        public new void Dispose()
+        {
+            _eventEmitter.RemoveListener<MessageReceivedEvent>(OnMessageReceived);
+            base.Dispose();
             GC.SuppressFinalize(this);
         }
     }
