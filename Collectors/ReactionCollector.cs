@@ -16,73 +16,52 @@ namespace DCM.Collectors
     /// 
     /// Instantiate this class by invoking the Extension Method for the <see cref="IMessage"/>.
     /// </summary>
-    public class ReactionCollector : IDisposable // TODO: Implement Factory -> ICollector<IMessage, ReactionAddedEvent>
+    public class ReactionCollector : CollectorBase<IMessage, SocketReaction>, IDisposable
     {
-        private readonly IEventEmitter _eventEmitter;
         private readonly IMessage _message;
-        private readonly CancellationTokenSource _listenerCts = new();
+        private readonly IEventEmitter _eventEmitter;
 
-        // TODO: Try getting the EventEmitter Instance on some better, other way.
         public ReactionCollector(IMessage message, IEventEmitter eventEmitter)
         {
-            _eventEmitter = eventEmitter;
             _message = message;
+            _eventEmitter = eventEmitter;
 
             _eventEmitter.AddListener<ReactionAddedEvent>(OnReactionAdded);
         }
 
-        public List<Func<SocketReaction, bool>> Filters { get; } = new();
-        public List<Action<SocketReaction>> Listeners { get; } = new();
-        public List<(Func<SocketReaction, Task> listener, bool awaitRequested)> AsyncListeners { get; } = new();
-        public event Action<SocketReaction> ReactionAdded;
-
-        public ReactionCollector WithFilter(Func<SocketReaction, bool> filterPredicate)
-        {
-            Filters.Add(filterPredicate ?? throw new ArgumentNullException(nameof(filterPredicate)));
-            return this;
-        }
-
-        public ReactionCollector AddListener(Action<SocketReaction> listener)
-        {
-            Listeners.Add(listener ?? throw new ArgumentNullException(nameof(listener)));
-            return this;
-        }
-
-        public ReactionCollector AddListener(Func<SocketReaction, Task> listener, bool awaitTask = true)
-        {
-            AsyncListeners.Add((listener ?? throw new ArgumentNullException(nameof(listener)), awaitTask));
-            return this;
-        }
-
         private void OnReactionAdded(ReactionAddedEvent eventArgs)
+            => OnEventEmitted(eventArgs.Reaction);
+
+        protected override void OnEventEmitted(SocketReaction eventArgs)
         {
-            if (eventArgs.Message.Id != _message.Id) return;
-            if (Filters.Any(filter => filter.Invoke(eventArgs.Reaction) == false)) return;
+            if (eventArgs.MessageId != _message.Id) return;
 
-            ReactionAdded?.Invoke(eventArgs.Reaction);
-            foreach (var listener in Listeners)
-                listener.Invoke(eventArgs.Reaction);
-
-            foreach (var (listener, awaitRequested) in AsyncListeners)
-            {
-                try
-                {
-                    var task = listener.Invoke(eventArgs.Reaction);
-                    if (awaitRequested)
-                        task.Wait(_listenerCts.Token);
-                    else
-                        Task.Run(async () => await task, _listenerCts.Token);
-                } 
-                catch (TaskCanceledException) { }
-                catch (OperationCanceledException) { }
-            }
+            base.OnEventEmitted(eventArgs);
         }
 
-        public void Dispose()
+        // Overrides required for the return type of ReactionCollector
+        public override ReactionCollector AddListener(Action<SocketReaction> listener)
+        {
+            base.AddListener(listener);
+            return this;
+        }
+
+        public override ReactionCollector AddListener(Func<SocketReaction, Task> listener, bool awaitListener = false)
+        {
+            base.AddListener(listener, awaitListener);
+            return this;
+        }
+
+        public override ReactionCollector WithFilter(Func<SocketReaction, bool> filterPredicate)
+        {
+            base.WithFilter(filterPredicate);
+            return this;
+        }
+
+        public new void Dispose()
         {
             _eventEmitter.RemoveListener<ReactionAddedEvent>(OnReactionAdded);
-            _listenerCts.Cancel();
-            _listenerCts.Dispose();
+            base.Dispose();
             GC.SuppressFinalize(this);
         }
     }

@@ -1,5 +1,4 @@
-﻿using DCM.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DCM.Collectors
 {
-    public abstract class CollectorBase<TSource, TEventArgs> : IDisposable
+    public abstract class CollectorBase<TSource, TEventArgs> : IDisposable  // TODO: Implement Factory that we dont have to inject the IEventEmitter manually
     {
         private readonly List<Func<TEventArgs, bool>> _filters = new();
         private readonly List<Action<TEventArgs>> _listeners = new();

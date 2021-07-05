@@ -9,11 +9,11 @@ namespace DCM.Collectors
 {
     /// <summary>
     /// An observer for the <see cref="IMessageChannel"/>. 
-    /// It hooks the event when a <see cref="SocketReaction"/> was added to the <see cref="IMessageChannel"/>
+    /// It hooks the event when a <see cref="SocketMessage"/> was added to the <see cref="IMessageChannel"/>
     /// 
     /// Instantiate this class by invoking the Extension Method for the <see cref="IMessageChannel"/>.
     /// </summary>
-    public class MessageCollector : CollectorBase<IMessageChannel, SocketMessage>, IDisposable // TODO: Implement Factory -> ICollector<ISocketMessageChannel, MessageReceivedEvent>
+    public class MessageCollector : CollectorBase<IMessageChannel, SocketMessage>, IDisposable
     {
         private readonly IMessageChannel _channel;
         private readonly IEventEmitter _eventEmitter;
