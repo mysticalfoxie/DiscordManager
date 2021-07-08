@@ -35,4 +35,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties models_4jsonobjects_4embedjsonschema_1json__JsonSchema="https://json-schema.org/draft/2019-09/schema" /></VisualStudio></ProjectExtensions>
+
 </Project>
