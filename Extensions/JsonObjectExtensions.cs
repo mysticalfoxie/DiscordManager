@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DCM.Extensions
 {
-    public static class JsonExtensions
+    public static class JsonObjectExtensions
     {
         public static EmbedData ToEmbedData(this JsonEmbed embed)
             => new()
@@ -20,14 +20,6 @@ namespace DCM.Extensions
                 SubHeading = embed?.Title,
                 ThumbnailUrl = embed?.Thumbnail?.Url
             };
-
-        public static Color ToColor(this int decColor)
-        {
-            var hexValue = decColor.ToString("X");
-            var hexColor = $"#{hexValue.PadLeft(6, '0')}";
-            var color = System.Drawing.ColorTranslator.FromHtml(hexColor);
-            return new Color(color.R, color.G, color.B);        
-        }
 
         public static FieldData ToFieldData(this JsonField field)
             => new()
@@ -54,5 +46,13 @@ namespace DCM.Extensions
                 IconUrl = author.IconUrl,
                 Url = author.Url
             };
+
+        private static Color ToColor(this int decColor)
+        {
+            var hexValue = decColor.ToString("X");
+            var hexColor = $"#{hexValue.PadLeft(6, '0')}";
+            var color = System.Drawing.ColorTranslator.FromHtml(hexColor);
+            return new Color(color.R, color.G, color.B);        
+        }
     }
 }

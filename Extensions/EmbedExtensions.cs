@@ -61,6 +61,9 @@ namespace DCM.Extensions
             return embedBuilder.Build();
         }
 
+        public static Embed Build(this EmbedData data)
+            => Build(new EmbedBuilder(), data);
+
         public static EmbedData GetData(this Embed embed)
         {
             var data = new EmbedData()

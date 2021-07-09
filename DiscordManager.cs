@@ -27,6 +27,7 @@ namespace DCM
 
         public IEventEmitter EventEmitter { get; } = new EventEmitter();
         public string CommandPrefix { get; set; }
+        public IDiscordClient Client { get; private set; }
 
         public DiscordManager()
         {
@@ -126,13 +127,16 @@ namespace DCM
             await Task.Delay(-1);
         }
 
-        public void Start()
+        public DiscordManager Start()
         {
             if (_credentials is null) throw new InvalidOperationException($"Please add the login credentials with '{nameof(WithCredentials)}'.");
             if (_discordTask.Status == TaskStatus.Running) throw new InvalidOperationException("The Discord client is already running.");
 
             Func<LoginCredentials, Task> startMethod = StartClient;
             _discordTask = startMethod.StartHandled(_credentials, _token);
+            Client = _discord.Client;
+
+            return this;
         }
 
         /// <summary>
