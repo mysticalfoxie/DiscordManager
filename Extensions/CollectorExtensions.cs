@@ -18,11 +18,11 @@ namespace DCM.Extensions
         {
             var tcs = new TaskCompletionSource<SocketReaction>();
 
-            collector.ReactionAdded += Collector_ReactionAdded;
+            collector.Collect += Collector_ReactionAdded;
             void Collector_ReactionAdded(SocketReaction reaction)
             {
                 tcs.SetResult(reaction);
-                collector.ReactionAdded -= Collector_ReactionAdded;
+                collector.Collect -= Collector_ReactionAdded;
                 collector.Dispose();
             }
 
