@@ -73,11 +73,12 @@ namespace DCM.Extensions
         /// Throws an exception if there is no  guild user with this ID.
         /// </summary>
         /// <exception cref="UserNotFoundException">The exception if the guild user was not found.</exception>
-        public static async Task<GuildEmote> GetRequiredUserAsync(
+        public static async Task<IGuildUser> GetRequiredUserAsync(
             this IGuild guild,
             ulong id,
+            CacheMode mode = CacheMode.AllowDownload,
             RequestOptions options = null)
-            => await guild.GetRequiredUserAsync(id, options)
+            => await guild.GetUserAsync(id, mode, options)
                 ?? throw new UserNotFoundException(id);
     }
 }

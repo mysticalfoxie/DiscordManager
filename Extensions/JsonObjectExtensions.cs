@@ -34,7 +34,7 @@ namespace DCM.Extensions
             ? null 
             : new()
             {
-                IconUrl = footer?.IconUrl,
+                IconUrl = footer?.Icon_Url,
                 Text = footer?.Text,
                 Timestamp = embed?.Timestamp
             };
@@ -43,7 +43,7 @@ namespace DCM.Extensions
             => new()
             {
                 Heading = author.Name,
-                IconUrl = author.IconUrl,
+                IconUrl = author.Icon_Url,
                 Url = author.Url
             };
 
