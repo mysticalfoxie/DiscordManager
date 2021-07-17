@@ -29,6 +29,19 @@ namespace DCM.Extensions
                 ?? throw new ChannelNotFoundException(id);
 
         /// <summary>
+        /// Gets a guild with the provided ID.
+        /// Throws an exception if there is no guild with this ID.
+        /// </summary>
+        /// <exception cref="GuildNotFoundException">The exception if the guild was not found.</exception>
+        public static async Task<IGuild> GetRequiredGuildAsync(
+            this IDiscordClient client, 
+            ulong id, 
+            CacheMode mode = CacheMode.AllowDownload, 
+            RequestOptions options = null)
+            => await client.GetGuildAsync(id, mode, options)
+                ?? throw new GuildNotFoundException(id);
+
+        /// <summary>
         /// Gets a user with the provided ID.
         /// Throws an exception if there is no user with this ID.
         /// </summary>

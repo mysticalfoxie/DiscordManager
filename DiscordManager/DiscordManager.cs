@@ -1,4 +1,5 @@
-﻿using DCM.Events.Logging;
+﻿using DCM.Events.Discord;
+using DCM.Events.Logging;
 using DCM.Extensions;
 using DCM.Interfaces;
 using DCM.Models;
@@ -27,6 +28,7 @@ namespace DCM
 
         public IEventEmitter EventEmitter { get; } = new EventEmitter();
         public string CommandPrefix { get; set; }
+        public IDiscordClient Client { get; private set; }
 
         public DiscordManager()
         {
@@ -110,7 +112,7 @@ namespace DCM
             var pluginManager = _provider.GetService<IPluginManager>();
 
             pluginManager.LoadAll();
-            EventEmitter.Emit<LogEvent>(new("All plugins loaded."));
+            EventEmitter.Emit<Events.Logging.LogEvent>(new("All plugins loaded."));
 
             _eventMapper.MapAllEvents();
 
@@ -118,7 +120,7 @@ namespace DCM
             EventEmitter.Emit<TraceEvent>(new("Successfully executed all initialization methods."));
 
             await _discord.StartClient(credentials.LoginToken);
-            EventEmitter.Emit<LogEvent>(new("Discord client ready."));
+            EventEmitter.Emit<Events.Logging.LogEvent>(new("Discord client ready."));
 
             await pluginManager.InvokeStart();
             EventEmitter.Emit<TraceEvent>(new("Successfully executed all start methods."));
@@ -126,23 +128,46 @@ namespace DCM
             await Task.Delay(-1);
         }
 
-        public void Start()
+        public DiscordManager Start()
         {
             if (_credentials is null) throw new InvalidOperationException($"Please add the login credentials with '{nameof(WithCredentials)}'.");
             if (_discordTask.Status == TaskStatus.Running) throw new InvalidOperationException("The Discord client is already running.");
 
             Func<LoginCredentials, Task> startMethod = StartClient;
             _discordTask = startMethod.StartHandled(_credentials, _token);
+            Client = _discord.Client;
+
+            return this;
         }
 
         /// <summary>
-        /// Starts the discord client on this thread. It never completes!
+        /// <para>Starts the discord client on this thread and waits for it completion.</para>
+        /// <para>The only possible completion is a <strong>failiure</strong> so keep in mind that the Task <strong>won't complete</strong>!</para>
         /// </summary>
-        /// <returns>a Task that never completes. It is reserved for Discord.</returns>
-        public Task StartAsync()
+        /// <returns>a <see cref="System.Threading.Tasks.Task"/> that never completes. It is reserved for Discord.</returns>
+        public Task StartAndWait()
         {
             Start();
             return _discordTask;
+        }
+
+        /// <summary>
+        /// <para>Waits for the client to start completely and resolves after it is fully initialized</para>
+        /// </summary>
+        /// <returns>a <see cref="System.Threading.Tasks.Task"/> that completes when the client is initialized.</returns>
+        public Task<DiscordManager> StartAsync()
+        {
+            var tcs = new TaskCompletionSource<DiscordManager>();
+            EventEmitter.AddListener<ReadyEvent>(OnReady);
+            Start();
+            
+            void OnReady(ReadyEvent eventArgs)
+            {
+                EventEmitter.RemoveListener<ReadyEvent>(OnReady);
+                tcs.SetResult(this);
+            }
+
+            return tcs.Task;
         }
 
         public void Dispose()

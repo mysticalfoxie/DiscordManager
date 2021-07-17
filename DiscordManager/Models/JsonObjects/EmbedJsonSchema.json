@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Json Embed Format",
+
+  "type": "object",
+
+  "properties": {
+    "content": {
+      "type": "string",
+      "description": "This text will be the message's text. You can set this null or remove it if you don't want a message"
+    },
+
+    "embed": {
+      "type": "object",
+      "description": "If this is null there will be no embed.",
+      "minProperties": 1,
+      "properties": {
+
+        "title": {
+          "type": "string",
+          "description": "Adds a title to the embed."
+        },
+
+        "description": {
+          "type": "string",
+          "description": "Adds a description to the embed."
+        },
+
+        "url": {
+          "type": "string",
+          "description": "If set, the embeds title is a references this url."
+        },
+
+        "color": {
+          "type": "integer",
+          "description": "Specifies the color of the left border. (Default is dark gray) It is a decimal color code that you can convert here: https://www.mathsisfun.com/hexadecimal-decimal-colors.html"
+        },
+
+        "timestamp": {
+          "type": "string",
+          "description": "This is a timestamp in ISO 8601 format. Example: 2021-07-08T19:23:28.901Z"
+        },
+
+        "footer": {
+          "type": "object",
+          "description": "Adds a footer to the embed.",
+          "minProperties": 1,
+          "properties": {
+
+            "icon_url": {
+              "type": "string",
+              "description": "Adds a tiny icon on the left side of the footer."
+            },
+
+            "text": {
+              "type": "string",
+              "description": "Adds a text to the footer."
+            }
+
+          }
+        },
+
+        "thumbnail": {
+          "type": "object",
+          "description": "Adds a thumbnail to the embed.",
+          "minProperties": 1,
+          "properties": {
+
+            "url": {
+              "type": "string",
+              "description": "The url for the thumbnail."
+            }
+
+          }
+        },
+
+        "image": {
+          "type": "object",
+          "description": "Adds an image to the embed.",
+          "minProperties": 1,
+          "properties": {
+
+            "url": {
+              "type": "string",
+              "description": "The url for the image."
+            }
+
+          }
+        },
+
+        "author": {
+          "type": "object",
+          "minProperties": 1,
+          "properties": {
+
+            "name": {
+              "type": "string",
+              "description": "Adds a author name to the embed. It is displayed as bold text on the top of the embed."
+            },
+
+            "url": {
+              "type": "string",
+              "description": "Adds a http reference on the author's name."
+            },
+
+            "icon_url": {
+              "type": "string",
+              "description": "Adds an icon to the left of the author's name."
+            }
+          }
+        },
+
+        "fields": {
+          "type": "array",
+          "description": "Adds fields to the embed.",
+          "maxItems": 25,
+          "items": [
+
+            {
+              "type": "object",
+              "description": "Adds a field to the embed's fields.",
+              "properties": {
+
+                "name": {
+                  "type": "string",
+                  "description": "Adds a name to the field."
+                },
+
+                "value": {
+                  "type": "string",
+                  "description": "Adds a value to the field."
+                },
+
+                "inline": {
+                  "type": "boolean",
+                  "description": "If true the field tries to be in the same line as the other fields. (max 3 in a row); Otherwise it will be placed beneath the last field."
+                }
+
+              }
+
+            }
+
+          ]
+        }
+      }
+    }
+  }
+}

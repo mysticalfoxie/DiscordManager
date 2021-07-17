@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordManager", "DiscordManager\DiscordManager.csproj", "{3F913318-F515-43FE-BD72-FFFFBC4F7A01}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordManager.TestClient", "DiscordManager.TestClient\DiscordManager.TestClient.csproj", "{36C8C80D-BC72-4BCD-A944-C102BC2958C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "DiscordManager.TestClient\TestClient.csproj", "{36C8C80D-BC72-4BCD-A944-C102BC2958C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
