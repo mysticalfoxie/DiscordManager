@@ -24,14 +24,18 @@ namespace TestClient
         //        .Message;
 
         //    var dcm = await new DiscordManager()
-        //        .WithCredentials(new(<Your Token>))
+        //        .WithCredentials(new("<YourToken>"))
         //        .StartAsync();
 
-        //    var guild = await dcm.Client.GetRequiredGuildAsync(<TestGuild>);
-        //    var channel = await guild.GetRequiredTextChannelAsync(<TestChannel>);
+        //    var guild = await dcm.Client.GetRequiredGuildAsync(0 /* your guild id */);
+        //    var channel = await guild.GetRequiredTextChannelAsync(0 /* your channel id */);
         //    var message = await channel.SendMessageAsync(
         //        text: messageData.Content,
-        //        embed: messageData.Embed.ToEmbedData().Build());
+        //        embed: messageData.Embed.ToEmbedData(new Dictionary<string, object>
+        //        {   // Set the variables that you want to access in the embed json
+        //            ["DiscordUrl"] = "https://cdn.discordapp.com/embed/avatars/0.png",
+        //            ["Guild"] = guild
+        //        }).Build());
         //}
         #endregion
     }
