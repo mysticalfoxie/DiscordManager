@@ -24,7 +24,7 @@ namespace DCM.Models.JsonObjects
 
         [JsonProperty("timestamp")]
         [JsonPropertyName("timestamp")]
-        public DateTime Timestamp { get; set; }
+        public string Timestamp { get; set; }
 
         [JsonProperty("footer")]
         [JsonPropertyName("footer")]
@@ -56,7 +56,7 @@ namespace DCM.Models.JsonObjects
                     Url = "https://discord.com/"
                 },
                 Color = 14359500,
-                Timestamp = DateTime.Now,
+                Timestamp = DateTime.Now.ToString("yyyy-MM-dd") + "T" + DateTime.Now.ToString("HH:mm:ss.fff") + "Z",
                 Description = "this supports [named links](https://discordapp.com) on top of the previously shown subset of markdown. ```\nyes, even code blocks```",
                 Fields = new JsonField[]
                 {

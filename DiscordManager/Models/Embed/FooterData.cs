@@ -16,11 +16,12 @@ namespace DCM.Models.Embed
                                  .ExceptionWhenNull(nameof(Text));
         }
 
-        private DateTime? _timeStamp;
-        public DateTime? Timestamp
+        // 2021-07-24T21:18:21.205Z
+        private string _timeStamp; 
+        public string Timestamp
         {
             get => _timeStamp;
-            set => _timeStamp = value?.NullWhenDefault();
+            set => _timeStamp = value?.NullWhenEmptyOrWhitespace();
         }
 
         private string _iconUrl;
