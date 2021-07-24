@@ -34,6 +34,9 @@ namespace DCM.Extensions
             if (!string.IsNullOrWhiteSpace(embed.Url))
                 embed.Url = InjectVeriables(embed.Url, variableDeclarations);
 
+            if (!string.IsNullOrWhiteSpace(embed.Timestamp))
+                embed.Timestamp = InjectVeriables(embed.Timestamp, variableDeclarations);
+
             if (embed.Author is not null)
                 embed.Author.GetType().GetStringProperties().InjectVariables(embed.Author, variableDeclarations);
 
