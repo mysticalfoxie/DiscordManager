@@ -36,7 +36,7 @@ namespace DCM.Extensions
                 if (data.Footer.IconUrl is not null)
                     footerBuilder.WithIconUrl(data.Footer.IconUrl);
                 if (data.Footer.Timestamp is not null)
-                    embedBuilder.WithTimestamp(new DateTimeOffset((DateTime)data.Footer.Timestamp));
+                    embedBuilder.WithTimestamp(new DateTimeOffset(DateTime.Parse(data.Footer.Timestamp)));
 
                 embedBuilder.WithFooter(footerBuilder);
             }
@@ -78,7 +78,7 @@ namespace DCM.Extensions
             {
                 IconUrl = embed.Footer?.IconUrl,
                 Text = embed.Footer?.Text,
-                Timestamp = embed.Timestamp?.DateTime
+                Timestamp = DateTime.Now.ToString("yyyy-MM-dd") + "T" + DateTime.Now.ToString("HH:mm:ss.fff") + "Z"
             }.NullWhenEmpty();
 
             data.Header = new HeaderData()
@@ -153,6 +153,6 @@ namespace DCM.Extensions
         internal static bool IsEmpty(this FooterData footer)
             => footer == null 
             || !(footer?.Text is not null
-            || footer.Timestamp.HasValue);
+            || string.IsNullOrWhiteSpace(footer.Timestamp));
     }
 }
