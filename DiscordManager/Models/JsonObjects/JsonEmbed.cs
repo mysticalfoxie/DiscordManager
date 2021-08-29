@@ -109,13 +109,13 @@ namespace DCM.Models.JsonObjects
         public object Clone()
             => new JsonEmbed()
             {
-                Author = (JsonAuthor)Author.Clone(),
+                Author = (JsonAuthor)Author?.Clone(),
                 Color = Color,
                 Description = Description,
-                Fields = Fields?.Select(x => x.Clone()).Cast<JsonField>().ToArray() ?? Array.Empty<JsonField>(),
-                Footer = (JsonFooter)Footer.Clone(),
-                Image = (JsonImage)Image.Clone(),
-                Thumbnail = (JsonThumbnail)Thumbnail.Clone(),
+                Fields = Fields?.Select(x => x?.Clone()).Cast<JsonField>().ToArray() ?? Array.Empty<JsonField>(),
+                Footer = (JsonFooter)Footer?.Clone(),
+                Image = (JsonImage)Image?.Clone(),
+                Thumbnail = (JsonThumbnail)Thumbnail?.Clone(),
                 Timestamp = Timestamp,
                 Title = Title,
                 Url = Url

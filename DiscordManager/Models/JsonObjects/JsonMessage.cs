@@ -21,8 +21,8 @@ namespace DCM.Models.JsonObjects
         public object Clone()
             => new JsonMessage()
             {
-                Content = (string)Content.Clone(),
-                Embed = (JsonEmbed)Embed.Clone()
+                Content = (string)Content?.Clone(),
+                Embed = (JsonEmbed)Embed?.Clone()
             };
     }
 }
