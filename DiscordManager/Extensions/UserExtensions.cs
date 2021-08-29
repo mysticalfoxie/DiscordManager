@@ -49,5 +49,21 @@ namespace DCM.Extensions
         public static async Task<IUser> GetRequiredUserAsync(this IDiscordClient client, ulong id, CacheMode mode = CacheMode.AllowDownload, RequestOptions options = null)
             => await client.GetUserAsync(id, mode, options)
                 ?? throw new UserNotFoundException(id);
+
+        /// <summary>
+        /// Returns a user friendly format for a Discord User. The pattern is the same as the discord naming convention guides.
+        /// </summary>
+        /// <returns>a string that looks like this: `username#1234`</returns>
+        public static string GetDisplayFormat(this IUser user)
+            => user is null
+                ? string.Empty
+                : $"{user.Username}#{user.DiscriminatorValue}";
+
+        /// <summary>
+        /// Returns a user format that is used to mention a user. The pattern is the same as the discord naming convention guides.
+        /// </summary>
+        /// <returns>a string that looks like this: `<@012345678901234567>`</returns>
+        public static string GetMention(this IUser user)
+            => user is null ? string.Empty : $"<@{user.Id}>";
     }
 }

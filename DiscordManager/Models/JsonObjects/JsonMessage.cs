@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace DCM.Models.JsonObjects
 {
-    public class JsonMessage
+    public class JsonMessage : ICloneable
     {
         [JsonProperty("content")]
         public string Content { get; set; }
@@ -15,6 +16,13 @@ namespace DCM.Models.JsonObjects
             {
                 Content = "This `supports` __a__ **subset** *of* ~~markdown~~ 😃 ```cs\npublic class Program {\n    public static void Main(string[] args) {\n        // Coding is fun! :D\n    }\n}```",
                 Embed = JsonEmbed.GetExample()
+            };
+
+        public object Clone()
+            => new JsonMessage()
+            {
+                Content = Content,
+                Embed = Embed
             };
     }
 }

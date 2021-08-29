@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace DCM.Models.JsonObjects
 {
-    public class JsonEmbed
+    public class JsonEmbed : ICloneable
     {
         [JsonProperty("title")]
         [JsonPropertyName("title")]
@@ -103,6 +103,21 @@ namespace DCM.Models.JsonObjects
                 },
                 Title = "Title ~~(did you know you can have markdown here too?)~~",
                 Url = "https://discordapp.com"
+            };
+
+        public object Clone()
+            => new JsonEmbed()
+            {
+                Author = Author,
+                Color = Color,
+                Description = Description,
+                Fields = Fields,
+                Footer = Footer,
+                Image = Image,
+                Thumbnail = Thumbnail,
+                Timestamp = Timestamp,
+                Title = Title,
+                Url = Url
             };
     }
 }

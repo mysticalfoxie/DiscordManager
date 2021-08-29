@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Text.Json.Serialization;
 
 namespace DCM.Models.JsonObjects
 {
-    public class JsonAuthor
+    public class JsonAuthor : ICloneable
     {
         [JsonProperty("name")]
         [JsonPropertyName("name")]
@@ -16,5 +17,13 @@ namespace DCM.Models.JsonObjects
         [JsonProperty("icon_url")]
         [JsonPropertyName("icon_url")]
         public string Icon_Url { get; set; }
+
+        public object Clone()
+            => new JsonAuthor()
+            {
+                Name = Name,
+                Url = Url,
+                Icon_Url = Icon_Url
+            };
     }
 }
