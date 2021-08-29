@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace DCM.Models.JsonObjects
@@ -108,13 +109,13 @@ namespace DCM.Models.JsonObjects
         public object Clone()
             => new JsonEmbed()
             {
-                Author = Author,
+                Author = (JsonAuthor)Author.Clone(),
                 Color = Color,
                 Description = Description,
-                Fields = Fields,
-                Footer = Footer,
-                Image = Image,
-                Thumbnail = Thumbnail,
+                Fields = Fields?.Select(x => x.Clone()).Cast<JsonField>().ToArray() ?? Array.Empty<JsonField>(),
+                Footer = (JsonFooter)Footer.Clone(),
+                Image = (JsonImage)Image.Clone(),
+                Thumbnail = (JsonThumbnail)Thumbnail.Clone(),
                 Timestamp = Timestamp,
                 Title = Title,
                 Url = Url
