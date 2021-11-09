@@ -5,11 +5,11 @@ namespace DCM.Events.Discord
 {
     public class UserJoinedEvent : IEvent
     {
-        public UserJoinedEvent(SocketGuildUser guild)
+        public UserJoinedEvent(SocketGuildUser guildUser)
         {
-            Guild = guild;
+            GuildUser = guildUser;
         }
 
-        public SocketGuildUser Guild { get; }
+        public SocketGuildUser GuildUser { get; }
     }
 }
