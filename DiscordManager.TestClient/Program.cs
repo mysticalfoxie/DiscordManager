@@ -10,6 +10,20 @@ namespace TestClient
         //static async Task Main()
         //    => await new DiscordManager()
         //        .WithCredentials(new(<Your Token>))
+        //        .ConfigureCommands(x => x
+        //          .UsePrefix("!")
+        //          .BindCommand<MyCommandHandler>("PinG")
+        //          .BindCommand("PinG", typeof(MyCommandHandler))
+        //          .UnbindCommand<MyCommandHandler>("Ping"))
+        //          .BindCommand<AdminCommand>("sql", new Permissions(Stradegy))
+        //          .ConfigureDefaultPermissions(x => x (PermissionsBuilder)
+        //              .UseStratedy(AllowOnlyPermitted || BlockAllUnpermitted)
+        //              .AddChannel(0123456789012345)
+        //              .AddChannels([0123456789012345, 0123456789012345]
+        //              .AddUser(0123456789012345)
+        //              .AddRole(0123456789012345)
+        //              .Build())
+        //        .AddCommandHandler<MyCommandHandler>("ping")
         //        .AddPlugin(typeof(TestPlugin))
         //        .StartAsync();
         #endregion

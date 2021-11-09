@@ -77,33 +77,32 @@ namespace DCM
             return this;
         }
 
-        public DiscordManager AddPluginCollector(AssemblyCollector pluginCollector)
-        {
-            _pluginLibraries.AddRange(pluginCollector.Files);
-            return this;
-        }
 
         public DiscordManager AddPlugin(Plugin plugin)
         {
             _plugins.Add(plugin);
             return this;
         }
-
         public DiscordManager AddPlugin(FileInfo pluginLibrary)
         {
             _pluginLibraries.Add(pluginLibrary);
             return this;
         }
-
         public DiscordManager AddPlugin(Type pluginType)
         {
             _pluginTypes.Add(pluginType);
             return this;
         }
-
         public DiscordManager AddPlugin<TPlugin>() where TPlugin : Plugin
         {
             _pluginTypes.Add(typeof(TPlugin));
+            return this;
+        }
+        public DiscordManager AddPluginFolder(DirectoryInfo directory)
+            => AddPluginCollector(new(directory));
+        public DiscordManager AddPluginCollector(AssemblyCollector pluginCollector)
+        {
+            _pluginLibraries.AddRange(pluginCollector.Files);
             return this;
         }
 
