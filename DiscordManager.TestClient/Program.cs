@@ -1,10 +1,15 @@
 ﻿using DCM;
+using DCM.Extensions;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace TestClient
 {
     class Program
     {
-        public static void Main() { }
+        // public static void Main() { }
 
         #region Start the client with the TestPlugin. 
         //static async Task Main()
@@ -29,28 +34,29 @@ namespace TestClient
         #endregion
 
         #region Read Embed Json and send a message.
-        //public static async Task Main()
-        //{
-        //    var messageData = new ConfigurationBuilder()
-        //        .AddJsonFile(Path.Combine("appsettings.json"), false, true)
-        //        .Build()
-        //        .Get<ConfigData>()
-        //        .Message;
+        public static async Task Main()
+        {
+            var messageData = new JsonMessage()
+            {
+                
+            }
 
-        //    var dcm = await new DiscordManager()
-        //        .WithCredentials(new("<YourToken>"))
-        //        .StartAsync();
+            var dcm = await new DiscordManager()
+                .WithCredentials(new("ODU2MTcyNTM4ODYxOTc3NjEw.YM9K0A.KTaiHPZxIxpKsEMR0eqo-xiOmec"))
+                .StartAsync();
 
-        //    var guild = await dcm.Client.GetRequiredGuildAsync(0 /* your guild id */);
-        //    var channel = await guild.GetRequiredTextChannelAsync(0 /* your channel id */);
-        //    var message = await channel.SendMessageAsync(
-        //        text: messageData.Content,
-        //        embed: messageData.Embed.ToEmbedData(new Dictionary<string, object>
-        //        {   // Set the variables that you want to access in the embed json
-        //            ["DiscordUrl"] = "https://cdn.discordapp.com/embed/avatars/0.png",
-        //            ["Guild"] = guild
-        //        }).Build());
-        //}
+            var guild = await dcm.Client.GetRequiredGuildAsync(860519492451041351);
+            var channel = await guild.GetRequiredTextChannelAsync(860525227120918578);
+            var message = await channel.SendMessageAsync(
+                text: messageData.Content,
+                embed: messageData.Embed.ToEmbedData(new Dictionary<string, object>
+                {   // Set the variables that you want to access in the embed json
+                    ["DiscordUrl"] = "https://cdn.discordapp.com/embed/avatars/0.png",
+                    ["Guild"] = guild
+                }).Build());
+
+
+        }
         #endregion
     }
 

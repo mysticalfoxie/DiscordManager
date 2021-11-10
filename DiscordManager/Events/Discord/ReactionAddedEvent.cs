@@ -6,7 +6,7 @@ namespace DCM.Events.Discord
 {
     public class ReactionAddedEvent : IEvent
     {
-        public ReactionAddedEvent(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
+        public ReactionAddedEvent(Cacheable<IUserMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel, SocketReaction reaction)
         {
             Message = message;
             Channel = channel;
@@ -14,7 +14,7 @@ namespace DCM.Events.Discord
         }
 
         public Cacheable<IUserMessage, ulong> Message { get; }
-        public ISocketMessageChannel Channel { get; }
+        public Cacheable<IMessageChannel, ulong> Channel { get; }
         public SocketReaction Reaction { get; }
     }
 }

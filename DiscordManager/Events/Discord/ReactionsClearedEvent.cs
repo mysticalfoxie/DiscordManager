@@ -1,18 +1,17 @@
 ﻿using DCM.Interfaces;
 using Discord;
-using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
     public class ReactionsClearedEvent : IEvent
     {
-        public ReactionsClearedEvent(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel)
+        public ReactionsClearedEvent(Cacheable<IUserMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel)
         {
             Message = message;
             Channel = channel;
         }
 
         public Cacheable<IUserMessage, ulong> Message { get; }
-        public ISocketMessageChannel Channel { get; }
+        public Cacheable<IMessageChannel, ulong> Channel { get; }
     }
 }

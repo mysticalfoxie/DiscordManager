@@ -1,17 +1,17 @@
 ﻿using DCM.Interfaces;
-using Discord.WebSocket;
+using Discord;
 
 namespace DCM.Events.Discord
 {
     public class UserIsTypingEvent : IEvent
     {
-        public UserIsTypingEvent(SocketUser user, ISocketMessageChannel channel)
+        public UserIsTypingEvent(Cacheable<IUser, ulong> user, Cacheable<IMessageChannel, ulong> channel)
         {
             User = user;
             Channel = channel;
         }
 
-        public SocketUser User { get; }
-        public ISocketMessageChannel Channel { get; }
+        public Cacheable<IUser, ulong> User { get; }
+        public Cacheable<IMessageChannel, ulong> Channel { get; }
     }
 }
