@@ -1,15 +1,26 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Text.Json.Serialization;
 
 namespace DCM.Models.JsonObjects
 {
     public class JsonMessage : ICloneable
     {
         [JsonProperty("content")]
+        [JsonPropertyName("content")]
         public string Content { get; set; }
 
         [JsonProperty("embed")]
+        [JsonPropertyName("embed")]
         public JsonEmbed Embed { get; set; }
+
+        [JsonProperty("tts")]
+        [JsonPropertyName("tts")]
+        public bool TTS { get; set; }
+
+        [JsonProperty("message_reference")]
+        [JsonPropertyName("message_reference")]
+        public JsonMessageReference MessageReference { get; set; }
 
         public static JsonMessage GetExample()
             => new()

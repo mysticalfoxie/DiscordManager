@@ -26,30 +26,82 @@ namespace DCM.Extensions
         public static EmbedData ToEmbedData(this JsonEmbed embed, Dictionary<string, object> variableDeclarations)
         {
             if (!string.IsNullOrWhiteSpace(embed.Description))
-                embed.Description = InjectVeriables(embed.Description, variableDeclarations);
+                embed.Description = InjectVariables(embed.Description, variableDeclarations);
 
             if (!string.IsNullOrWhiteSpace(embed.Title))
-                embed.Title = InjectVeriables(embed.Title, variableDeclarations);
+                embed.Title = InjectVariables(embed.Title, variableDeclarations);
 
             if (!string.IsNullOrWhiteSpace(embed.Url))
-                embed.Url = InjectVeriables(embed.Url, variableDeclarations);
+                embed.Url = InjectVariables(embed.Url, variableDeclarations);
 
             if (!string.IsNullOrWhiteSpace(embed.Timestamp))
-                embed.Timestamp = InjectVeriables(embed.Timestamp, variableDeclarations);
+                embed.Timestamp = InjectVariables(embed.Timestamp, variableDeclarations);
 
             if (embed.Author is not null)
-                embed.Author.GetType().GetStringProperties().InjectVariables(embed.Author, variableDeclarations);
+                embed.Author
+                    .GetType()
+                    .GetStringProperties()
+                    .InjectVariables(embed.Author, variableDeclarations);
 
             if (embed.Footer is not null)
-                embed.Footer.GetType().GetStringProperties().InjectVariables(embed.Footer, variableDeclarations);
+                embed.Footer
+                    .GetType()
+                    .GetStringProperties()
+                    .InjectVariables(embed.Footer, variableDeclarations);
 
             if (embed.Image is not null)
-                embed.Image.GetType().GetStringProperties().InjectVariables(embed.Image, variableDeclarations);
+                embed.Image
+                    .GetType()
+                    .GetStringProperties()
+                    .InjectVariables(embed.Image, variableDeclarations);
 
             if (embed.Thumbnail is not null)
-                embed.Thumbnail.GetType().GetStringProperties().InjectVariables(embed.Thumbnail, variableDeclarations);
+                embed.Thumbnail
+                    .GetType()
+                    .GetStringProperties()
+                    .InjectVariables(embed.Thumbnail, variableDeclarations);
 
             return embed.ToEmbedData();
+        }
+
+        public static MessageReference ToMessageReference(this JsonMessageReference reference)
+        {
+            ulong? messageId = null;
+            ulong? channelId = null;
+            ulong? guildId = null;
+
+            if (reference.MessageId is not null)
+                if (!ulong.TryParse(reference.MessageId, out var parsedMessageId))
+                    throw new FormatException($"Cannot assign a ulong from the message id of '{reference.MessageId}'");
+                else
+                    messageId = parsedMessageId;
+
+            if (reference.ChannelId is not null)
+                if (!ulong.TryParse(reference.ChannelId, out var parsedChannelId))
+                    throw new FormatException($"Cannot assign a ulong from the channel id of '{reference.ChannelId}'");
+                else
+                    channelId = parsedChannelId;
+
+            if (reference.GuildId is not null)
+                if (!ulong.TryParse(reference.GuildId, out var parsedGuildId))
+                    throw new FormatException($"Cannot assign a ulong from the guild id of '{reference.GuildId}'");
+                else
+                    guildId = parsedGuildId;
+
+            return new(messageId, channelId, guildId);
+        }
+
+        public static MessageReference ToMessageReference(this JsonMessageReference reference, Dictionary<string, object> variableDeclarations)
+        {
+            var message = !string.IsNullOrWhiteSpace(reference.MessageId) ? reference.MessageId : null;
+            var channel = !string.IsNullOrWhiteSpace(reference.ChannelId) ? reference.ChannelId : null;
+            var guild = !string.IsNullOrWhiteSpace(reference.GuildId) ? reference.GuildId : null;
+
+            return new JsonMessageReference() {
+                MessageId = message?.InjectVariables(variableDeclarations),
+                GuildId = guild?.InjectVariables(variableDeclarations),
+                ChannelId = channel?.InjectVariables(variableDeclarations)
+            }.ToMessageReference();
         }
 
         public static FieldData ToFieldData(this JsonField field)
@@ -92,7 +144,7 @@ namespace DCM.Extensions
                 .Where(x => x.CanWrite)
                 .Where(x => x.PropertyType == typeof(string));
 
-        private static string InjectVeriables(string str, Dictionary<string, object> declarations)
+        private static string InjectVariables(this string str, Dictionary<string, object> declarations)
         {
             var result = str;
 
