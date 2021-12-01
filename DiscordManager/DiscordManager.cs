@@ -22,12 +22,12 @@ namespace DCM
         private readonly IServiceProvider _provider;
         private readonly IEventMapper _eventMapper;
         private readonly Discord _discord;
+        private CommandConfiguration _commandConfig = new();
         private Task _discordTask = Task.CompletedTask;
         private LoginCredentials _credentials;
         private CancellationToken _token;
 
         public IEventEmitter EventEmitter { get; } = new EventEmitter();
-        public string CommandPrefix { get; set; }
         public IDiscordClient Client { get; private set; }
 
         public DiscordManager()
@@ -36,6 +36,8 @@ namespace DCM
                 .AddSingleton<IEventMapper, EventMapper>()
                 .AddSingleton<IEventEmitter>(prov => EventEmitter)
                 .AddSingleton<IPluginManager, PluginManager>()
+                .AddSingleton<ICommandManager, CommandManager>()
+                .AddSingleton<CommandConfiguration>(_commandConfig)
                 .AddScoped<IList<Plugin>>(prov => _plugins)
                 .AddScoped<IList<Type>>(prov => _pluginTypes)
                 .AddScoped<IList<FileInfo>>(prov => _pluginLibraries)
@@ -49,9 +51,11 @@ namespace DCM
             _discord = _provider.GetService<Discord>();
         }
 
-        public DiscordManager WithCommandPrefix(string prefix)
+        public DiscordManager ConfigureCommands(Func<CommandConfigurationBuilder, CommandConfigurationBuilder> configureFunction)
         {
-            CommandPrefix = prefix;
+            var builder = new CommandConfigurationBuilder();
+            configureFunction.Invoke(builder);
+            _commandConfig = builder.Build();
             return this;
         }
 
@@ -76,7 +80,6 @@ namespace DCM
 
             return this;
         }
-
 
         public DiscordManager AddPlugin(Plugin plugin)
         {
@@ -109,11 +112,17 @@ namespace DCM
         private async Task StartClient(LoginCredentials credentials)
         {
             var pluginManager = _provider.GetService<IPluginManager>();
+            var commandManager = _provider.GetService<ICommandManager>();
 
             pluginManager.LoadAll();
             EventEmitter.Emit<Events.Logging.LogEvent>(new("All plugins loaded."));
 
+            commandManager.InstantiateHandlers();
+            EventEmitter.Emit<Events.Logging.LogEvent>(new("All commands loaded."));
+
             _eventMapper.MapAllEvents();
+
+            commandManager.StartObserving();
 
             await pluginManager.InvokeInitialize();
             EventEmitter.Emit<TraceEvent>(new("Successfully executed all initialization methods."));

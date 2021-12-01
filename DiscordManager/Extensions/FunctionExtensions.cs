@@ -20,9 +20,10 @@ namespace DCM.Extensions
 
         public static Task StartHandled<T>(this Func<T, Task> asyncMethod, T parameter, CancellationToken token = default)
         {
-            var task = Task.Factory.StartNew(() => asyncMethod(parameter), token)
-                                   .GetAwaiter()
-                                   .GetResult();
+            var task = Task.Factory
+                .StartNew(() => asyncMethod(parameter), token)
+                .GetAwaiter()
+                .GetResult();
 
             if (task.IsFaulted)
                 throw task.Exception.GetBaseException();
