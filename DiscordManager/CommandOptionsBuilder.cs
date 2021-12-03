@@ -7,7 +7,7 @@ namespace DCM
 {
     public class CommandOptionsBuilder
     {
-        private readonly ICollection<string> _aliases = Array.Empty<string>();
+        private readonly List<string> _aliases = new();
         private bool _hidden;
         private bool _disabled;
         private bool _requiresPrefixOverride;

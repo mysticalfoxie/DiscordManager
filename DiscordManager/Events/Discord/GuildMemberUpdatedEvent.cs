@@ -4,7 +4,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class GuildMemberUpdatedEvent : IEvent
+    public class GuildMemberUpdatedEvent : Event
     {
         public GuildMemberUpdatedEvent(Cacheable<SocketGuildUser, ulong> oldUser, SocketGuildUser newUser)
         {

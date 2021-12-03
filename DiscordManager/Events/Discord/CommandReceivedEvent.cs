@@ -4,7 +4,7 @@ using Discord;
 
 namespace DCM.Events.Discord
 {
-    public class CommandReceivedEvent : IEvent
+    public class CommandReceivedEvent : Event
     {
         public CommandReceivedEvent(IMessage message, Command command)
         {

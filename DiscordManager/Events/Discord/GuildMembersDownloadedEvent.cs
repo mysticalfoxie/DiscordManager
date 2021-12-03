@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class GuildMembersDownloadedEvent : IEvent
+    public class GuildMembersDownloadedEvent : Event
     {
         public GuildMembersDownloadedEvent(SocketGuild guild)
         {

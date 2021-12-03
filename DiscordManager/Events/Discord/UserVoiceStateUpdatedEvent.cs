@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class UserVoiceStateUpdatedEvent : IEvent
+    public class UserVoiceStateUpdatedEvent : Event
     {
         public UserVoiceStateUpdatedEvent(SocketUser user, SocketVoiceState oldState, SocketVoiceState newState)
         {

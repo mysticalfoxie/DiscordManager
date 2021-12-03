@@ -3,7 +3,7 @@ using Discord;
 
 namespace DCM.Events.Discord
 {
-    public class ReactionsRemovedForEmoteEvent : IEvent
+    public class ReactionsRemovedForEmoteEvent : Event
     {
         public ReactionsRemovedForEmoteEvent(Cacheable<IUserMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel, IEmote emote)
         {

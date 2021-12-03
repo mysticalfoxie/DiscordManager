@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DCM.Events.Discord
 {
-    public class RecipientAddedEvent : IEvent
+    public class RecipientAddedEvent : Event
     {
         public RecipientAddedEvent(SocketGroupUser user)
         {

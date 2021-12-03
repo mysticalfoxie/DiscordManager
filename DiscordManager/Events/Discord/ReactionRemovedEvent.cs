@@ -4,7 +4,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class ReactionRemovedEvent : IEvent
+    public class ReactionRemovedEvent : Event
     {
         public ReactionRemovedEvent(Cacheable<IUserMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel, SocketReaction reaction)
         {

@@ -15,12 +15,12 @@ namespace DCM
 
     internal class EventMapper : IEventMapper
     {
-        private readonly IEventEmitter _eventEmitter;
+        private readonly IEventAggregator _eventEmitter;
         private readonly Discord _discord;
 
         public EventMapper(DiscordManager discordManager, Discord discord)
         {
-            _eventEmitter = discordManager.EventEmitter;
+            _eventEmitter = discordManager.EventAggregator;
             _discord = discord;
         }
 
@@ -95,391 +95,391 @@ namespace DCM
 
         private Task DiscordClient_UserCommandExecuted(SocketUserCommand command)
         {
-            _eventEmitter.Emit(new UserCommandExecutedEvent(command));
+            _eventEmitter.Publish(new UserCommandExecutedEvent(command));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ThreadUpdated(Cacheable<SocketThreadChannel, ulong> oldThread, SocketThreadChannel newThread)
         {
-            _eventEmitter.Emit(new ThreadUpdatedEvent(oldThread, newThread));
+            _eventEmitter.Publish(new ThreadUpdatedEvent(oldThread, newThread));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ThreadMemberLeft(SocketThreadUser user)
         {
-            _eventEmitter.Emit(new ThreadMemberLeftEvent(user));
+            _eventEmitter.Publish(new ThreadMemberLeftEvent(user));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ThreadMemberJoined(SocketThreadUser user)
         {
-            _eventEmitter.Emit(new ThreadMemberJoinedEvent(user));
+            _eventEmitter.Publish(new ThreadMemberJoinedEvent(user));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ThreadDeleted(Cacheable<SocketThreadChannel, ulong> thread)
         {
-            _eventEmitter.Emit(new ThreadDeletedEvent(thread));
+            _eventEmitter.Publish(new ThreadDeletedEvent(thread));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ThreadCreated(SocketThreadChannel thread)
         {
-            _eventEmitter.Emit(new ThreadCreatedEvent(thread));
+            _eventEmitter.Publish(new ThreadCreatedEvent(thread));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_StageUpdated(SocketStageChannel oldChannel, SocketStageChannel newChannel)
         {
-            _eventEmitter.Emit(new StageUpdatedEvent(oldChannel, newChannel));
+            _eventEmitter.Publish(new StageUpdatedEvent(oldChannel, newChannel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_StageStarted(SocketStageChannel channel)
         {
-            _eventEmitter.Emit(new StageStartedEvent(channel));
+            _eventEmitter.Publish(new StageStartedEvent(channel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_StageEnded(SocketStageChannel channel)
         {
-            _eventEmitter.Emit(new StageEndedEvent(channel));
+            _eventEmitter.Publish(new StageEndedEvent(channel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_SpeakerRemoved(SocketStageChannel channel, SocketGuildUser user)
         {
-            _eventEmitter.Emit(new SpeakerRemovedEvent(channel, user));
+            _eventEmitter.Publish(new SpeakerRemovedEvent(channel, user));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_SpeakerAdded(SocketStageChannel channel, SocketGuildUser user)
         {
-            _eventEmitter.Emit(new SpeakerAddedEvent(channel, user));
+            _eventEmitter.Publish(new SpeakerAddedEvent(channel, user));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_SlashCommandExecuted(SocketSlashCommand command)
         {
-            _eventEmitter.Emit(new SlashCommandExecutedEvent(command));
+            _eventEmitter.Publish(new SlashCommandExecutedEvent(command));
             return Task.CompletedTask;    
         }
 
         private Task DiscordClient_SelectMenuExecuted(SocketMessageComponent component)
         {
-            _eventEmitter.Emit(new SelectMenuExecutedEvent(component));
+            _eventEmitter.Publish(new SelectMenuExecutedEvent(component));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_RequestToSpeak(SocketStageChannel channel, SocketGuildUser user)
         {
-            _eventEmitter.Emit(new RequestToSpeakEvent(channel, user));
+            _eventEmitter.Publish(new RequestToSpeakEvent(channel, user));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_MessageCommandExecuted(SocketMessageCommand command)
         {
-            _eventEmitter.Emit(new MessageCommandExecutedEvent(command));
+            _eventEmitter.Publish(new MessageCommandExecutedEvent(command));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_InteractionCreated(SocketInteraction interaction)
         {
-            _eventEmitter.Emit(new InteractionCreatedEvent(interaction));
+            _eventEmitter.Publish(new InteractionCreatedEvent(interaction));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_GuildStickerUpdated(SocketCustomSticker oldSticker, SocketCustomSticker newSticker)
         {
-            _eventEmitter.Emit(new GuildStickerUpdatedEvent(oldSticker, newSticker));
+            _eventEmitter.Publish(new GuildStickerUpdatedEvent(oldSticker, newSticker));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_GuildStickerDeleted(SocketCustomSticker sticker)
         {
-            _eventEmitter.Emit(new GuildStickerDeletedEvent(sticker));
+            _eventEmitter.Publish(new GuildStickerDeletedEvent(sticker));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_GuildStickerCreated(SocketCustomSticker sticker)
         {
-            _eventEmitter.Emit(new GuildStickerCreatedEvent(sticker));
+            _eventEmitter.Publish(new GuildStickerCreatedEvent(sticker));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_GuildJoinRequestDeleted(Cacheable<SocketGuildUser, ulong> user, SocketGuild guild)
         {
-            _eventEmitter.Emit(new GuildJoinRequestDeletedEvent(user, guild));
+            _eventEmitter.Publish(new GuildJoinRequestDeletedEvent(user, guild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_AutocompleteExecuted(SocketAutocompleteInteraction interaction)
         {
-            _eventEmitter.Emit(new AutoCompleteExecutedEvent(interaction));
+            _eventEmitter.Publish(new AutoCompleteExecutedEvent(interaction));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ApplicationCommandUpdated(SocketApplicationCommand command)
         {
-            _eventEmitter.Emit(new ApplicationCommandDeletedEvent(command));
+            _eventEmitter.Publish(new ApplicationCommandDeletedEvent(command));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ApplicationCommandDeleted(SocketApplicationCommand command)
         {
-            _eventEmitter.Emit(new ApplicationCommandDeletedEvent(command));
+            _eventEmitter.Publish(new ApplicationCommandDeletedEvent(command));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ApplicationCommandCreated(SocketApplicationCommand command)
         {
-            _eventEmitter.Emit(new ApplicationCommandCreatedEvent(command));
+            _eventEmitter.Publish(new ApplicationCommandCreatedEvent(command));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ChannelCreated(SocketChannel channel)
         {
-            _eventEmitter.Emit(new ChannelCreatedEvent(channel));
+            _eventEmitter.Publish(new ChannelCreatedEvent(channel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ChannelDestroyed(SocketChannel channel)
         {
-            _eventEmitter.Emit(new ChannelDestroyedEvent(channel));
+            _eventEmitter.Publish(new ChannelDestroyedEvent(channel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ChannelUpdated(SocketChannel oldChannel, SocketChannel newChannel)
         {
-            _eventEmitter.Emit(new ChannelUpdatedEvent(oldChannel, newChannel));
+            _eventEmitter.Publish(new ChannelUpdatedEvent(oldChannel, newChannel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_Connected()
         {
-            _eventEmitter.Emit(new ConnectedEvent());
+            _eventEmitter.Publish(new ConnectedEvent());
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_CurrentUserUpdated(SocketSelfUser oldUser, SocketSelfUser newUser)
         {
-            _eventEmitter.Emit(new CurrentUserUpdatedEvent(oldUser, newUser));
+            _eventEmitter.Publish(new CurrentUserUpdatedEvent(oldUser, newUser));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_Disconnected(Exception exception)
         {
-            _eventEmitter.Emit(new DisconnectedEvent(exception));
+            _eventEmitter.Publish(new DisconnectedEvent(exception));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_GuildAvailable(SocketGuild guild)
         {
-            _eventEmitter.Emit(new GuildAvailableEvent(guild));
+            _eventEmitter.Publish(new GuildAvailableEvent(guild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_GuildMembersDownloaded(SocketGuild guild)
         {
-            _eventEmitter.Emit(new GuildMembersDownloadedEvent(guild));
+            _eventEmitter.Publish(new GuildMembersDownloadedEvent(guild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_GuildMemberUpdated(Cacheable<SocketGuildUser, ulong> oldUser, SocketGuildUser newUser)
         {
-            _eventEmitter.Emit(new GuildMemberUpdatedEvent(oldUser, newUser));
+            _eventEmitter.Publish(new GuildMemberUpdatedEvent(oldUser, newUser));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_GuildUnavailable(SocketGuild guild)
         {
-            _eventEmitter.Emit(new GuildUnavailableEvent(guild));
+            _eventEmitter.Publish(new GuildUnavailableEvent(guild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_GuildUpdated(SocketGuild oldGuild, SocketGuild newGuild)
         {
-            _eventEmitter.Emit(new GuildUpdatedEvent(oldGuild, newGuild));
+            _eventEmitter.Publish(new GuildUpdatedEvent(oldGuild, newGuild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_InviteCreated(SocketInvite invite)
         {
-            _eventEmitter.Emit(new InviteCreatedEvent(invite));
+            _eventEmitter.Publish(new InviteCreatedEvent(invite));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_InviteDeleted(SocketGuildChannel originChannel, string inviteCode)
         {
-            _eventEmitter.Emit(new InviteDeletedEvent(originChannel, inviteCode));
+            _eventEmitter.Publish(new InviteDeletedEvent(originChannel, inviteCode));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_JoinedGuild(SocketGuild guild)
         {
-            _eventEmitter.Emit(new JoinedGuildEvent(guild));
+            _eventEmitter.Publish(new JoinedGuildEvent(guild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_LatencyUpdated(int oldLatency, int newLatency)
         {
-            _eventEmitter.Emit(new LatencyUpdatedEvent(oldLatency, newLatency));
+            _eventEmitter.Publish(new LatencyUpdatedEvent(oldLatency, newLatency));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_LeftGuild(SocketGuild guild)
         {
-            _eventEmitter.Emit(new LeftGuildEvent(guild));
+            _eventEmitter.Publish(new LeftGuildEvent(guild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_Log(LogMessage message)
         {
-            _eventEmitter.Emit(new LogEvent(message));
+            _eventEmitter.Publish(new LogEvent(message));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_LoggedIn()
         {
-            _eventEmitter.Emit(new LoggedInEvent());
+            _eventEmitter.Publish(new LoggedInEvent());
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_LoggedOut()
         {
-            _eventEmitter.Emit(new LoggedOutEvent());
+            _eventEmitter.Publish(new LoggedOutEvent());
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_MessageDeleted(Cacheable<IMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel)
         {
-            _eventEmitter.Emit(new MessageDeletedEvent(message, channel));
+            _eventEmitter.Publish(new MessageDeletedEvent(message, channel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_MessageReceived(SocketMessage message)
         {
-            _eventEmitter.Emit(new MessageReceivedEvent(message));
+            _eventEmitter.Publish(new MessageReceivedEvent(message));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_MessagesBulkDeleted(IReadOnlyCollection<Cacheable<IMessage, ulong>> messages, Cacheable<IMessageChannel, ulong> channel)
         {
-            _eventEmitter.Emit(new MessagesBulkDeletedEvent(messages, channel));
+            _eventEmitter.Publish(new MessagesBulkDeletedEvent(messages, channel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_MessageUpdated(Cacheable<IMessage, ulong> oldMessage, SocketMessage newMessage, ISocketMessageChannel channel)
         {
-            _eventEmitter.Emit(new MessageUpdatedEvent(oldMessage, newMessage, channel));
+            _eventEmitter.Publish(new MessageUpdatedEvent(oldMessage, newMessage, channel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ReactionAdded(Cacheable<IUserMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel, SocketReaction reaction)
         {
-            _eventEmitter.Emit(new ReactionAddedEvent(message, channel, reaction));
+            _eventEmitter.Publish(new ReactionAddedEvent(message, channel, reaction));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ReactionRemoved(Cacheable<IUserMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel, SocketReaction reaction)
         {
-            _eventEmitter.Emit(new ReactionRemovedEvent(message, channel, reaction));
+            _eventEmitter.Publish(new ReactionRemovedEvent(message, channel, reaction));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ReactionsCleared(Cacheable<IUserMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel)
         {
-            _eventEmitter.Emit(new ReactionsClearedEvent(message, channel));
+            _eventEmitter.Publish(new ReactionsClearedEvent(message, channel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_ReactionsRemovedForEmote(Cacheable<IUserMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel, IEmote emote)
         {
-            _eventEmitter.Emit(new ReactionsRemovedForEmoteEvent(message, channel, emote));
+            _eventEmitter.Publish(new ReactionsRemovedForEmoteEvent(message, channel, emote));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_Ready()
         {
-            _eventEmitter.Emit(new ReadyEvent());
+            _eventEmitter.Publish(new ReadyEvent());
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_RecipientAdded(SocketGroupUser user)
         {
-            _eventEmitter.Emit(new RecipientAddedEvent(user));
+            _eventEmitter.Publish(new RecipientAddedEvent(user));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_RecipientRemoved(SocketGroupUser user)
         {
-            _eventEmitter.Emit(new RecipientRemovedEvent(user));
+            _eventEmitter.Publish(new RecipientRemovedEvent(user));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_RoleCreated(SocketRole role)
         {
-            _eventEmitter.Emit(new RoleCreatedEvent(role));
+            _eventEmitter.Publish(new RoleCreatedEvent(role));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_RoleDeleted(SocketRole role)
         {
-            _eventEmitter.Emit(new RoleDeletedEvent(role));
+            _eventEmitter.Publish(new RoleDeletedEvent(role));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_RoleUpdated(SocketRole oldRole, SocketRole newRole)
         {
-            _eventEmitter.Emit(new RoleUpdatedEvent(oldRole, newRole));
+            _eventEmitter.Publish(new RoleUpdatedEvent(oldRole, newRole));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_UserBanned(SocketUser user, SocketGuild guild)
         {
-            _eventEmitter.Emit(new UserBannedEvent(user, guild));
+            _eventEmitter.Publish(new UserBannedEvent(user, guild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_UserIsTyping(Cacheable<IUser, ulong> user, Cacheable<IMessageChannel, ulong> channel)
         {
-            _eventEmitter.Emit(new UserIsTypingEvent(user, channel));
+            _eventEmitter.Publish(new UserIsTypingEvent(user, channel));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_UserJoined(SocketGuildUser guild)
         {
-            _eventEmitter.Emit(new UserJoinedEvent(guild));
+            _eventEmitter.Publish(new UserJoinedEvent(guild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_UserLeft(SocketGuildUser guild)
         {
-            _eventEmitter.Emit(new UserLeftEvent(guild));
+            _eventEmitter.Publish(new UserLeftEvent(guild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_UserUnbanned(SocketUser user, SocketGuild guild)
         {
-            _eventEmitter.Emit(new UserUnbannedEvent(user, guild));
+            _eventEmitter.Publish(new UserUnbannedEvent(user, guild));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_UserUpdated(SocketUser oldUser, SocketUser newUser)
         {
-            _eventEmitter.Emit(new UserUpdatedEvent(oldUser, newUser));
+            _eventEmitter.Publish(new UserUpdatedEvent(oldUser, newUser));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_UserVoiceStateUpdated(SocketUser user, SocketVoiceState oldState, SocketVoiceState newState)
         {
-            _eventEmitter.Emit(new UserVoiceStateUpdatedEvent(user, oldState, newState));
+            _eventEmitter.Publish(new UserVoiceStateUpdatedEvent(user, oldState, newState));
             return Task.CompletedTask;
         }
 
         private Task DiscordClient_VoiceServerUpdated(SocketVoiceServer voiceServer)
         {
-            _eventEmitter.Emit(new VoiceServerUpdatedEvent(voiceServer));
+            _eventEmitter.Publish(new VoiceServerUpdatedEvent(voiceServer));
             return Task.CompletedTask;
         }
     }

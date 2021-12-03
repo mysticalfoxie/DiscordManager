@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class InviteDeletedEvent : IEvent
+    public class InviteDeletedEvent : Event
     {
         public InviteDeletedEvent(SocketChannel originChannel, string inviteCode)
         {

@@ -3,7 +3,7 @@ using System;
 
 namespace DCM.Events.Discord
 {
-    public class DisconnectedEvent : IEvent
+    public class DisconnectedEvent : Event
     {
         public DisconnectedEvent(Exception exception)
         {

@@ -4,7 +4,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class ThreadDeletedEvent : IEvent
+    public class ThreadDeletedEvent : Event
     {
         public ThreadDeletedEvent(Cacheable<SocketThreadChannel, ulong> thread)
         {

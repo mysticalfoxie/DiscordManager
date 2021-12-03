@@ -2,7 +2,7 @@
 
 namespace DCM.Events.Discord
 {
-    public class LatencyUpdatedEvent : IEvent
+    public class LatencyUpdatedEvent : Event
     {
         public LatencyUpdatedEvent(int oldLatency, int newLatency)
         {

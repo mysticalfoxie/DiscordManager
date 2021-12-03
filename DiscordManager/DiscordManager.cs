@@ -27,17 +27,17 @@ namespace DCM
         private LoginCredentials _credentials;
         private CancellationToken _token;
 
-        public IEventEmitter EventEmitter { get; } = new EventEmitter();
+        public IEventAggregator EventAggregator { get; } = new EventAggregator();
         public IDiscordClient Client { get; private set; }
 
         public DiscordManager()
         {
             _provider = new ServiceCollection()
                 .AddSingleton<IEventMapper, EventMapper>()
-                .AddSingleton<IEventEmitter>(prov => EventEmitter)
+                .AddSingleton<IEventAggregator>(prov => EventAggregator)
                 .AddSingleton<IPluginManager, PluginManager>()
                 .AddSingleton<ICommandManager, CommandManager>()
-                .AddSingleton<CommandConfiguration>(_commandConfig)
+                .AddScoped<CommandConfiguration>(prov => _commandConfig)
                 .AddScoped<IList<Plugin>>(prov => _plugins)
                 .AddScoped<IList<Type>>(prov => _pluginTypes)
                 .AddScoped<IList<FileInfo>>(prov => _pluginLibraries)
@@ -56,44 +56,53 @@ namespace DCM
             var builder = new CommandConfigurationBuilder();
             configureFunction.Invoke(builder);
             _commandConfig = builder.Build();
+
             return this;
         }
 
         public DiscordManager WithCredentials(LoginCredentials credentials)
         {
-            _credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
+            _credentials = credentials 
+                ?? throw new ArgumentNullException(nameof(credentials));
+
             return this;
         }
 
         public DiscordManager WithCancellationToken(CancellationToken token)
         {
-            _token = token != default ? token : throw new ArgumentNullException(nameof(token));
+            _token = token == default 
+                ? throw new ArgumentNullException(nameof(token)) 
+                : token;
+
             return this;
         }
 
         public DiscordManager WithServices(IServiceCollection services)
         {
-            if (services is null)
-                throw new ArgumentNullException(nameof(services));
-
-            _pluginDependencies.Services = services;
+            _pluginDependencies.Services = services
+                ?? throw new ArgumentNullException(nameof(services));
 
             return this;
         }
 
         public DiscordManager AddPlugin(Plugin plugin)
         {
-            _plugins.Add(plugin);
+            _plugins.Add(plugin
+                ?? throw new ArgumentNullException(nameof(plugin)));
+
             return this;
         }
-        public DiscordManager AddPlugin(FileInfo pluginLibrary)
+        public DiscordManager AddPlugin(FileInfo pluginFile)
         {
-            _pluginLibraries.Add(pluginLibrary);
+            _pluginLibraries.Add(pluginFile
+                ?? throw new ArgumentNullException(nameof(pluginFile)));
             return this;
         }
         public DiscordManager AddPlugin(Type pluginType)
         {
-            _pluginTypes.Add(pluginType);
+            _pluginTypes.Add(pluginType
+                ?? throw new ArgumentNullException(nameof(pluginType)));
+
             return this;
         }
         public DiscordManager AddPlugin<TPlugin>() where TPlugin : Plugin
@@ -101,11 +110,16 @@ namespace DCM
             _pluginTypes.Add(typeof(TPlugin));
             return this;
         }
-        public DiscordManager AddPluginFolder(DirectoryInfo directory)
-            => AddPluginCollector(new(directory));
+
+        public DiscordManager AddPluginDirectory(DirectoryInfo directory)
+            => AddPluginCollector(new(directory
+                ?? throw new ArgumentNullException(nameof(directory))));
+
         public DiscordManager AddPluginCollector(AssemblyCollector pluginCollector)
         {
-            _pluginLibraries.AddRange(pluginCollector.Files);
+            _pluginLibraries.AddRange(pluginCollector?.Files
+                ?? throw new ArgumentNullException(nameof(pluginCollector)));
+
             return this;
         }
 
@@ -115,23 +129,24 @@ namespace DCM
             var commandManager = _provider.GetService<ICommandManager>();
 
             pluginManager.LoadAll();
-            EventEmitter.Emit<Events.Logging.LogEvent>(new("All plugins loaded."));
+            EventAggregator.Publish<Events.Logging.LogEvent>(new($"{pluginManager.PluginCount} plugins loaded."));
 
             commandManager.InstantiateHandlers();
-            EventEmitter.Emit<Events.Logging.LogEvent>(new("All commands loaded."));
+            EventAggregator.Publish<Events.Logging.LogEvent>(new($"{commandManager.HandlersCount} command handlers loaded."));
 
             _eventMapper.MapAllEvents();
 
             commandManager.StartObserving();
+            EventAggregator.Publish<Events.Logging.LogEvent>(new($"Command observer started."));
 
             await pluginManager.InvokeInitialize();
-            EventEmitter.Emit<TraceEvent>(new("Successfully executed all initialization methods."));
+            EventAggregator.Publish<TraceEvent>(new("Executed all initialization methods in ."));
 
             await _discord.StartClient(credentials.LoginToken);
-            EventEmitter.Emit<Events.Logging.LogEvent>(new("Discord client ready."));
+            EventAggregator.Publish<Events.Logging.LogEvent>(new("Discord client logged in."));
 
             await pluginManager.InvokeStart();
-            EventEmitter.Emit<TraceEvent>(new("Successfully executed all start methods."));
+            EventAggregator.Publish<TraceEvent>(new("Successfully executed all start methods."));
 
             await Task.Delay(-1);
         }
@@ -166,14 +181,13 @@ namespace DCM
         public Task<DiscordManager> StartAsync()
         {
             var tcs = new TaskCompletionSource<DiscordManager>();
-            EventEmitter.AddListener<ReadyEvent>(OnReady);
-            Start();
-            
-            void OnReady(ReadyEvent eventArgs)
+            EventAggregator.Subscribe<ReadyEvent>((eventArgs, subscription) =>
             {
-                EventEmitter.RemoveListener<ReadyEvent>(OnReady);
+                subscription.Unsubscribe();
                 tcs.SetResult(this);
-            }
+            });
+            Start();
+           
 
             return tcs.Task;
         }

@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class SlashCommandExecutedEvent : IEvent
+    public class SlashCommandExecutedEvent : Event
     {
         public SlashCommandExecutedEvent(SocketSlashCommand command)
         {

@@ -8,10 +8,10 @@ namespace DCM.Extensions
 {
     public static class CollectorExtensions
     {
-        public static ReactionCollector CreateReactionCollector(this IMessage message, IEventEmitter eventEmitter)
+        public static ReactionCollector CreateReactionCollector(this IMessage message, IEventAggregator eventEmitter)
             => new(message, eventEmitter);
 
-        public static MessageCollector CreateMessageCollector(this IMessageChannel channel, IEventEmitter eventEmitter)
+        public static MessageCollector CreateMessageCollector(this IMessageChannel channel, IEventAggregator eventEmitter)
             => new(channel, eventEmitter);
 
         public static Task<SocketReaction> WaitForReaction(this ReactionCollector collector)

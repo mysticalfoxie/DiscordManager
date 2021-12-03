@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DCM.Events.Discord
 {
-    public class MessagesBulkDeletedEvent : IEvent
+    public class MessagesBulkDeletedEvent : Event
     {
         public MessagesBulkDeletedEvent(IReadOnlyCollection<Cacheable<IMessage, ulong>> messages, Cacheable<IMessageChannel, ulong> channel)
         {

@@ -2,7 +2,7 @@
 
 namespace DCM.Events.Discord
 {
-    public class LoggedInEvent : IEvent
+    public class LoggedInEvent : Event
     {
 
     }

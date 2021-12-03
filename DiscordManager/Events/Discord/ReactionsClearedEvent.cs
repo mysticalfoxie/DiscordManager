@@ -3,7 +3,7 @@ using Discord;
 
 namespace DCM.Events.Discord
 {
-    public class ReactionsClearedEvent : IEvent
+    public class ReactionsClearedEvent : Event
     {
         public ReactionsClearedEvent(Cacheable<IUserMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel)
         {

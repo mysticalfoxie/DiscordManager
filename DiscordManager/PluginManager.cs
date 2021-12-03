@@ -17,6 +17,7 @@ namespace DCM
 {
     internal interface IPluginManager
     {
+        int PluginCount { get; }
         void LoadAll();
         Task InvokeInitialize();
         Task InvokeStart();
@@ -30,14 +31,14 @@ namespace DCM
         private readonly IList<Type> _pluginTypes;
         private readonly IList<Plugin> _plugins;
         private readonly DependencyContainer _dependencies;
-        private readonly IEventEmitter _eventEmitter;
+        private readonly IEventAggregator _eventAggregator;
 
         public PluginManager(
             IList<FileInfo> pluginLibraries,
             IList<Type> pluginTypes,
             IList<Plugin> plugins,
             DependencyContainer dependencies,
-            IEventEmitter eventEmitter,
+            IEventAggregator eventEmitter,
             AssemblyLoader assemblyLoader,
             Discord discord)
         {
@@ -46,15 +47,17 @@ namespace DCM
             _pluginTypes = pluginTypes;
             _plugins = plugins;
             _dependencies = dependencies;
-            _eventEmitter = eventEmitter;
+            _eventAggregator = eventEmitter;
             _discord = discord;
 
             _assemblyLoader.AssemblyLoad += AssemblyLoader_AssemblyLoad;
             _assemblyLoader.Error += AssemblyLoader_Error;
 
             _dependencies.Services.AddSingleton<IDiscordClient>(prov => _discord.Client);
-            _dependencies.Services.AddSingleton<IEventEmitter>(prov => _eventEmitter);
+            _dependencies.Services.AddSingleton<IEventAggregator>(prov => _eventAggregator);
         }
+
+        public int PluginCount => _plugins.Count;
 
         public void LoadAll()
         {
@@ -73,7 +76,7 @@ namespace DCM
             var provider = RegisterPlugins(pluginTypes);
             foreach (var plugin in InstantiatePlugins(pluginTypes, provider))
                 _plugins.Add(plugin);
-        }
+        } 
 
         public async Task InvokeInitialize()
         {
@@ -104,7 +107,7 @@ namespace DCM
                 }
                 catch (Exception ex)
                 {
-                    _eventEmitter.Emit<ErrorEvent>(new(new PluginException($"An error occured when trying to instantiate the plugin '{pluginType.Name}'.", ex)));
+                    _eventAggregator.Publish<ErrorEvent>(new(new PluginException($"An error occured when trying to instantiate the plugin '{pluginType.Name}'.", ex)));
                     continue;
                 }
                 yield return plugin;
@@ -121,10 +124,10 @@ namespace DCM
 
 
         private void AssemblyLoader_AssemblyLoad(string filepath)
-            => _eventEmitter?.Emit<TraceEvent>(new($"Loaded the assembly '{filepath}'."));
+            => _eventAggregator?.Publish<TraceEvent>(new($"Loaded the assembly '{filepath}'."));
 
         private void AssemblyLoader_Error(Exception error)
-            => _eventEmitter?.Emit<ErrorEvent>(new(error));
+            => _eventAggregator?.Publish<ErrorEvent>(new(error));
 
         private void ExecuteMethodHandled(Plugin plugin, string methodName, object[] parameters = null)
         {
@@ -134,7 +137,7 @@ namespace DCM
             }
             catch (Exception ex)
             {
-                _eventEmitter.Emit<ErrorEvent>(new(new PluginException($"An error occured in the plugin '{plugin.GetType().Name}' when invoking the method '{methodName}'.", ex)));
+                _eventAggregator.Publish<ErrorEvent>(new(new PluginException($"An error occured in the plugin '{plugin.GetType().Name}' when invoking the method '{methodName}'.", ex)));
                 plugin.IsRunning = false;
             }
         }
@@ -147,7 +150,7 @@ namespace DCM
             }
             catch (Exception ex)
             {
-                _eventEmitter.Emit<ErrorEvent>(new(new PluginException($"An error occured in the plugin '{plugin.GetType().Name}' when invoking the method '{methodName}'.", ex)));
+                _eventAggregator.Publish<ErrorEvent>(new(new PluginException($"An error occured in the plugin '{plugin.GetType().Name}' when invoking the method '{methodName}'.", ex)));
                 plugin.IsRunning = false;
             }
         }

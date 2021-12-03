@@ -3,7 +3,7 @@ using Discord;
 
 namespace DCM.Events.Discord
 {
-    public class LogEvent : IEvent
+    public class LogEvent : Event
     {
         public LogEvent(LogMessage message)
         {

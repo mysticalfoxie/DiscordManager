@@ -3,7 +3,7 @@ using System;
 
 namespace DCM.Events.Logging
 {
-    public class WarningEvent : IEvent
+    public class WarningEvent : Event
     {
         public WarningEvent(string message, string stackTrace = null)
         {

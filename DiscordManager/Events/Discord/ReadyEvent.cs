@@ -2,7 +2,7 @@
 
 namespace DCM.Events.Discord
 {
-    public class ReadyEvent : IEvent
+    public class ReadyEvent : Event
     {
 
     }

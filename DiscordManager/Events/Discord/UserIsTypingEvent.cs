@@ -3,7 +3,7 @@ using Discord;
 
 namespace DCM.Events.Discord
 {
-    public class UserIsTypingEvent : IEvent
+    public class UserIsTypingEvent : Event
     {
         public UserIsTypingEvent(Cacheable<IUser, ulong> user, Cacheable<IMessageChannel, ulong> channel)
         {

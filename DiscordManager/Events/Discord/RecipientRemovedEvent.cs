@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class RecipientRemovedEvent : IEvent
+    public class RecipientRemovedEvent : Event
     {
         public RecipientRemovedEvent(SocketGroupUser user)
         {

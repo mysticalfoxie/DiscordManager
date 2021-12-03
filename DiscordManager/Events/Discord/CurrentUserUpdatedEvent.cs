@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class CurrentUserUpdatedEvent : IEvent
+    public class CurrentUserUpdatedEvent : Event
     {
         public CurrentUserUpdatedEvent(SocketSelfUser oldUser, SocketSelfUser newUser)
         {

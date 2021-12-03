@@ -3,9 +3,6 @@ using DCM.Interfaces;
 using Discord;
 using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace DCM.Collectors
@@ -19,14 +16,15 @@ namespace DCM.Collectors
     public class ReactionCollector : CollectorBase<IMessage, SocketReaction>, IDisposable
     {
         private readonly IMessage _message;
-        private readonly IEventEmitter _eventEmitter;
+        private readonly IEventAggregator _eventEmitter;
+        private readonly Subscription _subscription;
 
-        public ReactionCollector(IMessage message, IEventEmitter eventEmitter)
+        public ReactionCollector(IMessage message, IEventAggregator eventEmitter)
         {
             _message = message;
             _eventEmitter = eventEmitter;
 
-            _eventEmitter.AddListener<ReactionAddedEvent>(OnReactionAdded);
+            _subscription = _eventEmitter.Subscribe<ReactionAddedEvent>(OnReactionAdded);
         }
 
         private void OnReactionAdded(ReactionAddedEvent eventArgs)
@@ -60,7 +58,7 @@ namespace DCM.Collectors
 
         public new void Dispose()
         {
-            _eventEmitter.RemoveListener<ReactionAddedEvent>(OnReactionAdded);
+            _subscription.Unsubscribe();
             base.Dispose();
             GC.SuppressFinalize(this);
         }

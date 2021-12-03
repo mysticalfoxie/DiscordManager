@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class GuildStickerDeletedEvent : IEvent
+    public class GuildStickerDeletedEvent : Event
     {
         public GuildStickerDeletedEvent(SocketCustomSticker sticker)
         {

@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class RoleDeletedEvent : IEvent
+    public class RoleDeletedEvent : Event
     {
         public RoleDeletedEvent(SocketRole role)
         {

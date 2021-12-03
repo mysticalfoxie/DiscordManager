@@ -3,7 +3,7 @@ using Discord;
 
 namespace DCM.Events.Discord
 {
-    public class MessageDeletedEvent : IEvent
+    public class MessageDeletedEvent : Event
     {
         public MessageDeletedEvent(Cacheable<IMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel)
         {

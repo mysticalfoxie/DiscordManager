@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class MessageReceivedEvent : IEvent
+    public class MessageReceivedEvent : Event
     {
         public MessageReceivedEvent(SocketMessage message)
         {

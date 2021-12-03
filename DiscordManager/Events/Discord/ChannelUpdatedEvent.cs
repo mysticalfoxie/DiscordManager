@@ -1,9 +1,8 @@
-﻿using DCM.Interfaces;
-using Discord.WebSocket;
+﻿using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class ChannelUpdatedEvent : IEvent
+    public class ChannelUpdatedEvent : Event
     {
         public ChannelUpdatedEvent(SocketChannel oldChannel, SocketChannel newChannel)
         {

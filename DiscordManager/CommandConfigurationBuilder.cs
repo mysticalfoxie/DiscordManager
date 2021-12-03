@@ -10,7 +10,7 @@ namespace DCM
         internal CommandConfigurationBuilder() { }
 
         internal string Prefix { get; set; }
-        internal List<Command> Commands { get; set; }
+        internal List<Command> Commands { get; set; } = new();
         internal bool? IgnoreCasingRule { get; set; }
 
         public CommandConfigurationBuilder UsePrefix(char prefix)
@@ -60,16 +60,16 @@ namespace DCM
             if (commandHandler.BaseType != typeof(CommandHandler))
                 throw new InvalidOperationException($"The command handler {commandHandler} is not implementing type {nameof(CommandHandler)}.");
 
-            if (CommandExists(command))
+            if (Commands.Any(x => IsCommand(x, command)))
+                Commands.First(x => IsCommand(x, command))
+                    .HandlerTypes
+                    .Add(commandHandler);
+            else
                 Commands.Add(new()
                 {
                     Name = command,
                     HandlerTypes = new List<Type>() { commandHandler }
                 });
-            else
-                GetCommand(command)
-                    .HandlerTypes
-                    .Add(commandHandler);
 
             return this;
         }
@@ -88,17 +88,9 @@ namespace DCM
                 IgnoreCasing = IgnoreCasingRule
             };
 
-        bool CommandExists(string command)
-            => Commands.Any(x => IgnoreCasingRule ?? false
-                ? x.Name.ToLower() == command?.ToLower()
-                : x.Name == command);
-
         bool IsCommand(Command command, string commandName)
             => IgnoreCasingRule ?? false
                 ? command.Name.ToLower() == commandName.ToLower()
                 : command.Name == commandName;
-
-        Command GetCommand(string command)
-            => Commands.First(x => IsCommand(x, command));
     }
 }

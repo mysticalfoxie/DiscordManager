@@ -3,7 +3,7 @@ using System;
 
 namespace DCM.Events.Logging
 {
-    public class LogEvent : IEvent
+    public class LogEvent : Event
     {
         public LogEvent(string message, string stackTrace = null)
         {

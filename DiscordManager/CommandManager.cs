@@ -14,6 +14,7 @@ namespace DCM
 {
     interface ICommandManager
     {
+        int HandlersCount { get; }
         void InstantiateHandlers();
         void StartObserving();
     }
@@ -22,13 +23,13 @@ namespace DCM
     {
         private readonly DiscordManager _discordManager;
         private readonly DependencyContainer _dependencyContainer;
-        private readonly IEventEmitter _eventEmitter;
+        private readonly IEventAggregator _eventEmitter;
         private readonly CommandConfiguration _commandConfig;
 
         public CommandManager(
             DiscordManager discordManager,
             DependencyContainer dependencyContainer,
-            IEventEmitter eventEmitter,
+            IEventAggregator eventEmitter,
             CommandConfiguration commandConfig)
         {
             _discordManager = discordManager;
@@ -36,6 +37,10 @@ namespace DCM
             _eventEmitter = eventEmitter;
             _commandConfig = commandConfig;
         }
+
+        public int HandlersCount => _commandConfig.Commands
+            .SelectMany(x => x.Handlers)
+            .Count();
 
         public void InstantiateHandlers()
         {
@@ -49,14 +54,14 @@ namespace DCM
                     }
                     catch (Exception ex)
                     {
-                        _eventEmitter.Emit<ErrorEvent>(new(ex));
+                        _eventEmitter.Publish<ErrorEvent>(new(ex));
                     }
                 }
         }
 
         public void StartObserving()
         {
-            _eventEmitter.AddListener<MessageReceivedEvent>(Listener);
+            _eventEmitter.Subscribe<MessageReceivedEvent>(Listener);
         }
 
         private void Listener(MessageReceivedEvent eventArgs)
@@ -99,7 +104,7 @@ namespace DCM
                     catch (Exception ex)
                     {
                         var handler = method.GetMethodInfo().DeclaringType;
-                        _eventEmitter.Emit<ErrorEvent>(new(new($"An error occured in the command handler '{handler.FullName}'.", ex)));
+                        _eventEmitter.Publish<ErrorEvent>(new(new($"An error occured in the command handler '{handler.FullName}'.", ex)));
                     }
                 });
         }
@@ -176,7 +181,7 @@ namespace DCM
             {
                 if (parameters[i].ParameterType == typeof(DiscordManager))
                     instances[i] = _discordManager;
-                else if (parameters[i].ParameterType == typeof(IEventEmitter))
+                else if (parameters[i].ParameterType == typeof(IEventAggregator))
                     instances[i] = _eventEmitter;
                 else
                     instances[i] = services.GetService(parameters[i].ParameterType)

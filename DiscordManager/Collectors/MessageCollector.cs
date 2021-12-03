@@ -16,14 +16,15 @@ namespace DCM.Collectors
     public class MessageCollector : CollectorBase<IMessageChannel, SocketMessage>, IDisposable
     {
         private readonly IMessageChannel _channel;
-        private readonly IEventEmitter _eventEmitter;
+        private readonly IEventAggregator _eventEmitter;
+        private readonly Subscription _subscription;
 
-        public MessageCollector(IMessageChannel channel, IEventEmitter eventEmitter)
+        public MessageCollector(IMessageChannel channel, IEventAggregator eventEmitter)
         {
             _channel = channel;
             _eventEmitter = eventEmitter;
 
-            _eventEmitter.AddListener<MessageReceivedEvent>(OnMessageReceived);
+            _subscription = _eventEmitter.Subscribe<MessageReceivedEvent>(OnMessageReceived);
         }
 
         private void OnMessageReceived(MessageReceivedEvent eventArgs)
@@ -57,7 +58,7 @@ namespace DCM.Collectors
 
         public new void Dispose()
         {
-            _eventEmitter.RemoveListener<MessageReceivedEvent>(OnMessageReceived);
+            _subscription.Unsubscribe();
             base.Dispose();
             GC.SuppressFinalize(this);
         }

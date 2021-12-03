@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Events.Discord
 {
-    public class AutoCompleteExecutedEvent : IEvent
+    public class AutoCompleteExecutedEvent : Event
     {
         public AutoCompleteExecutedEvent(SocketAutocompleteInteraction interaction)
         {

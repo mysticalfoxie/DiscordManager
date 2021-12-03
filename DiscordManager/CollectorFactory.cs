@@ -15,7 +15,7 @@ namespace DCM
         }
 
         public ICollector<TSource, TEvent> GetCollector<TSource, TEvent>(TSource source) 
-            where TEvent : IEvent 
+            where TEvent : Event 
             where TSource : class
         {
             var collectorType = GetCollectorType(typeof(TSource));
