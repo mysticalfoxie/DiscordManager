@@ -1,5 +1,4 @@
-﻿using DCM.Interfaces;
-using System;
+﻿using System;
 
 namespace DCM.Events.Logging
 {
