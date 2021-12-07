@@ -4,12 +4,15 @@ using System.Threading.Tasks;
 
 namespace DCM
 {
-    public class Subscription
+    public class Subscription<TEvent> where TEvent : Event
     {
-        public Subscription(EventAggregator eventAggregator, Action<Event, Subscription> listener)
-            : this(eventAggregator, (eventArgs, eventAggregator) =>
-                new Task(() => listener(eventArgs, eventAggregator))) { }
-        public Subscription(EventAggregator eventAggregator, Func<Event, Subscription, Task> listener)
+        public Subscription(EventAggregator eventAggregator, Action<TEvent, Subscription<TEvent>> listener)
+            : this(eventAggregator, (eventArgs, subscription) =>
+            {
+                listener(eventArgs, subscription);
+                return Task.CompletedTask;
+            }) { }
+        public Subscription(EventAggregator eventAggregator, Func<TEvent, Subscription<TEvent>, Task> listener)
         {
             EventAggregator = eventAggregator;
             ListenerWithSubscriptionParameter = listener;
@@ -20,11 +23,14 @@ namespace DCM
                 .First(x => x.ParameterType.IsSubclassOf(typeof(Event)))
                 .ParameterType;
         }
-        public Subscription(EventAggregator eventAggregator, Action<Event> listener)
-            : this(eventAggregator, eventArgs => 
-                new Task(() => 
-                    listener(eventArgs))) {}
-        public Subscription(EventAggregator eventAggregator, Func<Event, Task> listener)
+        public Subscription(EventAggregator eventAggregator, Action<TEvent> listener)
+            : this(eventAggregator, (eventArgs) =>
+            {
+                listener(eventArgs);
+                return Task.CompletedTask;
+            })
+        { }
+        public Subscription(EventAggregator eventAggregator, Func<TEvent, Task> listener)
         {
             EventAggregator = eventAggregator;
             Listener = listener;
@@ -38,8 +44,8 @@ namespace DCM
 
         public EventAggregator EventAggregator;
         public bool NeesSubscriptionParameter { get; }
-        public Func<Event, Subscription, Task> ListenerWithSubscriptionParameter { get; }
-        public Func<Event, Task> Listener { get; }
+        public Func<TEvent, Subscription<TEvent>, Task> ListenerWithSubscriptionParameter { get; }
+        public Func<TEvent, Task> Listener { get; }
         public Type EventType { get; }
 
         public void Unsubscribe()

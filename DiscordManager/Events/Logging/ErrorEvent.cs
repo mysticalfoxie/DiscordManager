@@ -13,5 +13,10 @@ namespace DCM.Events.Logging
 
         public Exception Exception { get; }
         public string StackTrace { get; }
+
+        public override string ToString()
+        {
+            return Exception.ToString();
+        }
     }
 }

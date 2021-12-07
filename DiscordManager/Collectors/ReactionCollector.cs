@@ -16,8 +16,8 @@ namespace DCM.Collectors
     public class ReactionCollector : CollectorBase<IMessage, SocketReaction>, IDisposable
     {
         private readonly IMessage _message;
-        private readonly IEventAggregator _eventEmitter;
-        private readonly Subscription _subscription;
+        private readonly IEventAggregator _eventEmitter; 
+        private readonly Subscription<ReactionAddedEvent> _subscription;
 
         public ReactionCollector(IMessage message, IEventAggregator eventEmitter)
         {

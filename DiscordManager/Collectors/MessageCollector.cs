@@ -17,7 +17,7 @@ namespace DCM.Collectors
     {
         private readonly IMessageChannel _channel;
         private readonly IEventAggregator _eventEmitter;
-        private readonly Subscription _subscription;
+        private readonly Subscription<MessageReceivedEvent> _subscription;
 
         public MessageCollector(IMessageChannel channel, IEventAggregator eventEmitter)
         {
