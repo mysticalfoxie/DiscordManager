@@ -28,13 +28,71 @@ namespace DCM
 
         public void MapAllEvents()
         {
-            foreach (var ev in _discord.Client.GetType().GetEvents())
-            {
-                var methodInfo = GetType().GetMethod($"DiscordClient_{ev.Name}")
-                    ?? throw new InvalidOperationException($"Cannot find the method for event '{ev.Name}'.");
-                var method = Delegate.CreateDelegate(ev.EventHandlerType, methodInfo);
-                ev.AddEventHandler(_discord.Client, method);
-            }
+            _discord.Client.ApplicationCommandCreated += DiscordClient_ApplicationCommandCreated;
+            _discord.Client.ApplicationCommandDeleted += DiscordClient_ApplicationCommandDeleted;
+            _discord.Client.ApplicationCommandUpdated += DiscordClient_ApplicationCommandUpdated;
+            _discord.Client.AutocompleteExecuted += DiscordClient_AutocompleteExecuted;
+            _discord.Client.GuildJoinRequestDeleted += DiscordClient_GuildJoinRequestDeleted;
+            _discord.Client.GuildStickerCreated += DiscordClient_GuildStickerCreated;
+            _discord.Client.GuildStickerDeleted += DiscordClient_GuildStickerDeleted;
+            _discord.Client.GuildStickerUpdated += DiscordClient_GuildStickerUpdated;
+            _discord.Client.InteractionCreated += DiscordClient_InteractionCreated;
+            _discord.Client.MessageCommandExecuted += DiscordClient_MessageCommandExecuted;
+            _discord.Client.RequestToSpeak += DiscordClient_RequestToSpeak;
+            _discord.Client.SelectMenuExecuted += DiscordClient_SelectMenuExecuted;
+            _discord.Client.SlashCommandExecuted += DiscordClient_SlashCommandExecuted;
+            _discord.Client.SpeakerAdded += DiscordClient_SpeakerAdded;
+            _discord.Client.SpeakerRemoved += DiscordClient_SpeakerRemoved;
+            _discord.Client.StageEnded += DiscordClient_StageEnded;
+            _discord.Client.StageStarted += DiscordClient_StageStarted;
+            _discord.Client.StageUpdated += DiscordClient_StageUpdated;
+            _discord.Client.ThreadCreated += DiscordClient_ThreadCreated;
+            _discord.Client.ThreadDeleted += DiscordClient_ThreadDeleted;
+            _discord.Client.ThreadMemberJoined += DiscordClient_ThreadMemberJoined;
+            _discord.Client.ThreadMemberLeft += DiscordClient_ThreadMemberLeft;
+            _discord.Client.ThreadUpdated += DiscordClient_ThreadUpdated;
+            _discord.Client.UserCommandExecuted += DiscordClient_UserCommandExecuted;
+            _discord.Client.ChannelCreated += DiscordClient_ChannelCreated;
+            _discord.Client.ChannelDestroyed += DiscordClient_ChannelDestroyed;
+            _discord.Client.ChannelUpdated += DiscordClient_ChannelUpdated;
+            _discord.Client.Connected += DiscordClient_Connected;
+            _discord.Client.CurrentUserUpdated += DiscordClient_CurrentUserUpdated;
+            _discord.Client.Disconnected += DiscordClient_Disconnected;
+            _discord.Client.GuildAvailable += DiscordClient_GuildAvailable;
+            _discord.Client.GuildMembersDownloaded += DiscordClient_GuildMembersDownloaded;
+            _discord.Client.GuildMemberUpdated += DiscordClient_GuildMemberUpdated;
+            _discord.Client.GuildUnavailable += DiscordClient_GuildUnavailable;
+            _discord.Client.GuildUpdated += DiscordClient_GuildUpdated;
+            _discord.Client.InviteCreated += DiscordClient_InviteCreated;
+            _discord.Client.InviteDeleted += DiscordClient_InviteDeleted;
+            _discord.Client.JoinedGuild += DiscordClient_JoinedGuild;
+            _discord.Client.LatencyUpdated += DiscordClient_LatencyUpdated;
+            _discord.Client.LeftGuild += DiscordClient_LeftGuild;
+            _discord.Client.Log += DiscordClient_Log;
+            _discord.Client.LoggedIn += DiscordClient_LoggedIn;
+            _discord.Client.LoggedOut += DiscordClient_LoggedOut;
+            _discord.Client.MessageDeleted += DiscordClient_MessageDeleted;
+            _discord.Client.MessageReceived += DiscordClient_MessageReceived;
+            _discord.Client.MessagesBulkDeleted += DiscordClient_MessagesBulkDeleted;
+            _discord.Client.MessageUpdated += DiscordClient_MessageUpdated;
+            _discord.Client.ReactionAdded += DiscordClient_ReactionAdded;
+            _discord.Client.ReactionRemoved += DiscordClient_ReactionRemoved;
+            _discord.Client.ReactionsCleared += DiscordClient_ReactionsCleared;
+            _discord.Client.ReactionsRemovedForEmote += DiscordClient_ReactionsRemovedForEmote;
+            _discord.Client.Ready += DiscordClient_Ready;
+            _discord.Client.RecipientAdded += DiscordClient_RecipientAdded;
+            _discord.Client.RecipientRemoved += DiscordClient_RecipientRemoved;
+            _discord.Client.RoleCreated += DiscordClient_RoleCreated;
+            _discord.Client.RoleDeleted += DiscordClient_RoleDeleted;
+            _discord.Client.RoleUpdated += DiscordClient_RoleUpdated;
+            _discord.Client.UserBanned += DiscordClient_UserBanned;
+            _discord.Client.UserIsTyping += DiscordClient_UserIsTyping;
+            _discord.Client.UserJoined += DiscordClient_UserJoined;
+            _discord.Client.UserLeft += DiscordClient_UserLeft;
+            _discord.Client.UserUnbanned += DiscordClient_UserUnbanned;
+            _discord.Client.UserUpdated += DiscordClient_UserUpdated;
+            _discord.Client.UserVoiceStateUpdated += DiscordClient_UserVoiceStateUpdated;
+            _discord.Client.VoiceServerUpdated += DiscordClient_VoiceServerUpdated;
         }
 
         public async Task DiscordClient_UserCommandExecuted(SocketUserCommand command)
