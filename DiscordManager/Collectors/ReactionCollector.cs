@@ -16,15 +16,17 @@ namespace DCM.Collectors
     public class ReactionCollector : CollectorBase<IMessage, SocketReaction>, IDisposable
     {
         private readonly IMessage _message;
-        private readonly IEventAggregator _eventEmitter; 
+        private readonly IEventAggregator _eventAggregator; 
         private readonly Subscription<ReactionAddedEvent> _subscription;
 
-        public ReactionCollector(IMessage message, IEventAggregator eventEmitter)
+        public ReactionCollector(
+            IMessage message, 
+            IEventAggregator eventAggregator)
         {
             _message = message;
-            _eventEmitter = eventEmitter;
+            _eventAggregator = eventAggregator;
 
-            _subscription = _eventEmitter.Subscribe<ReactionAddedEvent>(OnReactionAdded);
+            _subscription = _eventAggregator.Subscribe<ReactionAddedEvent>(OnReactionAdded);
         }
 
         private void OnReactionAdded(ReactionAddedEvent eventArgs)

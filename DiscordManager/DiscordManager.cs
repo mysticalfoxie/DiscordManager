@@ -129,24 +129,24 @@ namespace DCM
             var commandManager = _provider.GetService<ICommandManager>();
 
             pluginManager.LoadAll();
-            EventAggregator.Publish<Events.Logging.LogEvent>(new($"{pluginManager.PluginCount} plugins loaded."));
+            await EventAggregator.PublishAsync<InfoEvent>(new($"{pluginManager.PluginCount} plugins loaded."));
 
             commandManager.InstantiateHandlers();
-            EventAggregator.Publish<Events.Logging.LogEvent>(new($"{commandManager.HandlersCount} command handlers loaded."));
+            await EventAggregator.PublishAsync<InfoEvent>(new($"{commandManager.HandlersCount} command handlers loaded."));
 
             _eventMapper.MapAllEvents();
 
             commandManager.StartObserving();
-            EventAggregator.Publish<Events.Logging.LogEvent>(new($"Command observer started."));
+            await EventAggregator.PublishAsync<InfoEvent>(new($"Command observer started."));
 
             await pluginManager.InvokeInitialize();
-            EventAggregator.Publish<TraceEvent>(new("Executed all initialization methods in ."));
+            await EventAggregator.PublishAsync<TraceEvent>(new("Executed all initialization methods in ."));
 
             await _discord.StartClient(credentials.LoginToken);
-            EventAggregator.Publish<Events.Logging.LogEvent>(new("Discord client logged in."));
+            await EventAggregator.PublishAsync<InfoEvent>(new("Discord client logged in."));
 
             await pluginManager.InvokeStart();
-            EventAggregator.Publish<TraceEvent>(new("Successfully executed all start methods."));
+            await EventAggregator.PublishAsync<TraceEvent>(new("Successfully executed all start methods."));
 
             await Task.Delay(-1);
         }

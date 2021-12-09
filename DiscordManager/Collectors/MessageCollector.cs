@@ -16,15 +16,15 @@ namespace DCM.Collectors
     public class MessageCollector : CollectorBase<IMessageChannel, SocketMessage>, IDisposable
     {
         private readonly IMessageChannel _channel;
-        private readonly IEventAggregator _eventEmitter;
+        private readonly IEventAggregator _eventAggregator;
         private readonly Subscription<MessageReceivedEvent> _subscription;
 
-        public MessageCollector(IMessageChannel channel, IEventAggregator eventEmitter)
+        public MessageCollector(IMessageChannel channel, IEventAggregator eventAggregator)
         {
             _channel = channel;
-            _eventEmitter = eventEmitter;
+            _eventAggregator = eventAggregator;
 
-            _subscription = _eventEmitter.Subscribe<MessageReceivedEvent>(OnMessageReceived);
+            _subscription = _eventAggregator.Subscribe<MessageReceivedEvent>(OnMessageReceived);
         }
 
         private void OnMessageReceived(MessageReceivedEvent eventArgs)

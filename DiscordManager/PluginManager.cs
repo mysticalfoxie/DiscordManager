@@ -2,16 +2,14 @@
 using DCM.Exceptions;
 using DCM.Extensions;
 using DCM.Interfaces;
-using DCM.Models;
 using Discord;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using DCM;
-using Microsoft.Extensions.DependencyInjection;
-using System.IO;
 
 namespace DCM
 {
@@ -107,7 +105,7 @@ namespace DCM
                 }
                 catch (Exception ex)
                 {
-                    _eventAggregator.Publish<ErrorEvent>(new(new PluginException($"An error occured when trying to instantiate the plugin '{pluginType.Name}'.", ex)));
+                    _eventAggregator.PublishAsync<ErrorEvent>(new(new PluginException($"An error occured when trying to instantiate the plugin '{pluginType.Name}'.", ex))).Wait();
                     continue;
                 }
                 yield return plugin;
@@ -137,7 +135,7 @@ namespace DCM
             }
             catch (Exception ex)
             {
-                _eventAggregator.Publish<ErrorEvent>(new(new PluginException($"An error occured in the plugin '{plugin.GetType().Name}' when invoking the method '{methodName}'.", ex)));
+                _eventAggregator.PublishAsync<ErrorEvent>(new(new PluginException($"An error occured in the plugin '{plugin.GetType().Name}' when invoking the method '{methodName}'.", ex))).Wait();
                 plugin.IsRunning = false;
             }
         }
@@ -150,7 +148,7 @@ namespace DCM
             }
             catch (Exception ex)
             {
-                _eventAggregator.Publish<ErrorEvent>(new(new PluginException($"An error occured in the plugin '{plugin.GetType().Name}' when invoking the method '{methodName}'.", ex)));
+                await _eventAggregator.PublishAsync<ErrorEvent>(new(new PluginException($"An error occured in the plugin '{plugin.GetType().Name}' when invoking the method '{methodName}'.", ex)));
                 plugin.IsRunning = false;
             }
         }

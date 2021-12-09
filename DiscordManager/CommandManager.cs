@@ -24,18 +24,18 @@ namespace DCM
     {
         private readonly DiscordManager _discordManager;
         private readonly DependencyContainer _dependencyContainer;
-        private readonly IEventAggregator _eventEmitter;
+        private readonly IEventAggregator _eventAggregator;
         private readonly CommandConfiguration _commandConfig;
 
         public CommandManager(
             DiscordManager discordManager,
             DependencyContainer dependencyContainer,
-            IEventAggregator eventEmitter,
+            IEventAggregator eventAggregator,
             CommandConfiguration commandConfig)
         {
             _discordManager = discordManager;
             _dependencyContainer = dependencyContainer;
-            _eventEmitter = eventEmitter;
+            _eventAggregator = eventAggregator;
             _commandConfig = commandConfig;
         }
 
@@ -55,14 +55,14 @@ namespace DCM
                     }
                     catch (Exception ex)
                     {
-                        _eventEmitter.Publish<ErrorEvent>(new(ex));
+                        _eventAggregator.PublishAsync<ErrorEvent>(new(ex)).Wait();
                     }
                 }
         }
 
         public void StartObserving()
         {
-            _eventEmitter.Subscribe<MessageReceivedEvent>(Listener);
+            _eventAggregator.Subscribe<MessageReceivedEvent>(Listener);
         }
 
         private void Listener(MessageReceivedEvent eventArgs)
@@ -108,7 +108,7 @@ namespace DCM
                     catch (Exception ex)
                     {
                         var handler = method.GetMethodInfo().DeclaringType;
-                        _eventEmitter.Publish<ErrorEvent>(new(new($"An error occured in the command handler '{handler.FullName}'.", ex)));
+                        await _eventAggregator.PublishAsync<ErrorEvent>(new(new($"An error occured in the command handler '{handler.FullName}'.", ex)));
                     }
                 });
         }
@@ -228,7 +228,7 @@ namespace DCM
                 if (parameters[i].ParameterType == typeof(DiscordManager))
                     instances[i] = _discordManager;
                 else if (parameters[i].ParameterType == typeof(IEventAggregator))
-                    instances[i] = _eventEmitter;
+                    instances[i] = _eventAggregator;
                 else
                     instances[i] = services.GetService(parameters[i].ParameterType)
                         ?? throw new InvalidOperationException($"Cannot instantiate command handler '{handler.FullName}' because it includes the parameter '{parameters[i].ParameterType.FullName}' that could not be found in the service container.");

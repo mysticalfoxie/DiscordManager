@@ -3,9 +3,9 @@ using System;
 
 namespace DCM.Events.Logging
 {
-    public class LogEvent : Event
+    public class InfoEvent : Event
     {
-        public LogEvent(string message, string stackTrace = null)
+        public InfoEvent(string message, string stackTrace = null)
         {
             Message = message;
             StackTrace = stackTrace ?? Environment.StackTrace;
