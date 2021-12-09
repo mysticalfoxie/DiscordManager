@@ -7,6 +7,7 @@ namespace DCM.Models
     {
         public string Name { get; set; }
         public CommandOptions Options { get; set; }
+        public Permissions Permissions { get; set; }
         public List<CommandHandler> Handlers { get; } = new();
         internal List<Type> HandlerTypes { get; set; }
     }

@@ -68,7 +68,9 @@ namespace DCM
                 Commands.Add(new()
                 {
                     Name = command,
-                    HandlerTypes = new List<Type>() { commandHandler }
+                    HandlerTypes = new List<Type>() { commandHandler },
+                    Permissions = permissions,
+                    Options = options
                 });
 
             return this;

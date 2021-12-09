@@ -8,7 +8,7 @@ namespace DCM
     public class CommandOptionsBuilder
     {
         private readonly List<string> _aliases = new();
-        private bool _hidden;
+        // private bool _hidden;
         private bool _disabled;
         private bool _requiresPrefixOverride;
         private bool _ignoreCasingOverride;
@@ -21,12 +21,13 @@ namespace DCM
                 _aliases.Add(alias);
             return this;
         }
-
-        public CommandOptionsBuilder Hidden(bool hidden = true)
-        {
-            _hidden = hidden;
-            return this;
-        }
+        
+        // TODO: Future Improvement
+        //public CommandOptionsBuilder Hidden(bool hidden = true)
+        //{
+        //    _hidden = hidden;
+        //    return this;
+        //}
 
         public CommandOptionsBuilder Disabled(bool disabled = true)
         {
@@ -47,6 +48,6 @@ namespace DCM
         }
 
         public CommandOptions Build()
-            => new(_aliases.ToArray(), _hidden, _disabled, _requiresPrefixOverride, _ignoreCasingOverride);
+            => new(_aliases.ToArray(), /* _hidden, */_disabled, _requiresPrefixOverride, _ignoreCasingOverride);
     }
 }

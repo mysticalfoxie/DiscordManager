@@ -2,6 +2,7 @@
 using DCM.Events.Logging;
 using DCM.Interfaces;
 using DCM.Models;
+using Discord;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -72,6 +73,8 @@ namespace DCM
             var message = eventArgs.Message;
             if (!TryGetCommand(message, out var command))
                 return;
+            if (!IsAllowed(command, message))
+                return;
 
             InvokeHandlers(command, message);
         }
@@ -79,13 +82,14 @@ namespace DCM
         private bool TryGetCommand(SocketMessage message, out Command command)
         {
             var content = message.Content.Trim();
-            var hasPrefix = content.StartsWith(_commandConfig.Prefix);
-            var trueContent = content[_commandConfig.Prefix.Length..];
+            var hasPrefix = content.StartsWith(_commandConfig.Prefix ?? "");
+            var trueContent = hasPrefix ? content[(_commandConfig.Prefix?.Length ?? 0)..] : content;
             var parts = trueContent.Split(' ');
             var identifier = parts.Length > 0 ? parts[0] : null;
             command = _commandConfig.Commands
                 // When prefix is needed and there is none provided, ignore this command
-                .Where(x => !(x.Options.RequiresPrefixOverride ?? true && !hasPrefix))
+                .Where(x => !(x.Options?.RequiresPrefixOverride ?? true && !hasPrefix))
+                .Where(x => !(x.Options?.Disabled ?? false))
                 .FirstOrDefault(x => IsCommand(x, identifier));
 
             return command is not null;
@@ -139,11 +143,11 @@ namespace DCM
 
         private bool IsCommand(Command command, string identifier)
         {
-            var ignoreCasing = command.Options.IgnoreCasingOverride 
+            var ignoreCasing = command.Options?.IgnoreCasingOverride 
                 ?? _commandConfig.IgnoreCasing 
                 ?? false;
 
-            var hasAliases = (command.Options.Aliases?.Length ?? 0) > 0;
+            var hasAliases = (command.Options?.Aliases?.Length ?? 0) > 0;
             if (!hasAliases)
                 return ignoreCasing
                     ? command.Name.ToLower() == identifier.ToLower()
@@ -161,6 +165,48 @@ namespace DCM
                 ? identifier.ToLower()
                 : identifier);
         }
+
+        private static bool IsAllowed(Command command, SocketMessage message)
+            => command.Permissions?.Strategy switch
+            {
+                RestrictionStrategy.AllowOnlyPermitted => IsWhitelisted(command.Permissions, message),
+                RestrictionStrategy.BlockAllUnpermitted => !IsBlacklisted(command.Permissions, message),
+                null => true,
+                _ => throw new NotSupportedException()
+            };
+
+        private static bool IsWhitelisted(Permissions permissions, SocketMessage message)
+        {
+            if (permissions.Restrictions.Users.Count > 0)
+                if (!permissions.Restrictions.Users.Contains(message.Author.Id)) return false;
+
+            if (permissions.Restrictions.Channels.Count > 0)
+                if (!permissions.Restrictions.Channels.Contains(message.Channel.Id)) return false;
+
+            if (permissions.Restrictions.Guilds.Count > 0)
+            {
+                if (message.Channel is not IGuildChannel guildChannel) return false;
+                if (!permissions.Restrictions.Guilds.Contains(guildChannel.GuildId)) return false;
+            }
+
+            if (permissions.Restrictions.Roles.Count > 0)
+            {
+                if (message.Channel is not IGuildChannel guildChannel) return false;
+                if (message.Author is not IGuildUser guildUser) return false;
+                if (!guildUser.RoleIds.Any(x => permissions.Restrictions.Roles.Contains(x))) return false;
+            }
+
+            return true;
+        }
+
+        private static bool IsBlacklisted(Permissions permissions, SocketMessage message)
+            => new bool[]
+            {
+                permissions.Restrictions.Roles.Any(x => message.Author is IGuildUser user && user.RoleIds.Contains(x)),
+                permissions.Restrictions.Guilds.Any(x => message.Channel is IGuildChannel channel && x == channel.Guild.Id),
+                permissions.Restrictions.Users.Contains(message.Author.Id),
+                permissions.Restrictions.Channels.Contains(message.Channel.Id)
+            }.Any(x => x);
 
         private CommandHandler InstantiateHandler(Type handler)
         {
