@@ -155,7 +155,10 @@ namespace DCM
 
             var count = 1 + command.Options.Aliases.Length;
             var names = new string[count];
-            names[0] = command.Name;
+            names[0] = ignoreCasing
+                ? command.Name.ToLower()
+                : command.Name;
+
             for (int i = 1; i <= command.Options.Aliases.Length; i++)
                 names[i] = ignoreCasing
                     ? command.Options.Aliases[i - 1].ToLower()

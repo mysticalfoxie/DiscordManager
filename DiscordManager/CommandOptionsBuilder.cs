@@ -10,8 +10,8 @@ namespace DCM
         private readonly List<string> _aliases = new();
         // private bool _hidden;
         private bool _disabled;
-        private bool _requiresPrefixOverride;
-        private bool _ignoreCasingOverride;
+        private bool? _requiresPrefixOverride;
+        private bool? _ignoreCasingOverride;
 
         public CommandOptionsBuilder AddAlias(string alias)
             => AddAliases(new string[] { alias });

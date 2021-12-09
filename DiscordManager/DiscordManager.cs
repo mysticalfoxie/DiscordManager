@@ -140,7 +140,7 @@ namespace DCM
             await EventAggregator.PublishAsync<InfoEvent>(new($"Command observer started."));
 
             await pluginManager.InvokeInitialize();
-            await EventAggregator.PublishAsync<TraceEvent>(new("Executed all initialization methods in ."));
+            await EventAggregator.PublishAsync<TraceEvent>(new("Executed all initialization methods."));
 
             await _discord.StartClient(credentials.LoginToken);
             await EventAggregator.PublishAsync<InfoEvent>(new("Discord client logged in."));
