@@ -118,10 +118,10 @@ namespace DCM
                 {
                     await func();
                 }
-                catch
+                catch (Exception ex)
                 {
                     var message = $"An error occurred when invoking the event listener for event '{subscription.EventType.Name}'.";
-                    try { Publish<ErrorEvent>(new(new(message))); } catch { }
+                    try { Publish<ErrorEvent>(new(new(message, ex))); } catch { }
                     Trace.WriteLine(message);
                 }
             });
