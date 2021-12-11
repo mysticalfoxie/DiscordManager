@@ -84,7 +84,11 @@ namespace DCM
             var content = message.Content.Trim();
             var hasPrefix = content.StartsWith(_commandConfig.Prefix ?? "");
             var trueContent = hasPrefix ? content[(_commandConfig.Prefix?.Length ?? 0)..] : content;
-            var parts = trueContent.Split(' ');
+            var parts = trueContent
+                .Replace("\n\r", "\n")
+                .Replace('\n', ' ')
+                .Split(' ');
+
             var identifier = parts.Length > 0 ? parts[0] : null;
             command = _commandConfig.Commands
                 // When prefix is needed and there is none provided, ignore this command
