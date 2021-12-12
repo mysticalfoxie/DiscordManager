@@ -15,9 +15,8 @@ namespace DCM
 {
     interface ICommandManager
     {
-        int HandlersCount { get; }
-        void InstantiateHandlers();
-        void StartObserving();
+        int HandlerCount { get; }
+        int CommandCount { get; }
     }
 
     class CommandManager : ICommandManager
@@ -26,6 +25,7 @@ namespace DCM
         private readonly DependencyContainer _dependencyContainer;
         private readonly IEventAggregator _eventAggregator;
         private readonly CommandConfiguration _commandConfig;
+        private readonly List<Command> _commands = new();
 
         public CommandManager(
             DiscordManager discordManager,
@@ -37,13 +37,70 @@ namespace DCM
             _dependencyContainer = dependencyContainer;
             _eventAggregator = eventAggregator;
             _commandConfig = commandConfig;
+            _commands.AddRange(_commandConfig.Commands);
         }
 
-        public int HandlersCount => _commandConfig.Commands
-            .SelectMany(x => x.Handlers)
-            .Count();
+        public IReadOnlyList<Command> Commands => _commands;
 
-        public void InstantiateHandlers()
+        public void AddCommand<TCommandHandler>(string command) where TCommandHandler : CommandHandler
+            => AddCommand(command, typeof(TCommandHandler));
+        public void AddCommand<TCommandHandler>(string command, Permissions permissions) where TCommandHandler : CommandHandler
+            => AddCommand(command, typeof(TCommandHandler), permissions, (CommandOptions)null);
+        public void AddCommand<TCommandHandler>(string command, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder) where TCommandHandler : CommandHandler
+            => AddCommand(command, typeof(TCommandHandler), permissionsBuilder(new()).Build(), (CommandOptions)null);
+        public void AddCommand<TCommandHandler>(string command, CommandOptions options) where TCommandHandler : CommandHandler
+            => AddCommand(command, typeof(TCommandHandler), (Permissions)null, options);
+        public void AddCommand<TCommandHandler>(string command, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder) where TCommandHandler : CommandHandler
+            => AddCommand(command, typeof(TCommandHandler), (Permissions)null, optionsBuilder(new()).Build());
+        public void AddCommand<TCommandHandler>(string command, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder) where TCommandHandler : CommandHandler
+            => AddCommand(command, typeof(TCommandHandler), permissionsBuilder(new()).Build(), optionsBuilder(new()).Build());
+        public void AddCommand<TCommandHandler>(string command, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder, CommandOptions options) where TCommandHandler : CommandHandler
+            => AddCommand(command, typeof(TCommandHandler), permissionsBuilder(new()).Build(), options);
+        public void AddCommand<TCommandHandler>(string command, Permissions permissions, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder) where TCommandHandler : CommandHandler
+            => AddCommand(command, typeof(TCommandHandler), permissions, optionsBuilder(new()).Build());
+        public void AddCommand<TCommandHandler>(string command, Permissions permissions, CommandOptions options) where TCommandHandler : CommandHandler
+            => AddCommand(command, typeof(TCommandHandler), permissions, options);
+        public void AddCommand(string command, Type commandHandler)
+            => AddCommand(command, commandHandler, (Permissions)null, (CommandOptions)null);
+        public void AddCommand(string command, Type commandHandler, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder)
+            => AddCommand(command, commandHandler, permissionsBuilder(new()).Build(), (CommandOptions)null);
+        public void AddCommand(string command, Type commandHandler, Permissions permissions)
+            => AddCommand(command, commandHandler, permissions, (CommandOptions)null);
+        public void AddCommand(string command, Type commandHandler, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder)
+            => AddCommand(command, commandHandler, (Permissions)null, optionsBuilder(new()).Build());
+        public void AddCommand(string command, Type commandHandler, CommandOptions options)
+            => AddCommand(command, commandHandler, (Permissions)null, options);
+        public void AddCommand(string command, Type commandHandler, Permissions permissions, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder)
+            => AddCommand(command, commandHandler, permissions, optionsBuilder(new()).Build());
+        public void AddCommand(string command, Type commandHandler, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder, CommandOptions options)
+            => AddCommand(command, commandHandler, permissionsBuilder(new()).Build(), options);
+        public void AddCommand(string command, Type commandHandler, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder)
+            => AddCommand(command, commandHandler, permissionsBuilder(new()).Build(), optionsBuilder(new()).Build());
+        public void AddCommand(string command, Type commandHandler, Permissions permissions, CommandOptions options)
+        {
+            if (commandHandler.BaseType != typeof(CommandHandler))
+                throw new InvalidOperationException($"The command handler {commandHandler} is not implementing type {nameof(CommandHandler)}.");
+
+            if (_commands.Any(x => IsIdentifier(x, command)))
+                _commands.First(x => IsIdentifier(x, command))
+                    .HandlerTypes
+                    .Add(commandHandler);
+            else
+                _commands.Add(new()
+                {
+                    Name = command,
+                    HandlerTypes = new List<Type>() { commandHandler },
+                    Permissions = permissions,
+                    Options = options
+                });
+        }
+
+        bool IsIdentifier(Command command, string commandName)
+            => _commandConfig.IgnoreCasing ?? false
+                ? command.Name.ToLower() == commandName.ToLower()
+                : command.Name == commandName;
+
+        internal void InstantiateHandlers()
         {
             foreach (var command in _commandConfig.Commands)
                 foreach (var handler in command.HandlerTypes)
@@ -60,7 +117,7 @@ namespace DCM
                 }
         }
 
-        public void StartObserving()
+        internal void StartObserving()
         {
             _eventAggregator.Subscribe<MessageReceivedEvent>(Listener);
         }

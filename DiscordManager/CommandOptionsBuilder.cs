@@ -7,47 +7,47 @@ namespace DCM
 {
     public class CommandOptionsBuilder
     {
-        private readonly List<string> _aliases = new();
-        // private bool _hidden;
-        private bool _disabled;
-        private bool? _requiresPrefixOverride;
-        private bool? _ignoreCasingOverride;
+        private readonly CommandOptions _options = new();
+
+        internal CommandOptionsBuilder() { }
 
         public CommandOptionsBuilder AddAlias(string alias)
-            => AddAliases(new string[] { alias });
-        public CommandOptionsBuilder AddAliases(IEnumerable<string> aliases)
         {
-            foreach (var alias in aliases)
-                _aliases.Add(alias);
+            _options.Aliases = _options.Aliases.Append(alias).ToArray();
             return this;
         }
-        
-        // TODO: Future Improvement
-        //public CommandOptionsBuilder Hidden(bool hidden = true)
-        //{
-        //    _hidden = hidden;
-        //    return this;
-        //}
+        public CommandOptionsBuilder AddAliases(IEnumerable<string> aliases)
+        {
+            _options.Aliases = _options.Aliases.Concat(aliases).ToArray();
+            return this;
+        }
 
         public CommandOptionsBuilder Disabled(bool disabled = true)
         {
-            _disabled = disabled;
+            _options.Disabled = disabled;
             return this;
         }
 
-        public CommandOptionsBuilder OverrideRequiresPrefix(bool requiresPrefix = true)
+        public CommandOptionsBuilder NoPrefix()
         {
-            _requiresPrefixOverride = requiresPrefix;
+            _options.NoPrefix = true;
             return this;
         }
 
         public CommandOptionsBuilder OverrideIgnoreCasing(bool ignoreCasing = true)
         {
-            _ignoreCasingOverride = ignoreCasing;
+            _options.IgnoreCasingOverride = ignoreCasing;
             return this;
         }
 
-        public CommandOptions Build()
-            => new(_aliases.ToArray(), /* _hidden, */_disabled, _requiresPrefixOverride, _ignoreCasingOverride);
+        public CommandOptionsBuilder SetPermissions(Action<PermissionsBuilder> configure)
+        {
+            var permissionsBuilder = new PermissionsBuilder();
+            configure(permissionsBuilder);
+            _options.Permissions = permissionsBuilder.Build();
+            return this;
+        }
+
+        public CommandOptions Build() => _options;
     }
 }

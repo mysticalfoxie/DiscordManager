@@ -1,27 +1,11 @@
-﻿using System;
-
-namespace DCM.Models
+﻿namespace DCM.Models
 {
     public class CommandOptions
     {
-        public CommandOptions(
-            string[] aliases, 
-            // bool hidden, 
-            bool disabled, 
-            bool? requiresPrefixOverride, 
-            bool? ignoreCasingOverride)
-        {
-            Aliases = aliases ?? Array.Empty<string>();
-            // Hidden = hidden;
-            Disabled = disabled;
-            RequiresPrefixOverride = requiresPrefixOverride;
-            IgnoreCasingOverride = ignoreCasingOverride;
-        }
-
-        public string[] Aliases { get; }
-        // public bool Hidden { get; }
-        public bool Disabled { get; }
-        public bool? RequiresPrefixOverride { get; }
-        public bool? IgnoreCasingOverride { get; }
+        public string[] Aliases { get; internal set; }
+        public bool Disabled { get; internal set; }
+        public bool NoPrefix { get; internal set; }
+        public bool? IgnoreCasingOverride { get; internal set; }
+        public Permissions Permissions { get; internal set; }
     }
 }
