@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using DCM.Interfaces;
+using Discord;
+using System.Threading.Tasks;
 
 namespace DCM
 {
@@ -37,5 +39,8 @@ namespace DCM
         /// </summary>
         /// <returns></returns>
         public virtual Task StartAsync() => Task.CompletedTask;
+
+        public IDiscordClient DiscordClient { get; internal set; }
+        public IEventAggregator EventAggregator { get; internal set; }
     }
 }

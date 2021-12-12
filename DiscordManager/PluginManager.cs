@@ -73,7 +73,11 @@ namespace DCM
             // Loading
             var provider = RegisterPlugins(pluginTypes);
             foreach (var plugin in InstantiatePlugins(pluginTypes, provider))
+            {
+                plugin.DiscordClient = _discord.Client;
+                plugin.EventAggregator = _eventAggregator;
                 _plugins.Add(plugin);
+            }
         } 
 
         public async Task InvokeInitialize()
