@@ -33,6 +33,7 @@ namespace DCM
             _discord.Client.ApplicationCommandCreated += DiscordClient_ApplicationCommandCreated;
             _discord.Client.ApplicationCommandDeleted += DiscordClient_ApplicationCommandDeleted;
             _discord.Client.ApplicationCommandUpdated += DiscordClient_ApplicationCommandUpdated;
+            _discord.Client.ModalSubmitted += DiscordClient_ModalSubmitted;
             _discord.Client.AutocompleteExecuted += DiscordClient_AutocompleteExecuted;
             _discord.Client.GuildJoinRequestDeleted += DiscordClient_GuildJoinRequestDeleted;
             _discord.Client.GuildStickerCreated += DiscordClient_GuildStickerCreated;
@@ -95,8 +96,14 @@ namespace DCM
             _discord.Client.UserUpdated += DiscordClient_UserUpdated;
             _discord.Client.UserVoiceStateUpdated += DiscordClient_UserVoiceStateUpdated;
             _discord.Client.VoiceServerUpdated += DiscordClient_VoiceServerUpdated;
+            _discord.Client.ButtonExecuted += DiscordClient_ButtonExecuted;
         }
 
+        public async Task DiscordClient_ModalSubmitted(SocketModal modal)
+            => await _eventAggregator.PublishAsync<ModalSubmittedEvent>(new(modal));
+
+        public async Task DiscordClient_ButtonExecuted(SocketMessageComponent component)
+            => await _eventAggregator.PublishAsync<ButtonExecutedEvent>(new(component));
         public async Task DiscordClient_UserCommandExecuted(SocketUserCommand command)
             => await _eventAggregator.PublishAsync<UserCommandExecutedEvent>(new(command));
         public async Task DiscordClient_ThreadUpdated(Cacheable<SocketThreadChannel, ulong> oldThread, SocketThreadChannel newThread)
@@ -217,8 +224,8 @@ namespace DCM
             => await _eventAggregator.PublishAsync<UserIsTypingEvent>(new(user, channel));
         public async Task DiscordClient_UserJoined(SocketGuildUser guild)
             => await _eventAggregator.PublishAsync<UserJoinedEvent>(new(guild));
-        public async Task DiscordClient_UserLeft(SocketGuildUser guild)
-            => await _eventAggregator.PublishAsync<UserLeftEvent>(new(guild));
+        public async Task DiscordClient_UserLeft(SocketGuild guild, SocketUser user)
+            => await _eventAggregator.PublishAsync<UserLeftEvent>(new(guild, user));
         public async Task DiscordClient_UserUnbanned(SocketUser user, SocketGuild guild)
             => await _eventAggregator.PublishAsync<UserUnbannedEvent>(new(user, guild));
         public async Task DiscordClient_UserUpdated(SocketUser oldUser, SocketUser newUser)

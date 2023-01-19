@@ -17,5 +17,8 @@ namespace DCM.Events.Logging
         {
             return Exception.ToString();
         }
+
+        public static implicit operator ErrorEvent(string errorMessage) => new(new(errorMessage));
+        public static implicit operator ErrorEvent(Exception exception) => new(exception);
     }
 }

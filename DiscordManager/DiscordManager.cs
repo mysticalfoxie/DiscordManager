@@ -22,7 +22,8 @@ namespace DCM
         private readonly IServiceProvider _provider;
         private readonly IEventMapper _eventMapper;
         private readonly Discord _discord;
-        private CommandConfiguration _commandConfig = new();
+        private readonly CommandCollection _commandCollection = new();
+        private readonly CommandConfiguration _commandConfiguration = new();
         private Task _discordTask = Task.CompletedTask;
         private LoginCredentials _credentials;
         private CancellationToken _token;
@@ -37,7 +38,7 @@ namespace DCM
                 .AddSingleton<IEventAggregator>(prov => EventAggregator)
                 .AddSingleton<IPluginManager, PluginManager>()
                 .AddSingleton<ICommandManager, CommandManager>()
-                .AddScoped<CommandConfiguration>(prov => _commandConfig)
+                .AddScoped<CommandCollection>(prov => _commandCollection)
                 .AddScoped<IList<Plugin>>(prov => _plugins)
                 .AddScoped<IList<Type>>(prov => _pluginTypes)
                 .AddScoped<IList<FileInfo>>(prov => _pluginLibraries)
@@ -51,12 +52,18 @@ namespace DCM
             _discord = _provider.GetService<Discord>();
         }
 
-        public DiscordManager ConfigureCommands(Func<CommandConfigurationBuilder, CommandConfigurationBuilder> configureFunction)
+        public DiscordManager ConfigureCommandManager(Action<CommandConfigurationBuilder> configureFunction)
         {
-            var builder = new CommandConfigurationBuilder();
+            var builder = new CommandConfigurationBuilder(_commandConfiguration);
             configureFunction.Invoke(builder);
-            _commandConfig = builder.Build();
+            builder.Build();
 
+            return this;
+        }
+
+        public DiscordManager CommandCollection(Action<ICommandCollection> configure)
+        {
+            configure(_commandCollection);
             return this;
         }
 
@@ -82,6 +89,16 @@ namespace DCM
             _pluginDependencies.Services = services
                 ?? throw new ArgumentNullException(nameof(services));
 
+            services.AddSingleton<DiscordManager>(this);
+            services.AddSingleton<IEventAggregator>(EventAggregator);
+
+            return this;
+        }
+
+        public DiscordManager Configure(Action<IDiscordConfigBuilder> configure)
+        {
+            var builder = new DiscordConfigBuilder(_discord.Config);
+            configure(builder);
             return this;
         }
 
@@ -126,27 +143,27 @@ namespace DCM
         private async Task StartClient(LoginCredentials credentials)
         {
             var pluginManager = _provider.GetService<IPluginManager>();
-            var commandManager = _provider.GetService<ICommandManager>();
+            // var commandManager = _provider.GetService<ICommandManager>();
 
             pluginManager.LoadAll();
-            await EventAggregator.PublishAsync<InfoEvent>(new($"{pluginManager.PluginCount} plugins loaded."));
+            await EventAggregator.PublishAsync<InfoEvent>($"{pluginManager.PluginCount} plugins loaded.");
 
-            commandManager.InstantiateHandlers();
-            await EventAggregator.PublishAsync<InfoEvent>(new($"{commandManager.HandlersCount} command handlers loaded."));
+            // commandManager.InstantiateHandlers();
+            // await EventAggregator.PublishAsync<InfoEvent>($"{commandManager.HandlersCount} command handlers loaded."));
 
             _eventMapper.MapAllEvents();
 
-            commandManager.StartObserving();
-            await EventAggregator.PublishAsync<InfoEvent>(new($"Command observer started."));
+            // commandManager.StartObserving();
+            await EventAggregator.PublishAsync<InfoEvent>($"Command observer started.");
 
             await pluginManager.InvokeInitialize();
-            await EventAggregator.PublishAsync<TraceEvent>(new("Executed all initialization methods."));
+            await EventAggregator.PublishAsync<TraceEvent>("Executed all initialization methods.");
 
             await _discord.StartClient(credentials.LoginToken);
-            await EventAggregator.PublishAsync<InfoEvent>(new("Discord client logged in."));
+            await EventAggregator.PublishAsync<InfoEvent>("Discord client logged in.");
 
             await pluginManager.InvokeStart();
-            await EventAggregator.PublishAsync<TraceEvent>(new("Successfully executed all start methods."));
+            await EventAggregator.PublishAsync<TraceEvent>("Successfully executed all start methods.");
 
             await Task.Delay(-1);
         }

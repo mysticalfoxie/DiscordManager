@@ -8,7 +8,7 @@ namespace DCM
 {
     public class AssemblyLoader
     {
-        public event Action<string> AssemblyLoad;
+        public event Action<Assembly> AssemblyLoad;
         public event Action<Exception> Error;
 
         public bool TryLoad(FileInfo assemblyName, out Assembly assembly)
@@ -16,7 +16,7 @@ namespace DCM
             try
             {
                 assembly = Assembly.LoadFrom(assemblyName.FullName);
-                AssemblyLoad?.Invoke(assembly.FullName);
+                AssemblyLoad?.Invoke(assembly);
 
                 return true;
             }

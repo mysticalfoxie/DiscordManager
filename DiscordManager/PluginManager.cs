@@ -47,12 +47,12 @@ namespace DCM
             _dependencies = dependencies;
             _eventAggregator = eventEmitter;
             _discord = discord;
-
             _assemblyLoader.AssemblyLoad += AssemblyLoader_AssemblyLoad;
             _assemblyLoader.Error += AssemblyLoader_Error;
 
             _dependencies.Services.AddSingleton<IDiscordClient>(prov => _discord.Client);
             _dependencies.Services.AddSingleton<IEventAggregator>(prov => _eventAggregator);
+            _dependencies.Services.AddScoped<IDCMContext, DCMContext>(prov => new(_discord.Client, _eventAggregator, _dependencies));
         }
 
         public int PluginCount => _plugins.Count;
@@ -109,7 +109,8 @@ namespace DCM
                 }
                 catch (Exception ex)
                 {
-                    _eventAggregator.PublishAsync<ErrorEvent>(new(new PluginException($"An error occured when trying to instantiate the plugin '{pluginType.Name}'.", ex))).Wait();
+                    var error = new PluginException($"An error occured when trying to instantiate the plugin '{pluginType.FullName}'.", ex);
+                    _eventAggregator.PublishAsync<ErrorEvent>(error).Wait();
                     continue;
                 }
                 yield return plugin;
@@ -125,11 +126,11 @@ namespace DCM
         }
 
 
-        private void AssemblyLoader_AssemblyLoad(string filepath)
-            => _eventAggregator?.Publish<TraceEvent>(new($"Loaded the assembly '{filepath}'."));
+        private void AssemblyLoader_AssemblyLoad(Assembly assembly)
+            => _eventAggregator?.Publish<TraceEvent>($"Plugin '{assembly.GetName().Name}' loaded at version '{string.Join('.', assembly.GetName().Version.ToString().Split('.').Take(3))}'.");
 
         private void AssemblyLoader_Error(Exception error)
-            => _eventAggregator?.Publish<ErrorEvent>(new(error));
+            => _eventAggregator?.Publish<ErrorEvent>(error);
 
         private void ExecuteMethodHandled(Plugin plugin, string methodName, object[] parameters = null)
         {

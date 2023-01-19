@@ -13,10 +13,10 @@ using System.Threading.Tasks;
 
 namespace DCM
 {
-    interface ICommandManager
+    public interface ICommandManager
     {
-        int HandlerCount { get; }
-        int CommandCount { get; }
+        CommandConfiguration Settings { get; }
+        void StartObserving();
     }
 
     class CommandManager : ICommandManager
@@ -24,103 +24,37 @@ namespace DCM
         private readonly DiscordManager _discordManager;
         private readonly DependencyContainer _dependencyContainer;
         private readonly IEventAggregator _eventAggregator;
-        private readonly CommandConfiguration _commandConfig;
+        private readonly ICommandCollection _commandCollection;
         private readonly List<Command> _commands = new();
+        private static CommandManager _instance;
 
         public CommandManager(
             DiscordManager discordManager,
             DependencyContainer dependencyContainer,
             IEventAggregator eventAggregator,
-            CommandConfiguration commandConfig)
+            ICommandCollection commandCollection)
         {
             _discordManager = discordManager;
             _dependencyContainer = dependencyContainer;
             _eventAggregator = eventAggregator;
-            _commandConfig = commandConfig;
-            _commands.AddRange(_commandConfig.Commands);
+            _commandCollection = commandCollection;
+
+            _instance = this;
         }
 
-        public IReadOnlyList<Command> Commands => _commands;
+        public CommandConfiguration Settings { get; } = new();
 
-        public void AddCommand<TCommandHandler>(string command) where TCommandHandler : CommandHandler
-            => AddCommand(command, typeof(TCommandHandler));
-        public void AddCommand<TCommandHandler>(string command, Permissions permissions) where TCommandHandler : CommandHandler
-            => AddCommand(command, typeof(TCommandHandler), permissions, (CommandOptions)null);
-        public void AddCommand<TCommandHandler>(string command, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder) where TCommandHandler : CommandHandler
-            => AddCommand(command, typeof(TCommandHandler), permissionsBuilder(new()).Build(), (CommandOptions)null);
-        public void AddCommand<TCommandHandler>(string command, CommandOptions options) where TCommandHandler : CommandHandler
-            => AddCommand(command, typeof(TCommandHandler), (Permissions)null, options);
-        public void AddCommand<TCommandHandler>(string command, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder) where TCommandHandler : CommandHandler
-            => AddCommand(command, typeof(TCommandHandler), (Permissions)null, optionsBuilder(new()).Build());
-        public void AddCommand<TCommandHandler>(string command, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder) where TCommandHandler : CommandHandler
-            => AddCommand(command, typeof(TCommandHandler), permissionsBuilder(new()).Build(), optionsBuilder(new()).Build());
-        public void AddCommand<TCommandHandler>(string command, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder, CommandOptions options) where TCommandHandler : CommandHandler
-            => AddCommand(command, typeof(TCommandHandler), permissionsBuilder(new()).Build(), options);
-        public void AddCommand<TCommandHandler>(string command, Permissions permissions, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder) where TCommandHandler : CommandHandler
-            => AddCommand(command, typeof(TCommandHandler), permissions, optionsBuilder(new()).Build());
-        public void AddCommand<TCommandHandler>(string command, Permissions permissions, CommandOptions options) where TCommandHandler : CommandHandler
-            => AddCommand(command, typeof(TCommandHandler), permissions, options);
-        public void AddCommand(string command, Type commandHandler)
-            => AddCommand(command, commandHandler, (Permissions)null, (CommandOptions)null);
-        public void AddCommand(string command, Type commandHandler, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder)
-            => AddCommand(command, commandHandler, permissionsBuilder(new()).Build(), (CommandOptions)null);
-        public void AddCommand(string command, Type commandHandler, Permissions permissions)
-            => AddCommand(command, commandHandler, permissions, (CommandOptions)null);
-        public void AddCommand(string command, Type commandHandler, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder)
-            => AddCommand(command, commandHandler, (Permissions)null, optionsBuilder(new()).Build());
-        public void AddCommand(string command, Type commandHandler, CommandOptions options)
-            => AddCommand(command, commandHandler, (Permissions)null, options);
-        public void AddCommand(string command, Type commandHandler, Permissions permissions, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder)
-            => AddCommand(command, commandHandler, permissions, optionsBuilder(new()).Build());
-        public void AddCommand(string command, Type commandHandler, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder, CommandOptions options)
-            => AddCommand(command, commandHandler, permissionsBuilder(new()).Build(), options);
-        public void AddCommand(string command, Type commandHandler, Func<PermissionsBuilder, PermissionsBuilder> permissionsBuilder, Func<CommandOptionsBuilder, CommandOptionsBuilder> optionsBuilder)
-            => AddCommand(command, commandHandler, permissionsBuilder(new()).Build(), optionsBuilder(new()).Build());
-        public void AddCommand(string command, Type commandHandler, Permissions permissions, CommandOptions options)
-        {
-            if (commandHandler.BaseType != typeof(CommandHandler))
-                throw new InvalidOperationException($"The command handler {commandHandler} is not implementing type {nameof(CommandHandler)}.");
+        public static CommandHandler InstantiateHandler(Type handler)
+            => _instance?.CreateInstance(handler)
+                ?? throw new InvalidOperationException("The discord manager has not been constructed yet.");
 
-            if (_commands.Any(x => IsIdentifier(x, command)))
-                _commands.First(x => IsIdentifier(x, command))
-                    .HandlerTypes
-                    .Add(commandHandler);
-            else
-                _commands.Add(new()
-                {
-                    Name = command,
-                    HandlerTypes = new List<Type>() { commandHandler },
-                    Permissions = permissions,
-                    Options = options
-                });
-        }
+        public void StartObserving()
+            => _eventAggregator.Subscribe<MessageReceivedEvent>(Listener);
 
-        bool IsIdentifier(Command command, string commandName)
-            => _commandConfig.IgnoreCasing ?? false
+        private bool IsIdentifier(Command command, string commandName)
+            => Settings.IgnoreCasing ?? false
                 ? command.Name.ToLower() == commandName.ToLower()
                 : command.Name == commandName;
-
-        internal void InstantiateHandlers()
-        {
-            foreach (var command in _commandConfig.Commands)
-                foreach (var handler in command.HandlerTypes)
-                {
-                    try
-                    {
-                        var instance = InstantiateHandler(handler);
-                        command.Handlers.Add(instance);
-                    }
-                    catch (Exception ex)
-                    {
-                        _eventAggregator.PublishAsync<ErrorEvent>(new(ex)).Wait();
-                    }
-                }
-        }
-
-        internal void StartObserving()
-        {
-            _eventAggregator.Subscribe<MessageReceivedEvent>(Listener);
-        }
 
         private void Listener(MessageReceivedEvent eventArgs)
         {
@@ -139,18 +73,18 @@ namespace DCM
         private bool TryGetCommand(SocketMessage message, out Command command)
         {
             var content = message.Content.Trim();
-            var hasPrefix = content.StartsWith(_commandConfig.Prefix ?? "");
-            var trueContent = hasPrefix ? content[(_commandConfig.Prefix?.Length ?? 0)..] : content;
+            var hasPrefix = content.StartsWith(Settings.Prefix ?? "");
+            var trueContent = hasPrefix ? content[(Settings.Prefix?.Length ?? 0)..] : content;
             var parts = trueContent
                 .Replace("\n\r", "\n")
                 .Replace('\n', ' ')
                 .Split(' ');
 
             var identifier = parts.Length > 0 ? parts[0] : null;
-            command = _commandConfig.Commands
+            command = _commandCollection
                 // When prefix is needed and there is none provided, ignore this command
-                .Where(x => !(x.Options?.RequiresPrefixOverride ?? true && !hasPrefix))
-                .Where(x => !(x.Options?.Disabled ?? false))
+                .Where(x => !(!hasPrefix && !x.NoPrefix))
+                .Where(x => !x.Disabled)
                 .FirstOrDefault(x => IsCommand(x, identifier));
 
             return command is not null;
@@ -158,10 +92,9 @@ namespace DCM
 
         private void InvokeHandlers(Command command, SocketMessage message)
         {
-            var methods = JoinHandlersMethods(command.Handlers);
-            foreach (var method in methods)
+            foreach (var method in GetAllMethods(command.Handler))
                 Task.Factory.StartNew(async () =>
-                {// Rethrow required, if not it would never be caught or even noticed.
+                {
                     try
                     {
                         await method.Invoke(message);
@@ -169,12 +102,13 @@ namespace DCM
                     catch (Exception ex)
                     {
                         var handler = method.GetMethodInfo().DeclaringType;
-                        await _eventAggregator.PublishAsync<ErrorEvent>(new(new($"An error occured in the command handler '{handler.FullName}'.", ex)));
+                        var error = new Exception($"An error occured in the command handler '{handler.FullName}'.", ex);
+                        await _eventAggregator.PublishAsync<ErrorEvent>(error);
                     }
                 });
         }
 
-        private static Func<SocketMessage, Task>[] JoinHandlersMethods(IEnumerable<CommandHandler> handlers)
+        private static Func<SocketMessage, Task>[] GetAllMethods(IEnumerable<CommandHandler> handlers)
         {
             var methods = new List<Func<SocketMessage, Task>>();
 
@@ -186,10 +120,9 @@ namespace DCM
                 .Select<CommandHandler, Action<SocketMessage>>(x => x.Handle)
                 .Select(x => new Func<SocketMessage, Task>(socketMessage =>
                     Task.Factory.StartNew(() =>
-                    {
-                        // Exceptions wouldn't be caught without this try-catch block
+                    { // Exceptions wouldn't be caught without this try-catch block
                         try
-                        {
+                        { 
                             x.Invoke(socketMessage);
                         }
                         catch (Exception)
@@ -204,26 +137,26 @@ namespace DCM
 
         private bool IsCommand(Command command, string identifier)
         {
-            var ignoreCasing = command.Options?.IgnoreCasingOverride 
-                ?? _commandConfig.IgnoreCasing 
+            var ignoreCasing = command.IgnoreCasingOverride 
+                ?? Settings.IgnoreCasing 
                 ?? false;
 
-            var hasAliases = (command.Options?.Aliases?.Length ?? 0) > 0;
+            var hasAliases = (command.Aliases?.Length ?? 0) > 0;
             if (!hasAliases)
                 return ignoreCasing
                     ? command.Name.ToLower() == identifier.ToLower()
                     : command.Name == identifier;
 
-            var count = 1 + command.Options.Aliases.Length;
+            var count = 1 + command.Aliases.Length;
             var names = new string[count];
             names[0] = ignoreCasing
                 ? command.Name.ToLower()
                 : command.Name;
 
-            for (int i = 1; i <= command.Options.Aliases.Length; i++)
+            for (int i = 1; i <= command.Aliases.Length; i++)
                 names[i] = ignoreCasing
-                    ? command.Options.Aliases[i - 1].ToLower()
-                    : command.Options.Aliases[i - 1];
+                    ? command.Aliases[i - 1].ToLower()
+                    : command.Aliases[i - 1];
 
             return names.Contains(ignoreCasing
                 ? identifier.ToLower()
@@ -272,7 +205,7 @@ namespace DCM
                 permissions.Restrictions.Channels.Contains(message.Channel.Id)
             }.Any(x => x);
 
-        private CommandHandler InstantiateHandler(Type handler)
+        private CommandHandler CreateInstance(Type handler)
         {
             if (handler.BaseType != typeof(CommandHandler))
                 throw new InvalidOperationException($"Cannot instantiate command handler '{handler.FullName}' because it has no base type of {nameof(CommandHandler)}");
@@ -283,22 +216,15 @@ namespace DCM
             if (constructors.Length == 0)
                 throw new InvalidOperationException($"Cannot instantiate command handler '{handler.FullName}' because it has no public constructor.");
 
-            var ctor = constructors[0];
-            var parameters = ctor.GetParameters();
-            var instances = new object[parameters.Length];
+            var constructor = constructors.First();
             var services = _dependencyContainer.Services.BuildServiceProvider();
-            for (var i = 0; i < parameters.Length; i++)
-            {
-                if (parameters[i].ParameterType == typeof(DiscordManager))
-                    instances[i] = _discordManager;
-                else if (parameters[i].ParameterType == typeof(IEventAggregator))
-                    instances[i] = _eventAggregator;
-                else
-                    instances[i] = services.GetService(parameters[i].ParameterType)
-                        ?? throw new InvalidOperationException($"Cannot instantiate command handler '{handler.FullName}' because it includes the parameter '{parameters[i].ParameterType.FullName}' that could not be found in the service container.");
-            }
+            var parameters = constructor
+                .GetParameters()
+                .Select(x => services.GetService(x.ParameterType)
+                    ?? throw new InvalidOperationException($"Cannot instantiate command handler '{handler.FullName}' because it includes the parameter '{x.ParameterType.FullName}' that could not be found in the service container."))
+                .ToArray();
 
-            return (CommandHandler)ctor.Invoke(instances);
+            return (CommandHandler)constructor.Invoke(parameters);
         }
     }
 }

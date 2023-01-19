@@ -1,47 +1,48 @@
-﻿using System;
+﻿using Discord.WebSocket;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DCM.Models
 {
     public class Command
     {
-        private readonly List<CommandHandler> _handlers = new();
-        private readonly List<Type> _types = new();
+        private readonly List<CommandHandler> _handler = new();
+        public IReadOnlyCollection<CommandHandler> Handler => _handler;
         public string Name { get; set; }
-        public CommandOptions Options { get; set; }
         public Permissions Permissions { get; set; }
-        public int HandlerCount => _handlers.Count;
+        public string[] Aliases { get; set; }
+        public bool Disabled { get; set; }
+        public bool NoPrefix { get; set; }
+        public bool? IgnoreCasingOverride { get; set; }
 
-        public Command AddHandler<THandler>() where THandler : CommandHandler
+        public CommandHandler AddHandler<THandler>() where THandler : CommandHandler
         {
-            _types.Add(typeof(THandler));
-            return this;
+            var handler = CommandManager.InstantiateHandler(typeof(THandler));
+            _handler.Add(handler);
+            return handler;
         }
-        public Command AddHandler(Type handler)
+        public CommandHandler AddHandler(Type handlerType)
         {
-            _types.Add(handler);
-            return this;
+            var handler = CommandManager.InstantiateHandler(handlerType);
+            _handler.Add(handler);
+            return handler;
         }
-        public Command AddHandler(CommandHandler handler)
+        public CommandHandler AddHandler(CommandHandler handler)
         {
-            _handlers.Add(handler);
-            return this;
+            _handler.Add(handler);
+            return handler;
         }
+        public CommandHandler AddHandler(Action<SocketMessage> action)
+            => AddHandler(action);
+        public CommandHandler AddHandler(Func<SocketMessage, Task> func)
+            => AddHandler(func);
 
-        public Command RemoveHandler<THandler>() where THandler : CommandHandler
-        {
-            _handlers.RemoveAll(handler => handler.GetType() == typeof(THandler));
-            return this;
-        }
-        public Command RemoveHandler(Type handlerType)
-        {
-            _handlers.RemoveAll(handler => handler.GetType() == handlerType);
-            return this;
-        }
-        public Command RemoveHandler(CommandHandler handler)
-        {
-            _handlers.Remove(handler);
-            return this;
-        }
+        public void RemoveHandler<THandler>() where THandler : CommandHandler
+            => _handler.RemoveAll(handler => handler.GetType() == typeof(THandler));
+        public void RemoveHandler(Type handlerType)
+            => _handler.RemoveAll(handler => handler.GetType() == handlerType);
+        public void RemoveHandler(CommandHandler handler)
+            => _handler.Remove(handler);
     }
 }

@@ -1,15 +1,16 @@
 ﻿using DCM.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DCM
 {
     public class CommandConfigurationBuilder
     {
-        private readonly CommandConfiguration _configuration = new();
+        private readonly CommandConfiguration _configuration;
 
-        internal CommandConfigurationBuilder() { }
+        internal CommandConfigurationBuilder(CommandConfiguration instance) 
+        {
+            _configuration = instance;
+        }
 
         public CommandConfigurationBuilder UsePrefix(char prefix)
             => UsePrefix(prefix.ToString());

@@ -1,5 +1,4 @@
-﻿using DCM.Interfaces;
-using System;
+﻿using System;
 
 namespace DCM.Events.Logging
 {
@@ -13,5 +12,7 @@ namespace DCM.Events.Logging
 
         public string Message { get; }
         public string StackTrace { get; }
+
+        public static implicit operator WarningEvent(string message) => new(message);
     }
 }

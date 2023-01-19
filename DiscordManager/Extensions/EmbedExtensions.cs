@@ -36,7 +36,7 @@ namespace DCM.Extensions
                 if (data.Footer.IconUrl is not null)
                     footerBuilder.WithIconUrl(data.Footer.IconUrl);
                 if (data.Footer.Timestamp is not null)
-                    embedBuilder.WithTimestamp(new DateTimeOffset(DateTime.Parse(data.Footer.Timestamp)));
+                    embedBuilder.WithTimestamp(new(DateTime.Parse(data.Footer.Timestamp)));
 
                 embedBuilder.WithFooter(footerBuilder);
             }
@@ -53,10 +53,12 @@ namespace DCM.Extensions
                 embedBuilder.WithColor((Color)data.BorderColor);
 
             if ((data.Fields?.Length ?? 0) > 0)
-                foreach (var field in data.Fields)
-                    embedBuilder.AddField(new EmbedFieldBuilder().WithName(field.Heading)
-                                                                 .WithValue(field.Text)
-                                                                 .WithIsInline(field.IsInline));
+                foreach (var fieldData in data.Fields)
+                    embedBuilder
+                        .AddField(field => field
+                            .WithName(fieldData.Heading)
+                            .WithValue(fieldData.Text)
+                            .WithIsInline(fieldData.IsInline));
 
             return embedBuilder.Build();
         }

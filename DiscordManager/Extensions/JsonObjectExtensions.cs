@@ -61,6 +61,12 @@ namespace DCM.Extensions
                     .GetStringProperties()
                     .InjectVariables(embed.Thumbnail, variableDeclarations);
 
+            foreach (var field in embed.Fields)
+                field
+                    .GetType()
+                    .GetStringProperties()
+                    .InjectVariables(field, variableDeclarations);
+
             return embed.ToEmbedData();
         }
 

@@ -19,7 +19,8 @@ namespace DCM
         public HelpCommandBuilder SetPermissions(Action<PermissionsBuilder> configure)
         {
             _commandBuilder.Configure(x => 
-                x.SetPermissions(y => configure(y)));
+                x.WithPermissions(y => configure(y)));
+
             return this;
         }
 

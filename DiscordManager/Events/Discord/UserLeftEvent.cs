@@ -5,11 +5,14 @@ namespace DCM.Events.Discord
 {
     public class UserLeftEvent : Event
     {
-        public UserLeftEvent(SocketGuildUser guildUser)
+        public UserLeftEvent(SocketGuild guild, SocketUser user)
         {
-            GuildUser = guildUser;
+            User = user;
+            Guild = guild;
         }
 
-        public SocketGuildUser GuildUser { get; }
+        public SocketUser User { get; }
+
+        public SocketGuild Guild { get; }
     }
 }

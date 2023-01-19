@@ -2,6 +2,7 @@
 using DCM.Interfaces;
 using Discord;
 using Discord.WebSocket;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DCM.Extensions
@@ -14,7 +15,8 @@ namespace DCM.Extensions
         public static MessageCollector CreateMessageCollector(this IMessageChannel channel, IEventAggregator eventEmitter)
             => new(channel, eventEmitter);
 
-        public static Task<SocketReaction> WaitForReaction(this ReactionCollector collector)
+        /// <exception cref="TaskCanceledException"></exception>
+        public static Task<SocketReaction> WaitForReaction(this ReactionCollector collector, CancellationToken token = default)
         {
             var tcs = new TaskCompletionSource<SocketReaction>();
 
@@ -26,10 +28,22 @@ namespace DCM.Extensions
                 collector.Dispose();
             }
 
+            if (token != default)
+                Task.Factory.StartNew(() =>
+                {
+                    while (!token.IsCancellationRequested)
+                        continue;
+
+                    tcs.TrySetCanceled();
+                    collector.Collect -= Collector_ReactionAdded;
+
+                }, CancellationToken.None);
+
             return tcs.Task;
         }
 
-        public static Task<SocketMessage> WaitForMessage(this MessageCollector collector)
+        /// <exception cref="TaskCanceledException"></exception>
+        public static Task<SocketMessage> WaitForMessage(this MessageCollector collector, CancellationToken token = default)
         {
             var tcs = new TaskCompletionSource<SocketMessage>();
 
@@ -40,6 +54,17 @@ namespace DCM.Extensions
                 collector.Collect -= Collector_MessageReceived;
                 collector.Dispose();
             }
+
+            if (token != default)
+                Task.Factory.StartNew(() =>
+                {
+                    while (!token.IsCancellationRequested)
+                        continue;
+
+                    tcs.TrySetCanceled();
+                    collector.Collect -= Collector_MessageReceived;
+
+                }, CancellationToken.None);
 
             return tcs.Task;
         }
