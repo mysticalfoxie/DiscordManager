@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6f6a4c95-b4b6-4ac8-8884-99bbd498658e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ApplicationCommandCreated.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ApplicationCommandCreatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ApplicationCommandDeletedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ApplicationCommandUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/AutoCompleteExecutedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ButtonExecutedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ChannelCreatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ChannelDestoryedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ChannelUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ConnectedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/CurrentUserUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/DisconnectedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildAvailableEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildJoinRequestDeletedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildMemberUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildMembersDownloadedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildStickerCreatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildStickerDeletedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildStickerUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildUnavailableEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/InteractionCreatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/InviteCreatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/InviteDeletedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/JoinedGuildEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/LatencyUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/LeftGuildEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/LogEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/LoggedInEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/LoggedOutEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/MessageCommandExecutedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/MessageDeletedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/MessageReceivedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/MessageUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/MessagesBulkDeletedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ReactionAddedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ReactionRemovedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ReactionsClearedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ReactionsRemovedForEmoteEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ReadyEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/RecipientAddedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/RecipientRemovedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/RequestToSpeakEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/RoleCreatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/RoleDeletedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/RoleUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/SelectMenuExecutedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/SlashCommandExecutedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/SpeakerAddedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/SpeakerRemovedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/StageEndedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/StageStartedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/StageUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ThreadCreatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ThreadDeletedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ThreadMemberJoinedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ThreadMemberLeftEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ThreadUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/UserBannedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/UserCommandExecutedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/UserIsTypingEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/UserJoinedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/UserLeftEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/UserUnbannedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/UserUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/UserVoiceStateUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/VoiceServerUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/PluginBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager/ConfigLoader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordManager/Interfaces/IConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager.sln" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Collectors/MessageCollector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Collectors/MessageCollector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Collectors/ReactionCollector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Collectors/ReactionCollector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/CommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/CommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/CommandManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/DCMContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/DCMContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Discord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/DiscordManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/DiscordManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/DiscordManager.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/DiscordManager.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Event.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/EventAggregator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/EventMapper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ApplicationCommandCreated.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ApplicationCommandCreatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ApplicationCommandDeletedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ApplicationCommandUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/AutoCompleteExecutedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ButtonExecutedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ChannelCreatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ChannelDestoryedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ChannelUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/CommandReceivedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ConnectedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/CurrentUserUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/DisconnectedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/GuildAvailableEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/GuildJoinRequestDeletedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/GuildMemberUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/GuildMembersDownloadedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/GuildStickerCreatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/GuildStickerDeletedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/GuildStickerUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/GuildUnavailableEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/GuildUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/InteractionCreatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/InviteCreatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/InviteDeletedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/JoinedGuildEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/LatencyUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/LeftGuildEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/LogEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/LoggedInEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/LoggedOutEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/MessageCommandExecutedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/MessageDeletedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/MessageReceivedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/MessageUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/MessagesBulkDeletedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ModalSubmittedEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Events/ModalSubmittedEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ReactionAddedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ReactionRemovedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ReactionsClearedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ReactionsRemovedForEmoteEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ReadyEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/RecipientAddedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/RecipientRemovedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/RequestToSpeakEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/RoleCreatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/RoleDeletedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/RoleUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/SelectMenuExecutedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/SlashCommandExecutedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/SpeakerAddedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/SpeakerRemovedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/StageEndedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/StageStartedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/StageUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ThreadCreatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ThreadDeletedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ThreadMemberJoinedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ThreadMemberLeftEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/ThreadUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/UserBannedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/UserCommandExecutedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/UserIsTypingEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/UserJoinedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/UserLeftEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/UserUnbannedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/UserUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/UserVoiceStateUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Discord/VoiceServerUpdatedEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Logging/ErrorEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Logging/InfoEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Logging/TraceEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Events/Logging/WarningEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/CollectorExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Extensions/CollectorExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/JsonObjectExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Interfaces/IEventAggregator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/MessageSerializer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Plugin.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/PluginManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Subscription.cs" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b214c6da8478e8dc94655f42bebc26c7fb3f726c6cb5705c13b39af515c4f85e/Observable_.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bb725bcdb6b7d73f11cea8d4d4713b1538c1c465eea8d479ccccdfdc349d774/Observable.Imperative.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2N4DOnVKteUSEHuLAXcCqFX6NIR" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "rider.code.cleanup.on.save": "true",
+    "settings.editor.selected.configurable": "inlay.hints",
+    "typescript.add.unambiguous.imports.on.the.fly": "true",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\Miche\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Miche\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\Miche\\AppData\\Local\\Symbols\\src"
+    ]
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f6a4c95-b4b6-4ac8-8884-99bbd498658e" name="Changes" comment="" />
+      <created>1678914430776</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678914430776</updated>
+      <workItem from="1678914431944" duration="7300000" />
+      <workItem from="1678989933728" duration="354000" />
+      <workItem from="1678990437201" duration="12201000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

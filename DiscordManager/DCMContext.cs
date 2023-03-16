@@ -1,8 +1,7 @@
-﻿using DCM.Interfaces;
+﻿using System;
 using Discord;
+using DiscordManager.Core.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System;
 
 namespace DCM;
 
@@ -32,11 +31,13 @@ internal class DCMContext : IDCMContext
     public IDiscordClient Client { get; }
     public IEventAggregator Events { get; }
 
-    public T GetService<T>() {
+    public T GetService<T>()
+    {
         return _services.GetRequiredService<T>();
     }
 
-    public T GetConfig<T>() where T : class {
+    public T GetConfig<T>() where T : class
+    {
         return _services.GetRequiredService<IOptions<T>>().Value;
     }
 }
