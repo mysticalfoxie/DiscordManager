@@ -1,0 +1,198 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeStyle/CodeCleanup/RecentlyUsedProfile/@EntryValue">Built-in: Full Cleanup</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpCodeStyle/ARGUMENTS_NAMED/@EntryValue">Named</s:String>
+	<s:String x:Key="/Default/CodeStyle/CSharpFileLayoutPatterns/Pattern/@EntryValue">&lt;Patterns xmlns="urn:schemas-jetbrains-com:member-reordering-patterns"&gt;
+    &lt;TypePattern DisplayName="Non-reorderable types"&gt;
+        &lt;TypePattern.Match&gt;
+            &lt;Or&gt;
+                &lt;And&gt;
+                    &lt;Kind Is="Interface" /&gt;
+                    &lt;Or&gt;
+                        &lt;HasAttribute Name="System.Runtime.InteropServices.InterfaceTypeAttribute" /&gt;
+                        &lt;HasAttribute Name="System.Runtime.InteropServices.ComImport" /&gt;
+                    &lt;/Or&gt;
+                &lt;/And&gt;
+                &lt;Kind Is="Struct" /&gt;
+                &lt;HasAttribute Name="JetBrains.Annotations.NoReorderAttribute" /&gt;
+                &lt;HasAttribute Name="JetBrains.Annotations.NoReorder" /&gt;
+            &lt;/Or&gt;
+        &lt;/TypePattern.Match&gt;
+    &lt;/TypePattern&gt;
+
+    &lt;TypePattern DisplayName="xUnit.net Test Classes" RemoveRegions="All"&gt;
+        &lt;TypePattern.Match&gt;
+            &lt;And&gt;
+                &lt;Kind Is="Class" /&gt;
+                &lt;HasMember&gt;
+                    &lt;And&gt;
+                        &lt;Kind Is="Method" /&gt;
+                        &lt;HasAttribute Name="Xunit.FactAttribute" Inherited="True" /&gt;
+                    &lt;/And&gt;
+                &lt;/HasMember&gt;
+            &lt;/And&gt;
+        &lt;/TypePattern.Match&gt;
+
+        &lt;Entry DisplayName="Setup/Teardown Methods"&gt;
+            &lt;Entry.Match&gt;
+                &lt;Or&gt;
+                    &lt;Kind Is="Constructor" /&gt;
+                    &lt;And&gt;
+                        &lt;Kind Is="Method" /&gt;
+                        &lt;ImplementsInterface Name="System.IDisposable" /&gt;
+                    &lt;/And&gt;
+                &lt;/Or&gt;
+            &lt;/Entry.Match&gt;
+
+            &lt;Entry.SortBy&gt;
+                &lt;Kind Order="Constructor" /&gt;
+            &lt;/Entry.SortBy&gt;
+        &lt;/Entry&gt;
+
+        &lt;Entry DisplayName="All other members" /&gt;
+        &lt;Entry Priority="100" DisplayName="Test Methods"&gt;
+            &lt;Entry.Match&gt;
+                &lt;And&gt;
+                    &lt;Kind Is="Method" /&gt;
+                    &lt;HasAttribute Name="Xunit.FactAttribute" /&gt;
+                &lt;/And&gt;
+            &lt;/Entry.Match&gt;
+        &lt;/Entry&gt;
+    &lt;/TypePattern&gt;
+
+    &lt;TypePattern DisplayName="NUnit Test Fixtures" RemoveRegions="All"&gt;
+        &lt;TypePattern.Match&gt;
+            &lt;And&gt;
+                &lt;Kind Is="Class" /&gt;
+                &lt;HasAttribute Name="NUnit.Framework.TestFixtureAttribute" Inherited="True" /&gt;
+            &lt;/And&gt;
+        &lt;/TypePattern.Match&gt;
+
+        &lt;Entry DisplayName="Setup/Teardown Methods"&gt;
+            &lt;Entry.Match&gt;
+                &lt;And&gt;
+                    &lt;Kind Is="Method" /&gt;
+                    &lt;Or&gt;
+                        &lt;HasAttribute Name="NUnit.Framework.SetUpAttribute" Inherited="True" /&gt;
+                        &lt;HasAttribute Name="NUnit.Framework.TearDownAttribute" Inherited="True" /&gt;
+                        &lt;HasAttribute Name="NUnit.Framework.FixtureSetUpAttribute" Inherited="True" /&gt;
+                        &lt;HasAttribute Name="NUnit.Framework.FixtureTearDownAttribute" Inherited="True" /&gt;
+                    &lt;/Or&gt;
+                &lt;/And&gt;
+            &lt;/Entry.Match&gt;
+        &lt;/Entry&gt;
+
+        &lt;Entry DisplayName="All other members" /&gt;
+
+        &lt;Entry Priority="100" DisplayName="Test Methods"&gt;
+            &lt;Entry.Match&gt;
+                &lt;And&gt;
+                    &lt;Kind Is="Method" /&gt;
+                    &lt;HasAttribute Name="NUnit.Framework.TestAttribute" /&gt;
+                &lt;/And&gt;
+            &lt;/Entry.Match&gt;
+        &lt;/Entry&gt;
+    &lt;/TypePattern&gt;
+
+    &lt;TypePattern DisplayName="Default Pattern"&gt;
+        &lt;Entry DisplayName="Nested Types"&gt;
+            &lt;Entry.Match&gt;
+                &lt;Kind Is="Type" /&gt;
+            &lt;/Entry.Match&gt;
+        &lt;/Entry&gt;
+
+        &lt;Entry Priority="100" DisplayName="Public Delegates"&gt;
+            &lt;Entry.Match&gt;
+                &lt;And&gt;
+                    &lt;Access Is="Public" /&gt;
+                    &lt;Kind Is="Delegate" /&gt;
+                &lt;/And&gt;
+            &lt;/Entry.Match&gt;
+        &lt;/Entry&gt;
+
+        &lt;Entry Priority="100" DisplayName="Public Enums"&gt;
+            &lt;Entry.Match&gt;
+                &lt;And&gt;
+                    &lt;Access Is="Public" /&gt;
+                    &lt;Kind Is="Enum" /&gt;
+                &lt;/And&gt;
+            &lt;/Entry.Match&gt;
+        &lt;/Entry&gt;
+
+        &lt;Entry DisplayName="Fields and Constants"&gt;
+            &lt;Entry.Match&gt;
+                &lt;Or&gt;
+                    &lt;Kind Is="Constant" /&gt;
+                    &lt;Kind Is="Field" /&gt;
+                    &lt;And&gt;
+                        &lt;Kind Is="Field" /&gt;
+                        &lt;Static /&gt;
+                    &lt;/And&gt;
+                &lt;/Or&gt;
+            &lt;/Entry.Match&gt;
+
+            &lt;Entry.SortBy&gt;
+                &lt;Kind Order="Public Constant Field" /&gt;
+                &lt;Readonly /&gt;
+            &lt;/Entry.SortBy&gt;
+        &lt;/Entry&gt;
+
+        &lt;Entry DisplayName="Constructors"&gt;
+            &lt;Entry.Match&gt;
+                &lt;Kind Is="Constructor" /&gt;
+            &lt;/Entry.Match&gt;
+
+            &lt;Entry.SortBy&gt;
+                &lt;Static /&gt;
+            &lt;/Entry.SortBy&gt;
+        &lt;/Entry&gt;
+
+        &lt;Entry DisplayName="Properties, Indexers"&gt;
+            &lt;Entry.Match&gt;
+                &lt;Or&gt;
+                    &lt;Kind Is="Event" /&gt;
+                    &lt;Kind Is="Property" /&gt;
+                    &lt;Kind Is="Indexer" /&gt;
+                &lt;/Or&gt;
+            &lt;/Entry.Match&gt;
+        &lt;/Entry&gt;
+        
+        &lt;Entry DisplayName="Public Methods"&gt;
+            &lt;Entry.Match&gt;
+                &lt;And&gt;
+                    &lt;Kind Is="Method" /&gt;
+                    &lt;Access Is="Public" /&gt;
+                &lt;/And&gt;
+            &lt;/Entry.Match&gt;
+        &lt;/Entry&gt;
+
+        &lt;Entry Priority="100" DisplayName="Interface Implementations"&gt;
+            &lt;Entry.Match&gt;
+                &lt;And&gt;
+                    &lt;Kind Is="Member" /&gt;
+                    &lt;ImplementsInterface /&gt;
+                &lt;/And&gt;
+            &lt;/Entry.Match&gt;
+
+            &lt;Entry.SortBy&gt;
+                &lt;ImplementsInterface Immediate="True" /&gt;
+            &lt;/Entry.SortBy&gt;
+        &lt;/Entry&gt;
+
+
+        &lt;Entry DisplayName="Private Methods"&gt;
+            &lt;Entry.Match&gt;
+                &lt;And&gt;
+                    &lt;Kind Is="Method" /&gt;
+                &lt;/And&gt;
+            &lt;/Entry.Match&gt;
+        &lt;/Entry&gt;
+
+        &lt;Entry DisplayName="All Other Members" /&gt;
+    &lt;/TypePattern&gt;
+&lt;/Patterns&gt;</s:String>
+	<s:Boolean x:Key="/Default/CodeStyle/Generate/=Implementations/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/CodeStyle/Generate/=Implementations/Options/=Async/@EntryIndexedValue">False</s:String>
+	<s:String x:Key="/Default/CodeStyle/Generate/=Implementations/Options/=Mutable/@EntryIndexedValue">False</s:String>
+	<s:Boolean x:Key="/Default/CodeStyle/Generate/=Overrides/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/CodeStyle/Generate/=Overrides/Options/=Async/@EntryIndexedValue">False</s:String>
+	<s:Boolean x:Key="/Default/CodeStyle/Naming/CSharpAutoNaming/IsNotificationDisabled/@EntryValue">True</s:Boolean></wpf:ResourceDictionary>

@@ -5,7 +5,7 @@ using DiscordManager.Core.Interfaces;
 
 namespace DiscordManager.Core.Services;
 
-internal class DiscordService : IDisposable
+internal class DiscordService : IDisposable, IDiscordService
 {
     private readonly IDiscordConfigService _configService;
     private readonly ICredentialsService _credentials;

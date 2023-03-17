@@ -8,8 +8,20 @@ public abstract class PluginBase
     public IEventService Events { get; internal set; }
     public IDiscordClient Client { get; internal set; }
 
-    public abstract Task InitializeAsync();
-    public abstract void Initialize();
-    public abstract void Start();
-    public abstract Task StartAsync();
+    // public TService Get<TService>()
+    // public TService Use<TService>()
+    // [Injectable]
+
+    public abstract void PreStart();
+    public abstract void PostStart();
+    public abstract Task PreStartAsync();
+    public abstract Task PostStartAsync();
+}
+
+public abstract class PluginDependency
+{
+    public IEventService Events { get; internal set; }
+    public IDiscordClient Client { get; internal set; }
+
+    // public TService Get<TService>()
 }
