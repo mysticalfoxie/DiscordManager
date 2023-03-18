@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class ButtonExecutedEvent : IEvent
 {
-    public ButtonExecutedEvent(SocketMessageComponent component)
-    {
-        Component = component;
-    }
-
-    public SocketMessageComponent Component { get; }
+    public SocketMessageComponent Component { get; set; }
 }

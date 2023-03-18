@@ -1,11 +1,11 @@
-﻿using DiscordManager.Core.Enums;
-using DiscordManager.Core.Interfaces;
-using DiscordManager.Core.Models;
+﻿using DCM.Core.Enums;
+using DCM.Core.Interfaces;
+using DCM.Core.Models;
 using Microsoft.Extensions.Logging;
 
-namespace DiscordManager.Core.Services;
+namespace DCM.Core.Services;
 
-internal class PluginService : IPluginManager
+public class PluginService : IPluginService
 {
     private readonly IDependencyService _dependencyService;
     private readonly ILogger<PluginService> _logger;
@@ -54,7 +54,7 @@ internal class PluginService : IPluginManager
     {
         try
         {
-            return (PluginBase)_dependencyService.CreateInstantiate(type: type);
+            return (PluginBase)_dependencyService.CreateInstance(type: type);
         }
         catch (Exception ex)
         {
@@ -70,14 +70,6 @@ internal class PluginService : IPluginManager
             .Select(selector: InstantiatePlugin)
             .Where(x => x is not null);
         PluginInstances.AddRange(collection: plugins);
-    }
-
-    private static bool IsImplemented(PluginBase instance, string methodName)
-    {
-        return !instance
-            .GetType()
-            .GetMethod(name: methodName)!
-            .IsAbstract;
     }
 
     private void InvokeSynchronousMethod(object instance, string methodName)

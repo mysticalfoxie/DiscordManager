@@ -1,7 +1,7 @@
 using System.Reactive.Linq;
 using Discord.WebSocket;
 
-namespace DiscordManager.Core.Extensions;
+namespace DCM.Core.Extensions;
 
 public static class DiscordClientExtensions
 {

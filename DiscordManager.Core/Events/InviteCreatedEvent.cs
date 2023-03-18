@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class InviteCreatedEvent : IEvent
 {
-    public InviteCreatedEvent(SocketInvite invite)
-    {
-        Invite = invite;
-    }
-
-    public SocketInvite Invite { get; }
+    public SocketInvite Invite { get; set; }
 }

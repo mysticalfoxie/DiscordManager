@@ -1,16 +1,10 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class GuildUpdatedEvent : IEvent
 {
-    public GuildUpdatedEvent(SocketGuild oldGuild, SocketGuild newGuild)
-    {
-        OldGuild = oldGuild;
-        NewGuild = newGuild;
-    }
-
-    public SocketGuild OldGuild { get; }
-    public SocketGuild NewGuild { get; }
+    public SocketGuild OldGuild { get; set; }
+    public SocketGuild NewGuild { get; set; }
 }

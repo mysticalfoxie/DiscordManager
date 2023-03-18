@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class RecipientAddedEvent : IEvent
 {
-    public RecipientAddedEvent(SocketGroupUser user)
-    {
-        User = user;
-    }
-
-    public SocketGroupUser User { get; }
+    public SocketGroupUser GroupUser { get; set; }
 }

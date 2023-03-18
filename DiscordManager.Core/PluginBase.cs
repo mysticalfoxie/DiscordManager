@@ -1,7 +1,7 @@
-﻿using Discord;
-using DiscordManager.Core.Interfaces;
+﻿using DCM.Core.Interfaces;
+using Discord;
 
-namespace DiscordManager.Core;
+namespace DCM.Core;
 
 public abstract class PluginBase
 {
@@ -12,10 +12,23 @@ public abstract class PluginBase
     // public TService Use<TService>()
     // [Injectable]
 
-    public abstract void PreStart();
-    public abstract void PostStart();
-    public abstract Task PreStartAsync();
-    public abstract Task PostStartAsync();
+    public virtual void PreStart()
+    {
+    }
+
+    public virtual void PostStart()
+    {
+    }
+
+    public virtual Task PreStartAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    public virtual Task PostStartAsync()
+    {
+        return Task.CompletedTask;
+    }
 }
 
 public abstract class PluginDependency

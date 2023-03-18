@@ -1,16 +1,10 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class StageUpdatedEvent : IEvent
 {
-    public StageUpdatedEvent(SocketStageChannel oldChannel, SocketStageChannel newChannel)
-    {
-        OldChannel = oldChannel;
-        NewChannel = newChannel;
-    }
-
-    public SocketStageChannel OldChannel { get; }
-    public SocketStageChannel NewChannel { get; }
+    public SocketStageChannel OldStageChannel { get; set; }
+    public SocketStageChannel NewStageChannel { get; set; }
 }

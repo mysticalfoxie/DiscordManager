@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class ChannelCreatedEvent : IEvent
 {
-    public ChannelCreatedEvent(SocketChannel channel)
-    {
-        Channel = channel;
-    }
-
-    public SocketChannel Channel { get; }
+    public SocketChannel Channel { get; set; }
 }

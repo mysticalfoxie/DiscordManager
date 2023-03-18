@@ -1,19 +1,11 @@
-﻿using Discord;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class ReactionsRemovedForEmoteEvent : IEvent
 {
-    public ReactionsRemovedForEmoteEvent(Cacheable<IUserMessage, ulong> message,
-        Cacheable<IMessageChannel, ulong> channel, IEmote emote)
-    {
-        Message = message;
-        Channel = channel;
-        Emote = emote;
-    }
-
-    public Cacheable<IUserMessage, ulong> Message { get; }
-    public Cacheable<IMessageChannel, ulong> Channel { get; }
-    public IEmote Emote { get; }
+    public Cacheable<IUserMessage, ulong> Message { get; set; }
+    public Cacheable<IMessageChannel, ulong> Channel { get; set; }
+    public IEmote Emote { get; set; }
 }

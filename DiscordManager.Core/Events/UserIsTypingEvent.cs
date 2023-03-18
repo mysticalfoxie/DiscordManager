@@ -1,16 +1,10 @@
-﻿using Discord;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class UserIsTypingEvent : IEvent
 {
-    public UserIsTypingEvent(Cacheable<IUser, ulong> user, Cacheable<IMessageChannel, ulong> channel)
-    {
-        User = user;
-        Channel = channel;
-    }
-
-    public Cacheable<IUser, ulong> User { get; }
-    public Cacheable<IMessageChannel, ulong> Channel { get; }
+    public Cacheable<IUser, ulong> User { get; set; }
+    public Cacheable<IMessageChannel, ulong> Channel { get; set; }
 }

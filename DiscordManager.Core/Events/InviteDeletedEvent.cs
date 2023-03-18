@@ -1,16 +1,10 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class InviteDeletedEvent : IEvent
 {
-    public InviteDeletedEvent(SocketChannel originChannel, string inviteCode)
-    {
-        OriginChannel = originChannel;
-        InviteCode = inviteCode;
-    }
-
-    public SocketChannel OriginChannel { get; }
-    public string InviteCode { get; }
+    public SocketGuildChannel GuildChannel { get; set; }
+    public string Invite { get; set; }
 }

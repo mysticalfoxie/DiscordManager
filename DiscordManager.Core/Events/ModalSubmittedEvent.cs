@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class ModalSubmittedEvent : IEvent
 {
-    public ModalSubmittedEvent(SocketModal modal)
-    {
-        Modal = modal;
-    }
-
-    public SocketModal Modal { get; }
+    public SocketModal Modal { get; set; }
 }

@@ -1,8 +1,8 @@
 using System.Reflection;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace DiscordManager.Core.Services;
+namespace DCM.Core.Services;
 
 public class AssemblyService : IAssemblyService
 {

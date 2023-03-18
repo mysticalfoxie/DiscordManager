@@ -1,4 +1,4 @@
-namespace DiscordManager.Core.Models;
+namespace DCM.Core.Models;
 
 internal class PluginMethodNames
 {

@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class MessageReceivedEvent : IEvent
 {
-    public MessageReceivedEvent(SocketMessage message)
-    {
-        Message = message;
-    }
-
-    public SocketMessage Message { get; }
+    public SocketMessage Message { get; set; }
 }

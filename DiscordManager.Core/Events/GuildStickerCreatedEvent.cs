@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class GuildStickerCreatedEvent : IEvent
 {
-    public GuildStickerCreatedEvent(SocketCustomSticker sticker)
-    {
-        Sticker = sticker;
-    }
-
-    public SocketCustomSticker Sticker { get; }
+    public SocketCustomSticker Sticker { get; set; }
 }

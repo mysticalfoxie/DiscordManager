@@ -1,17 +1,10 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class UserLeftEvent : IEvent
 {
-    public UserLeftEvent(SocketGuild guild, SocketUser user)
-    {
-        User = user;
-        Guild = guild;
-    }
-
-    public SocketUser User { get; }
-
-    public SocketGuild Guild { get; }
+    public SocketGuild Guild { get; set; }
+    public SocketUser User { get; set; }
 }

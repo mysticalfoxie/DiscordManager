@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class RoleCreatedEvent : IEvent
 {
-    public RoleCreatedEvent(SocketRole role)
-    {
-        Role = role;
-    }
-
-    public SocketRole Role { get; }
+    public SocketRole Role { get; set; }
 }

@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class UserJoinedEvent : IEvent
 {
-    public UserJoinedEvent(SocketGuildUser guildUser)
-    {
-        GuildUser = guildUser;
-    }
-
-    public SocketGuildUser GuildUser { get; }
+    public SocketGuildUser GuildUser { get; set; }
 }

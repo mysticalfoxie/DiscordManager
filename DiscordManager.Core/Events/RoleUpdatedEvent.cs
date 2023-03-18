@@ -1,16 +1,10 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class RoleUpdatedEvent : IEvent
 {
-    public RoleUpdatedEvent(SocketRole oldRole, SocketRole newRole)
-    {
-        OldRole = oldRole;
-        NewRole = newRole;
-    }
-
-    public SocketRole OldRole { get; }
-    public SocketRole NewRole { get; }
+    public SocketRole OldRole { get; set; }
+    public SocketRole NewRole { get; set; }
 }

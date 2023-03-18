@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class StageEndedEvent : IEvent
 {
-    public StageEndedEvent(SocketStageChannel channel)
-    {
-        Channel = channel;
-    }
-
-    public SocketStageChannel Channel { get; }
+    public SocketStageChannel Channel { get; set; }
 }

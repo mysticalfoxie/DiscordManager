@@ -1,16 +1,10 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class UserBannedEvent : IEvent
 {
-    public UserBannedEvent(SocketUser user, SocketGuild guild)
-    {
-        User = user;
-        Guild = guild;
-    }
-
-    public SocketUser User { get; }
-    public SocketGuild Guild { get; }
+    public SocketUser User { get; set; }
+    public SocketGuild Guild { get; set; }
 }

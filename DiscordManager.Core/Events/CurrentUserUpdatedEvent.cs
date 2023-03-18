@@ -1,16 +1,10 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class CurrentUserUpdatedEvent : IEvent
 {
-    public CurrentUserUpdatedEvent(SocketSelfUser oldUser, SocketSelfUser newUser)
-    {
-        OldUser = oldUser;
-        NewUser = newUser;
-    }
-
-    public SocketSelfUser OldUser { get; }
-    public SocketSelfUser NewUser { get; }
+    public SocketSelfUser OldSelfUser { get; set; }
+    public SocketSelfUser NewSelfUser { get; set; }
 }

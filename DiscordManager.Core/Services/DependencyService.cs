@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DiscordManager.Core.Services;
+namespace DCM.Core.Services;
 
-internal class DependencyService : IDependencyService
+public class DependencyService : IDependencyService
 {
     public DependencyService(IServiceCollection services)
     {
@@ -14,12 +14,12 @@ internal class DependencyService : IDependencyService
     public IServiceCollection Services { get; set; }
     public IServiceProvider Provider => Services.BuildServiceProvider();
 
-    public T CreateInstantiate<T>()
+    public T CreateInstance<T>()
     {
-        return (T)CreateInstantiate(typeof(T));
+        return (T)CreateInstance(typeof(T));
     }
 
-    public object CreateInstantiate(Type type)
+    public object CreateInstance(Type type)
     {
         var constructor = GetConstructor(type: type);
         var parameters = GetParameters(constructor: constructor);

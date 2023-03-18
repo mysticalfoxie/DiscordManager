@@ -1,6 +1,6 @@
 using Discord.WebSocket;
 
-namespace DiscordManager.Core.Interfaces;
+namespace DCM.Core.Interfaces;
 
 public interface IDiscordConfigService
 {

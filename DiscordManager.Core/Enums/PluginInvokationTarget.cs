@@ -1,4 +1,4 @@
-namespace DiscordManager.Core.Enums;
+namespace DCM.Core.Enums;
 
 public enum PluginInvokationTarget
 {

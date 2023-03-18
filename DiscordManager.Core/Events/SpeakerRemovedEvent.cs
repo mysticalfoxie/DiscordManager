@@ -1,16 +1,10 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class SpeakerRemovedEvent : IEvent
 {
-    public SpeakerRemovedEvent(SocketStageChannel channel, SocketGuildUser user)
-    {
-        Channel = channel;
-        User = user;
-    }
-
-    public SocketStageChannel Channel { get; }
-    public SocketGuildUser User { get; }
+    public SocketStageChannel Channel { get; set; }
+    public SocketGuildUser User { get; set; }
 }

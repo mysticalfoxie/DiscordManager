@@ -1,20 +1,12 @@
-﻿using Discord;
+using DCM.Core.Interfaces;
+using Discord;
 using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class ReactionRemovedEvent : IEvent
 {
-    public ReactionRemovedEvent(Cacheable<IUserMessage, ulong> message, Cacheable<IMessageChannel, ulong> channel,
-        SocketReaction reaction)
-    {
-        Message = message;
-        Channel = channel;
-        Reaction = reaction;
-    }
-
-    public Cacheable<IUserMessage, ulong> Message { get; }
-    public Cacheable<IMessageChannel, ulong> Channel { get; }
-    public SocketReaction Reaction { get; }
+    public Cacheable<IUserMessage, ulong> Message { get; set; }
+    public Cacheable<IMessageChannel, ulong> Channel { get; set; }
+    public SocketReaction Reaction { get; set; }
 }

@@ -4,11 +4,8 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
+        <RootNamespace>DCM.Core</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup>
-        <Folder Include="Builder" />
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Discord.Net" Version="3.9.0" />

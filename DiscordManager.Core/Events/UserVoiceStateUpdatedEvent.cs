@@ -1,18 +1,11 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class UserVoiceStateUpdatedEvent : IEvent
 {
-    public UserVoiceStateUpdatedEvent(SocketUser user, SocketVoiceState oldState, SocketVoiceState newState)
-    {
-        User = user;
-        OldState = oldState;
-        NewState = newState;
-    }
-
-    public SocketUser User { get; }
-    public SocketVoiceState OldState { get; }
-    public SocketVoiceState NewState { get; }
+    public SocketUser User { get; set; }
+    public SocketVoiceState OldVoiceState { get; set; }
+    public SocketVoiceState NewVoiceState { get; set; }
 }

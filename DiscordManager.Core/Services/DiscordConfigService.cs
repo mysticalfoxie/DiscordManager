@@ -1,7 +1,7 @@
+using DCM.Core.Interfaces;
 using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
 
-namespace DiscordManager.Core.Services;
+namespace DCM.Core.Services;
 
 public class DiscordConfigService : IDiscordConfigService
 {

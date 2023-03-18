@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class UserCommandExecutedEvent : IEvent
 {
-    public UserCommandExecutedEvent(SocketUserCommand command)
-    {
-        Command = command;
-    }
-
-    public SocketUserCommand Command { get; }
+    public SocketUserCommand Command { get; set; }
 }

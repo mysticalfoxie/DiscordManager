@@ -7,18 +7,22 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Michelle Becker</Authors>
     <Company>MichelleBecker2003@gmail.com</Company>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-    <FileVersion>4.0.0.0</FileVersion>
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
+    <FileVersion>5.0.0.0</FileVersion>
     <Version>5.0.0</Version>
     <RootNamespace>DCM</RootNamespace>
     <Description>A package to start and handle a discord client with a plugin based architecture.</Description>
-    <Product>Discord Manager</Product>
+    <Product>DiscordManager</Product>
     <Copyright>©Michelle Becker</Copyright>
     <Configurations>Debug;Release;Include Plugins</Configurations>
     <ApplicationIcon>DCM-Icon.ico</ApplicationIcon>
-    <PackageIcon>DCM-Icon.png</PackageIcon>
-    <PackageIconUrl />
+    <PackageIcon>favicon.png</PackageIcon>
     <LangVersion>latest</LangVersion>
+    <Title>Discord Manager</Title>
+    <PackageProjectUrl>https://github.com/M1chelle99/DiscordManager</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/M1chelle99/DiscordManager/blob/main/LICENSE.md</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/M1chelle99/DiscordManager</RepositoryUrl>
+    <PackageTags>Discord, Plugins</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,14 +36,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\Assets\DCM-Icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    <ProjectReference Include="..\DiscordManager.Core\DiscordManager.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DiscordManager.Core\DiscordManager.Core.csproj" />
+    <None Update="favicon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties models_4jsonobjects_4embedjsonschema_1json__JsonSchema="https://json-schema.org/draft/2019-09/schema" /></VisualStudio></ProjectExtensions>

@@ -1,6 +1,6 @@
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
 
-namespace DiscordManager.Core.Services;
+namespace DCM.Core.Services;
 
 public class CredentialsService : ICredentialsService
 {

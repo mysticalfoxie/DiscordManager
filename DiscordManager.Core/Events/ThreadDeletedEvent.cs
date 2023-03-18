@@ -1,15 +1,10 @@
-﻿using Discord;
+using DCM.Core.Interfaces;
+using Discord;
 using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class ThreadDeletedEvent : IEvent
 {
-    public ThreadDeletedEvent(Cacheable<SocketThreadChannel, ulong> thread)
-    {
-        Thread = thread;
-    }
-
-    public Cacheable<SocketThreadChannel, ulong> Thread { get; }
+    public Cacheable<SocketThreadChannel, ulong> ThreadChannel { get; set; }
 }

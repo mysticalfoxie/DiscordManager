@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class SlashCommandExecutedEvent : IEvent
 {
-    public SlashCommandExecutedEvent(SocketSlashCommand command)
-    {
-        Command = command;
-    }
-
-    public SocketSlashCommand Command { get; }
+    public SocketSlashCommand Command { get; set; }
 }

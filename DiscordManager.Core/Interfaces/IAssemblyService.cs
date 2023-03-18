@@ -1,4 +1,4 @@
-namespace DiscordManager.Core.Interfaces;
+namespace DCM.Core.Interfaces;
 
 public interface IAssemblyService
 {

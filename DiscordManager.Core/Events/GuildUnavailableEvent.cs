@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class GuildUnavailableEvent : IEvent
 {
-    public GuildUnavailableEvent(SocketGuild guild)
-    {
-        Guild = guild;
-    }
-
-    public SocketGuild Guild { get; }
+    public SocketGuild Guild { get; set; }
 }

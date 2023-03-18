@@ -1,17 +1,11 @@
-﻿using Discord;
+using DCM.Core.Interfaces;
+using Discord;
 using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class GuildMemberUpdatedEvent : IEvent
 {
-    public GuildMemberUpdatedEvent(Cacheable<SocketGuildUser, ulong> oldUser, SocketGuildUser newUser)
-    {
-        OldUser = oldUser;
-        NewUser = newUser;
-    }
-
-    public Cacheable<SocketGuildUser, ulong> OldUser { get; }
-    public SocketGuildUser NewUser { get; }
+    public Cacheable<SocketGuildUser, ulong> OldGuildUser { get; set; }
+    public SocketGuildUser NewGuildUser { get; set; }
 }

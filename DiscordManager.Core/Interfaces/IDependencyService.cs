@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DiscordManager.Core.Interfaces;
+namespace DCM.Core.Interfaces;
 
-internal interface IDependencyService
+public interface IDependencyService
 {
     IServiceCollection Services { get; set; }
-    T CreateInstantiate<T>();
-    object CreateInstantiate(Type type);
+    T CreateInstance<T>();
+    object CreateInstance(Type type);
 }

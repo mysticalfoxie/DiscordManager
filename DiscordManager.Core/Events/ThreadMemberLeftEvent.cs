@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class ThreadMemberLeftEvent : IEvent
 {
-    public ThreadMemberLeftEvent(SocketThreadUser user)
-    {
-        User = user;
-    }
-
-    public SocketThreadUser User { get; }
+    public SocketThreadUser User { get; set; }
 }

@@ -1,7 +1,10 @@
-namespace DiscordManager.Core.Interfaces;
+using Discord.WebSocket;
 
-internal interface IDiscordService
+namespace DCM.Core.Interfaces;
+
+public interface IDiscordService
 {
-    Task StartAsync(string loginToken);
+    Task StartAsync();
     Task StopAsync();
+    DiscordSocketClient Client { get; set; }
 }

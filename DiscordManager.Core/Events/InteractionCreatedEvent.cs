@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class InteractionCreatedEvent : IEvent
 {
-    public InteractionCreatedEvent(SocketInteraction interaction)
-    {
-        Interaction = interaction;
-    }
-
-    public SocketInteraction Interaction { get; }
+    public SocketInteraction Interaction { get; set; }
 }

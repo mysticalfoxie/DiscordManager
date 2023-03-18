@@ -1,14 +1,9 @@
-﻿using Discord.WebSocket;
-using DiscordManager.Core.Interfaces;
+using DCM.Core.Interfaces;
+using Discord.WebSocket;
 
-namespace DiscordManager.Core.Events;
+namespace DCM.Core.Events;
 
 public class VoiceServerUpdatedEvent : IEvent
 {
-    public VoiceServerUpdatedEvent(SocketVoiceServer voiceServer)
-    {
-        VoiceServer = voiceServer;
-    }
-
-    public SocketVoiceServer VoiceServer { get; }
+    public SocketVoiceServer VoiceServer { get; set; }
 }
