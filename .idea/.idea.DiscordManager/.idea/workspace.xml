@@ -2,158 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f6a4c95-b4b6-4ac8-8884-99bbd498658e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DiscordManager.Core/Extensions/DiscordTypeExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/DiscordManager.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/DiscordManager.Core.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Enums/PluginInvokationTarget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Enums/PluginInvokationTarget.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ApplicationCommandCreated.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ApplicationCommandCreatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ApplicationCommandDeletedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ApplicationCommandUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/AutoCompleteExecutedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ButtonExecutedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ChannelCreatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ChannelDestoryedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ChannelUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ConnectedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/CurrentUserUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/DisconnectedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildAvailableEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildJoinRequestDeletedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildMemberUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildMembersDownloadedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildStickerCreatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildStickerDeletedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildStickerUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildUnavailableEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/GuildUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/InteractionCreatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/InviteCreatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/InviteDeletedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/JoinedGuildEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/LatencyUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/LeftGuildEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/LogEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/LoggedInEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/LoggedOutEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/MessageCommandExecutedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/MessageDeletedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/MessageReceivedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/MessageUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/MessagesBulkDeletedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ModalSubmittedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ReactionAddedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ReactionRemovedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ReactionsClearedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ReactionsRemovedForEmoteEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ReadyEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/RecipientAddedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/RecipientRemovedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/RequestToSpeakEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/RoleCreatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/RoleDeletedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/RoleUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/SelectMenuExecutedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/SlashCommandExecutedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/SpeakerAddedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/SpeakerRemovedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/StageEndedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/StageStartedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/StageUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ThreadCreatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ThreadDeletedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ThreadMemberJoinedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ThreadMemberLeftEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/ThreadUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/UserBannedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/UserCommandExecutedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/UserIsTypingEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/UserJoinedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/UserLeftEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/UserUnbannedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/UserUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/UserVoiceStateUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Events/VoiceServerUpdatedEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Extensions/DiscordClientExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Extensions/DiscordClientExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IAssemblyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IAssemblyService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/ICredentialsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/ICredentialsService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IDependencyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IDependencyService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IDiscordConfigService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IDiscordConfigService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IDiscordService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IDiscordService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IEventService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IEventService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IPluginManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IPluginService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Models/PluginMethodNames.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Models/PluginMethodNames.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/PluginBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/PluginBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/AssemblyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/AssemblyService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/CredentialsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/CredentialsService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/DependencyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/DependencyService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordConfigService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordConfigService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/EventService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/EventService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Tests/Class1.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Tests/DiscordManager.Tests.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.sln" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/AssemblyCollector.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/AssemblyLoader.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/CollectorFactory.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Collectors/CollectorBase.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Collectors/MessageCollector.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Collectors/ReactionCollector.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/CommandBuilder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/CommandCollection.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/CommandConfigurationBuilder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/CommandHandler.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/ConfigDescriptor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/ConfigLoader.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/DCM-Icon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/DCMContext.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/DiscordConfigBuilder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/DiscordManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/DiscordManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager/DiscordManager.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/DiscordManager.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Exceptions/ChannelNotFoundException.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Exceptions/ChannelTypeNotSupported.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Exceptions/EmbedLimitException.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Exceptions/EmoteNotFoundException.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Exceptions/GuildNotFoundException.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Exceptions/PluginException.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Exceptions/PluginLoaderException.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Exceptions/RoleNotFoundException.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Exceptions/UserNotFoundException.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/CollectorExtensions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/DiscordTypesExtensions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/EmbedExtensions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/FunctionExtensions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/GuildExtensions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/MessageExtensions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/PluginExtensions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/UserExtensions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/HelpCommandBuilder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Interfaces/ICollector.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Interfaces/IConfig.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/Command.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/CommandConfiguration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/Embed/EmbedData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/Embed/FieldData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/Embed/FooterData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/Embed/HeaderData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/JsonObjects/EmbedExample.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/JsonObjects/EmbedJsonSchema.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/JsonObjects/JsonAuthor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/JsonObjects/JsonEmbed.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/JsonObjects/JsonField.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/JsonObjects/JsonFooter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/JsonObjects/JsonImage.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/JsonObjects/JsonMessage.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/JsonObjects/JsonMessageReference.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/JsonObjects/JsonThumbnail.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/LoginCredentials.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/MessageData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/Permissions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/RestrictionStrategy.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Models/Restrictions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/PermissionsBuilder.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +17,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b214c6da8478e8dc94655f42bebc26c7fb3f726c6cb5705c13b39af515c4f85e/Observable_.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bb725bcdb6b7d73f11cea8d4d4713b1538c1c465eea8d479ccccdfdc349d774/Observable.Imperative.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DiscordManager.Core/Events/ChannelCreatedEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DiscordManager/bin/Debug/net7.0/DiscordManager.deps.json" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -195,7 +43,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "rider.code.cleanup.on.save": "true",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Less",
+    "settings.editor.selected.configurable": "RiderNuGetOptionsPageId",
     "typescript.add.unambiguous.imports.on.the.fly": "true",
     "vue.rearranger.settings.migration": "true"
   },
@@ -220,7 +68,7 @@
       <workItem from="1678990437201" duration="13068000" />
       <workItem from="1679072570375" duration="17607000" />
       <workItem from="1679128944044" duration="276000" />
-      <workItem from="1679129240137" duration="25200000" />
+      <workItem from="1679129240137" duration="25505000" />
     </task>
     <servers />
   </component>
