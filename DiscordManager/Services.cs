@@ -12,7 +12,6 @@ internal class Services
     {
         Provider = new ServiceCollection()
             .AddSingleton<IConfigService, ConfigService>()
-            .AddSingleton<IDiscordConfigService, DiscordConfigService>()
             .AddSingleton<IDependencyService, DependencyService>()
             .AddSingleton<ICredentialsService, CredentialsService>()
             .AddSingleton<IAssemblyService, AssemblyService>()
@@ -23,7 +22,6 @@ internal class Services
             .BuildServiceProvider();
 
         ConfigService = Provider.GetService<IConfigService>();
-        DiscordConfigService = Provider.GetService<IDiscordConfigService>();
         DependencyService = Provider.GetService<IDependencyService>();
         CredentialsService = Provider.GetService<ICredentialsService>();
         AssemblyService = Provider.GetService<IAssemblyService>();
@@ -38,7 +36,6 @@ internal class Services
 
     public ILogger<DiscordManager> Logger { get; }
     public IConfigService ConfigService { get; }
-    public IDiscordConfigService DiscordConfigService { get; }
     public IDependencyService DependencyService { get; }
     public ICredentialsService CredentialsService { get; }
     public IAssemblyService AssemblyService { get; }

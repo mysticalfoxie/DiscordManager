@@ -11,7 +11,7 @@ public static class DiscordClientExtensions
 
         Observable
             .Timer(TimeSpan.FromSeconds(10))
-            .Where(x => tcs.Task.IsCompleted)
+            .Where(x => !tcs.Task.IsCompleted)
             .Subscribe(x =>
             {
                 var ex = new TimeoutException("The discord client didnt receive within 10 seconds the ready event.");

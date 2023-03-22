@@ -6,12 +6,7 @@ namespace DCM.Core.Services;
 
 public class DependencyService : IDependencyService
 {
-    public DependencyService(IServiceCollection services)
-    {
-        Services = services;
-    }
-
-    public IServiceCollection Services { get; set; }
+    public IServiceCollection Services { get; set; } = new ServiceCollection();
     public IServiceProvider Provider => Services.BuildServiceProvider();
 
     public T CreateInstance<T>()

@@ -109,7 +109,7 @@ public static class ConfigServiceExtensions
         if (!string.IsNullOrWhiteSpace(value: config.LoginToken))
             throw new NullReferenceException(nameof(config.LoginToken));
 
-        MapDefaultConfig<TConfig>(dcm: dcm, data: config);
+        MapDefaultConfig(dcm: dcm, data: config);
         return dcm;
     }
 
@@ -123,15 +123,18 @@ public static class ConfigServiceExtensions
         configure(obj: builder);
         var data = builder.Build();
 
-        MapDefaultConfig<TConfig>(dcm: dcm, data: data);
+        MapDefaultConfig(dcm: dcm, data: data);
     }
 
-    private static void MapDefaultConfig<TConfig>(DiscordManager dcm, DefaultConfig data) where TConfig : class
+    private static void MapDefaultConfig(DiscordManager dcm, DefaultConfig data)
     {
         if (data.DefaultGuild.HasValue && data.DefaultGuild.Value != default)
             dcm.Services.ConfigService.DefaultGuild = data.DefaultGuild.Value;
 
         if (!string.IsNullOrWhiteSpace(value: data.LoginToken))
             dcm.Services.CredentialsService.LoginToken = data.LoginToken;
+
+        if (data.DiscordConfig is not null)
+            dcm.Services.ConfigService.DiscordConfig = data.DiscordConfig;
     }
 }

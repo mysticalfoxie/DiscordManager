@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordManager", "DiscordMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordManager.Core", "DiscordManager.Core\DiscordManager.Core.csproj", "{57E4650B-D6C7-423E-88B2-755CD6098EBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "TestClient\TestClient.csproj", "{0D7A1563-3470-4519-8106-1C901CEF3846}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,12 @@ Global
 		{57E4650B-D6C7-423E-88B2-755CD6098EBE}.Include Plugins|Any CPU.Build.0 = Debug|Any CPU
 		{57E4650B-D6C7-423E-88B2-755CD6098EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57E4650B-D6C7-423E-88B2-755CD6098EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D7A1563-3470-4519-8106-1C901CEF3846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D7A1563-3470-4519-8106-1C901CEF3846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D7A1563-3470-4519-8106-1C901CEF3846}.Include Plugins|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D7A1563-3470-4519-8106-1C901CEF3846}.Include Plugins|Any CPU.Build.0 = Debug|Any CPU
+		{0D7A1563-3470-4519-8106-1C901CEF3846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D7A1563-3470-4519-8106-1C901CEF3846}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,6 +17,7 @@ public class DiscordManager : IAsyncDisposable
     private async Task StartInternal()
     {
         Services.PluginService.Load();
+        Services.DiscordService.Build();
         Services.PluginService.Invoke(target: PluginInvokationTarget.PreStart);
         Services.EventService.MapEvents();
         await Services.DiscordService.StartAsync();
