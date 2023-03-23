@@ -9,19 +9,10 @@ public class DiscordManager : IAsyncDisposable
 {
     internal Services Services { get; } = new();
 
-    // TODO: This has to be done to have legacy support!
-    // public DiscordManager Configure(Action<IDiscordConfigBuilder> configure)
-    // public DiscordManager AddPluginDirectory(DirectoryInfo directory)
-    // public DiscordManager AddPluginCollector(AssemblyCollector pluginCollector)
-
-    private async Task StartInternal()
+    public async ValueTask DisposeAsync()
     {
-        Services.PluginService.Load();
-        Services.DiscordService.Build();
-        Services.PluginService.Invoke(target: PluginInvokationTarget.PreStart);
-        Services.EventService.MapEvents();
-        await Services.DiscordService.StartAsync();
-        Services.PluginService.Invoke(target: PluginInvokationTarget.PostStart);
+        await Services.DiscordService.StopAsync();
+        GC.SuppressFinalize(this);
     }
 
     public void Start()
@@ -41,20 +32,32 @@ public class DiscordManager : IAsyncDisposable
         });
     }
 
-    public Task StartAsync()
-    {
-        return StartInternal();
-    }
-
     public async Task StartAndWait()
     {
         await StartAsync();
         await Task.Delay(-1);
     }
 
-    public async ValueTask DisposeAsync()
+    public Task StartAsync()
     {
-        await Services.DiscordService.StopAsync();
-        GC.SuppressFinalize(this);
+        return StartInternal();
+    }
+
+    // TODO: This has to be done to have legacy support!
+    // public DiscordManager Configure(Action<IDiscordConfigBuilder> configure)
+    // public DiscordManager AddPluginDirectory(DirectoryInfo directory)
+    // public DiscordManager AddPluginCollector(AssemblyCollector pluginCollector)
+
+    private async Task StartInternal()
+    {
+        Services.DependencyService.PublishServices(
+            discordService: Services.DiscordService,
+            eventService: Services.EventService);
+        Services.PluginService.Load();
+        Services.DiscordService.Build();
+        Services.PluginService.Invoke(target: PluginInvokationTarget.PreStart);
+        Services.EventService.MapEvents();
+        await Services.DiscordService.StartAsync();
+        Services.PluginService.Invoke(target: PluginInvokationTarget.PostStart);
     }
 }

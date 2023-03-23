@@ -31,7 +31,7 @@ public static class ConfigServiceExtensions
         TConfig config)
         where TConfig : class
     {
-        return dcm.AddConfig<TConfig>(config, null);
+        return dcm.AddConfig(config: config, null);
     }
 
     public static DiscordManager AddConfig<TConfig>(
@@ -74,7 +74,7 @@ public static class ConfigServiceExtensions
         if (config is null)
             throw new ArgumentNullException(nameof(config));
 
-        dcm.Services.ConfigService.AddConfig(config);
+        dcm.Services.ConfigService.AddConfig(config: config);
 
         if (configure is null)
             return dcm;
@@ -87,7 +87,7 @@ public static class ConfigServiceExtensions
     public static DiscordManager UseConfig<TConfig>(
         this DiscordManager dcm,
         string filename)
-        where TConfig : DefaultConfig
+        where TConfig : DCMConfig
     {
         if (filename == null)
             throw new ArgumentNullException(nameof(filename));
@@ -98,7 +98,7 @@ public static class ConfigServiceExtensions
     public static DiscordManager UseConfig<TConfig>(
         this DiscordManager dcm,
         FileInfo file)
-        where TConfig : DefaultConfig
+        where TConfig : DCMConfig
     {
         if (file == null)
             throw new ArgumentNullException(nameof(file));
@@ -106,7 +106,7 @@ public static class ConfigServiceExtensions
         dcm.Services.ConfigService.AddConfig<TConfig>(file: file);
         var config = dcm.Services.ConfigService.ReadConfig<TConfig>();
 
-        if (!string.IsNullOrWhiteSpace(value: config.LoginToken))
+        if (string.IsNullOrWhiteSpace(value: config.LoginToken))
             throw new NullReferenceException(nameof(config.LoginToken));
 
         MapDefaultConfig(dcm: dcm, data: config);
@@ -126,7 +126,7 @@ public static class ConfigServiceExtensions
         MapDefaultConfig(dcm: dcm, data: data);
     }
 
-    private static void MapDefaultConfig(DiscordManager dcm, DefaultConfig data)
+    private static void MapDefaultConfig(DiscordManager dcm, DCMConfig data)
     {
         if (data.DefaultGuild.HasValue && data.DefaultGuild.Value != default)
             dcm.Services.ConfigService.DefaultGuild = data.DefaultGuild.Value;

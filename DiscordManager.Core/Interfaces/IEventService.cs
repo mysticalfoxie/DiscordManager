@@ -5,7 +5,6 @@ namespace DCM.Core.Interfaces;
 
 public interface IEventService
 {
-    void MapEvents();
     Subject<ChannelCreatedEvent> ChannelCreated { get; }
     Subject<ChannelDestroyedEvent> ChannelDestroyed { get; }
     Subject<ChannelUpdatedEvent> ChannelUpdated { get; }
@@ -78,4 +77,5 @@ public interface IEventService
     Subject<GuildStickerUpdatedEvent> GuildStickerUpdated { get; }
     Subject<GuildStickerDeletedEvent> GuildStickerDeleted { get; }
     Subject<WebhooksUpdatedEvent> WebhooksUpdated { get; }
+    void MapEvents();
 }

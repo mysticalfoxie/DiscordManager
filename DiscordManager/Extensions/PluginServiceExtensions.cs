@@ -6,7 +6,7 @@ namespace DCM.Extensions;
 
 public static class PluginServiceExtensions
 {
-    public static DiscordManager AddPlugin(this DiscordManager dcm, PluginBase instance)
+    public static DiscordManager AddPlugin(this DiscordManager dcm, DCMPlugin instance)
     {
         if (instance is null)
             throw new ArgumentNullException(nameof(instance));
@@ -39,7 +39,7 @@ public static class PluginServiceExtensions
         return dcm;
     }
 
-    public static DiscordManager AddPlugin<TPlugin>(this DiscordManager dcm) where TPlugin : PluginBase
+    public static DiscordManager AddPlugin<TPlugin>(this DiscordManager dcm) where TPlugin : DCMPlugin
     {
         var types = dcm.Services.PluginService.PluginTypes;
         types.Add(typeof(TPlugin));

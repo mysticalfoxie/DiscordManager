@@ -1,5 +1,6 @@
 ﻿using System.Reactive;
 using System.Reactive.Subjects;
+using DCM.Core.Attributes;
 using DCM.Core.Extensions;
 using DCM.Core.Interfaces;
 using Discord;
@@ -7,6 +8,7 @@ using Discord.WebSocket;
 
 namespace DCM.Core.Services;
 
+[Injectable(typeof(IDiscordService))]
 public class DiscordService : IDisposable, IDiscordService
 {
     private readonly IConfigService _configService;
@@ -29,13 +31,6 @@ public class DiscordService : IDisposable, IDiscordService
 
     public ISubject<Unit> Connect { get; } = new Subject<Unit>();
     public ISubject<Unit> Disconnect { get; } = new Subject<Unit>();
-
-    public void Dispose()
-    {
-        Client?.StopAsync();
-        Client?.Dispose();
-        GC.SuppressFinalize(this);
-    }
 
     public void Build()
     {
@@ -66,5 +61,12 @@ public class DiscordService : IDisposable, IDiscordService
 
         await Client.StopAsync();
         await Client.DisposeAsync();
+    }
+
+    public void Dispose()
+    {
+        Client?.StopAsync();
+        Client?.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

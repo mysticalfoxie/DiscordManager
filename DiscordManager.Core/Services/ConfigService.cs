@@ -49,17 +49,6 @@ public class ConfigService : IConfigService
             .Configure<T>(options => options = config);
     }
 
-    public T ReadConfig<T>() where T : class
-    {
-        if (!Configs.ContainsKey(typeof(T)))
-            throw new InvalidOperationException("Could not find the configuration type.");
-
-        var value = Configs[typeof(T)];
-        var json = File.ReadAllText(path: value.FullName);
-
-        return JsonConvert.DeserializeObject<T>(value: json);
-    }
-
     public DiscordSocketConfig GetDiscordConfig()
     {
         if (DiscordConfig is null)
@@ -67,7 +56,7 @@ public class ConfigService : IConfigService
 
         var config = new DiscordSocketConfig();
 
-        if (string.IsNullOrWhiteSpace(value: DiscordConfig.GatewayHost))
+        if (!string.IsNullOrWhiteSpace(value: DiscordConfig.GatewayHost))
             config.GatewayHost = DiscordConfig.GatewayHost;
 
         if (DiscordConfig.ConnectionTimeout.HasValue)
@@ -113,6 +102,35 @@ public class ConfigService : IConfigService
         if (DiscordConfig.SuppressUnknownDispatchWarnings.HasValue)
             config.SuppressUnknownDispatchWarnings = DiscordConfig.SuppressUnknownDispatchWarnings.Value;
 
+        if (DiscordConfig.DefaultRetryMode.HasValue)
+            config.DefaultRetryMode = DiscordConfig.DefaultRetryMode.Value;
+
+        if (DiscordConfig.LogLevel.HasValue)
+            config.LogLevel = DiscordConfig.LogLevel.Value;
+
+        if (DiscordConfig.UseSystemClock.HasValue)
+            config.UseSystemClock = DiscordConfig.UseSystemClock.Value;
+
+        if (DiscordConfig.UseInteractionSnowflakeDate.HasValue)
+            config.UseInteractionSnowflakeDate = DiscordConfig.UseInteractionSnowflakeDate.Value;
+
+        if (DiscordConfig.FormatUsersInBidirectionalUnicode.HasValue)
+            config.FormatUsersInBidirectionalUnicode = DiscordConfig.FormatUsersInBidirectionalUnicode.Value;
+
+        if (DiscordConfig.APIOnRestInteractionCreation.HasValue)
+            config.APIOnRestInteractionCreation = DiscordConfig.APIOnRestInteractionCreation.Value;
+
         return config;
+    }
+
+    public T ReadConfig<T>() where T : class
+    {
+        if (!Configs.ContainsKey(typeof(T)))
+            throw new InvalidOperationException("Could not find the configuration type.");
+
+        var value = Configs[typeof(T)];
+        var json = File.ReadAllText(path: value.FullName);
+
+        return JsonConvert.DeserializeObject<T>(value: json);
     }
 }

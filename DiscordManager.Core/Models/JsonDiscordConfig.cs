@@ -1,3 +1,5 @@
+using Discord;
+
 namespace DCM.Core.Models;
 
 public class JsonDiscordConfig
@@ -31,4 +33,16 @@ public class JsonDiscordConfig
     public bool? LogGatewayIntentWarnings { get; set; }
 
     public bool? SuppressUnknownDispatchWarnings { get; set; }
+
+    public RetryMode? DefaultRetryMode { get; set; }
+
+    public LogSeverity? LogLevel { get; set; }
+
+    public bool? UseSystemClock { get; set; }
+
+    public bool? UseInteractionSnowflakeDate { get; set; }
+
+    public bool? FormatUsersInBidirectionalUnicode { get; set; }
+
+    public bool? APIOnRestInteractionCreation { get; set; }
 }

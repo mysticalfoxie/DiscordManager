@@ -8,13 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DiscordManager\DiscordManager.csproj" />
+        <ProjectReference Include="..\DiscordManager\DiscordManager.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="configuration.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="configuration.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

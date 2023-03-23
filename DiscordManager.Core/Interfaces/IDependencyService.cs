@@ -1,10 +1,17 @@
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DCM.Core.Interfaces;
 
 public interface IDependencyService
 {
-    IServiceCollection Services { get; set; }
-    T CreateInstance<T>();
-    object CreateInstance(Type type);
+    IServiceCollection Services { get; }
+    object CreateInstance(Type type, IServiceCollection secondary = null);
+    T CreateInstance<T>(IServiceCollection secondary = null) where T : class;
+
+    void PublishServices(
+        IDiscordService discordService,
+        IEventService eventService);
+
+    IEnumerable<ServiceDescriptor> SearchInjectables(Assembly assembly);
 }
