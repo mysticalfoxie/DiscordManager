@@ -6,9 +6,13 @@ namespace DCM.Core.Interfaces;
 public interface IConfigService
 {
     ulong? DefaultGuild { get; set; }
-    JsonDiscordConfig DiscordConfig { get; set; }
-    void AddConfig<T>(FileInfo file) where T : class;
-    void AddConfig<T>(T config) where T : class;
+    DCMDiscordConfig DiscordConfig { get; set; }
+
+    void AddDCMConfig<T>(T config) where T : DCMConfig;
+    void AddPluginConfig<T>(T config) where T : class;
+    void AddDiscordConfig<T>(T config) where T : DCMDiscordConfig;
+    void AddGuildConfig<T>(T config) where T : DCMDiscordConfig;
+
     DiscordSocketConfig GetDiscordConfig();
     T ReadConfig<T>() where T : class;
 }

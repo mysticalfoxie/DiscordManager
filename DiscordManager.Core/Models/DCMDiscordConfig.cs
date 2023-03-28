@@ -2,7 +2,7 @@ using Discord;
 
 namespace DCM.Core.Models;
 
-public class JsonDiscordConfig
+public class DCMDiscordConfig
 {
     public string GatewayHost { get; set; }
 

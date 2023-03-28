@@ -19,35 +19,11 @@ public class ConfigService : IConfigService
         _dependencyService = dependencyService;
     }
 
-    public ulong? DefaultGuild { get; set; }
-    public JsonDiscordConfig DiscordConfig { get; set; }
     public Dictionary<Type, FileInfo> Configs { get; } = new();
     public Dictionary<Type, object> Instances { get; } = new();
 
-
-    [SuppressMessage("ReSharper", "RedundantAssignment")]
-    public void AddConfig<T>(FileInfo file) where T : class
-    {
-        if (Configs.ContainsKey(typeof(T)))
-            throw new AmbiguousMatchException("Cannot add the same type for a configuration twice!");
-
-        Configs.Add(typeof(T), value: file);
-        var config = ReadConfig<T>();
-        _dependencyService.Services
-            .Configure<T>(options => options = config);
-    }
-
-    [SuppressMessage("ReSharper", "RedundantAssignment")]
-    public void AddConfig<T>(T instance) where T : class
-    {
-        if (Instances.ContainsKey(typeof(T)))
-            throw new AmbiguousMatchException("Cannot add the same type for a configuration twice!");
-
-        Instances.Add(typeof(T), value: instance);
-        var config = ReadConfig<T>();
-        _dependencyService.Services
-            .Configure<T>(options => options = config);
-    }
+    public ulong? DefaultGuild { get; set; }
+    public DCMDiscordConfig DiscordConfig { get; set; }
 
     public DiscordSocketConfig GetDiscordConfig()
     {
@@ -132,5 +108,30 @@ public class ConfigService : IConfigService
         var json = File.ReadAllText(path: value.FullName);
 
         return JsonConvert.DeserializeObject<T>(value: json);
+    }
+
+
+    [SuppressMessage("ReSharper", "RedundantAssignment")]
+    public void AddConfig<T>(FileInfo file) where T : class
+    {
+        if (Configs.ContainsKey(typeof(T)))
+            throw new AmbiguousMatchException("Cannot add the same type for a configuration twice!");
+
+        Configs.Add(typeof(T), value: file);
+        var config = ReadConfig<T>();
+        _dependencyService.Services
+            .Configure<T>(options => options = config);
+    }
+
+    [SuppressMessage("ReSharper", "RedundantAssignment")]
+    public void AddConfig<T>(T instance) where T : class
+    {
+        if (Instances.ContainsKey(typeof(T)))
+            throw new AmbiguousMatchException("Cannot add the same type for a configuration twice!");
+
+        Instances.Add(typeof(T), value: instance);
+        var config = ReadConfig<T>();
+        _dependencyService.Services
+            .Configure<T>(options => options = config);
     }
 }

@@ -1,9 +1,5 @@
 ﻿using DCM;
-using DCM.Core;
-using DCM.Core.Attributes;
-using DCM.Core.Interfaces;
-using DCM.Core.Models;
-using DCM.Extensions;
+using TestClient.TestPlugin;
 
 namespace TestClient;
 
@@ -12,46 +8,10 @@ public class Program
     public static async Task Main(string[] args)
     {
         await new DiscordManager()
-            .AddPlugin<HelloWorldDCMPlugin>()
-            .UseConfig<Config>("configuration.json")
+            .AddPlugin(@"C:\Source\DiscordManager\TestClient.TestPlugin\bin\Debug\net7.0\TestClient.TestPlugin.dll")
+            .UseDCMConfig<GlobalConfig>("global_config.json")
+            .UseGlobalConfig<GuildConfig>("guild_config.json")
+            .UseDiscordConfig<DCConfig>("discord_config.json")
             .StartAndWait();
-    }
-}
-
-public class Config : DCMConfig
-{
-}
-
-public class HelloWorldDCMPlugin : DCMPlugin
-{
-    private readonly WorldService _service;
-
-    public HelloWorldDCMPlugin(
-        WorldService service)
-    {
-        _service = service;
-    }
-
-    public override async Task PostStartAsync()
-    {
-        await _service.WriteIT();
-    }
-}
-
-[Injectable]
-public class WorldService : ServiceContainer
-{
-    private readonly IDiscordService _service;
-
-    public WorldService(
-        IDiscordService service)
-    {
-        _service = service;
-    }
-
-    public async Task WriteIT()
-    {
-        Console.WriteLine("Hello World!");
-        await _service.StopAsync();
     }
 }

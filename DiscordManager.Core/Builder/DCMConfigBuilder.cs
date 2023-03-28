@@ -4,13 +4,13 @@ using Discord;
 
 namespace DCM.Core.Builder;
 
-public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig : class
+public class DCMConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig : class
 {
     private readonly TConfig _config;
     private readonly DCMConfig _dcmConfig = new();
-    private readonly JsonDiscordConfig _discordConfig = new();
+    private readonly DCMDiscordConfig _discordConfig = new();
 
-    public DefaultConfigBuilder(TConfig config)
+    public DCMConfigBuilder(TConfig config)
     {
         _config = config;
     }
@@ -21,7 +21,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return _dcmConfig;
     }
 
-    public DefaultConfigBuilder<TConfig> HasAlwaysDownloadDefaultStickers(Func<TConfig, bool?> selector)
+    public DCMConfigBuilder<TConfig> HasAlwaysDownloadDefaultStickers(Func<TConfig, bool?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -30,7 +30,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasAlwaysDownloadUsers(Func<TConfig, bool?> selector)
+    public DCMConfigBuilder<TConfig> HasAlwaysDownloadUsers(Func<TConfig, bool?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -39,7 +39,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasAlwaysResolveStickers(Func<TConfig, bool?> selector)
+    public DCMConfigBuilder<TConfig> HasAlwaysResolveStickers(Func<TConfig, bool?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -48,7 +48,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasAPIOnRestInteractionCreation(Func<TConfig, bool?> selector)
+    public DCMConfigBuilder<TConfig> HasAPIOnRestInteractionCreation(Func<TConfig, bool?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -57,7 +57,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasConnectionTimeout(Func<TConfig, int?> selector)
+    public DCMConfigBuilder<TConfig> HasConnectionTimeout(Func<TConfig, int?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -66,7 +66,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasDefaultGuild(Func<TConfig, ulong> selector)
+    public DCMConfigBuilder<TConfig> HasDefaultGuild(Func<TConfig, ulong> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -75,7 +75,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasDefaultRetryMode(Func<TConfig, RetryMode?> selector)
+    public DCMConfigBuilder<TConfig> HasDefaultRetryMode(Func<TConfig, RetryMode?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -84,7 +84,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasFormatUsersInBidirectionalUnicode(Func<TConfig, bool?> selector)
+    public DCMConfigBuilder<TConfig> HasFormatUsersInBidirectionalUnicode(Func<TConfig, bool?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -93,7 +93,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasGatewayHost(Func<TConfig, string> selector)
+    public DCMConfigBuilder<TConfig> HasGatewayHost(Func<TConfig, string> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -102,7 +102,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasGatewayIntents(Func<TConfig, int?> selector)
+    public DCMConfigBuilder<TConfig> HasGatewayIntents(Func<TConfig, int?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -111,7 +111,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasHandlerTimeout(Func<TConfig, int?> selector)
+    public DCMConfigBuilder<TConfig> HasHandlerTimeout(Func<TConfig, int?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -120,7 +120,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasIdentifyMaxConcurrency(Func<TConfig, int?> selector)
+    public DCMConfigBuilder<TConfig> HasIdentifyMaxConcurrency(Func<TConfig, int?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -129,7 +129,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasLargeThreshold(Func<TConfig, int?> selector)
+    public DCMConfigBuilder<TConfig> HasLargeThreshold(Func<TConfig, int?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -138,7 +138,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasLogGatewayIntentWarnings(Func<TConfig, bool?> selector)
+    public DCMConfigBuilder<TConfig> HasLogGatewayIntentWarnings(Func<TConfig, bool?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -148,7 +148,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
     }
 
 
-    public DefaultConfigBuilder<TConfig> HasLoginToken(Func<TConfig, string> selector)
+    public DCMConfigBuilder<TConfig> HasLoginToken(Func<TConfig, string> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -157,7 +157,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasLogLevel(Func<TConfig, LogSeverity?> selector)
+    public DCMConfigBuilder<TConfig> HasLogLevel(Func<TConfig, LogSeverity?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -166,7 +166,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasMaxWaitBetweenGuildAvailablesBeforeReady(Func<TConfig, int?> selector)
+    public DCMConfigBuilder<TConfig> HasMaxWaitBetweenGuildAvailablesBeforeReady(Func<TConfig, int?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -175,7 +175,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasMessageCacheSize(Func<TConfig, int?> selector)
+    public DCMConfigBuilder<TConfig> HasMessageCacheSize(Func<TConfig, int?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -184,7 +184,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasShardId(Func<TConfig, int?> selector)
+    public DCMConfigBuilder<TConfig> HasShardId(Func<TConfig, int?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -193,7 +193,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasSuppressUnknownDispatchWarnings(Func<TConfig, bool?> selector)
+    public DCMConfigBuilder<TConfig> HasSuppressUnknownDispatchWarnings(Func<TConfig, bool?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -202,7 +202,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasTotalShards(Func<TConfig, int?> selector)
+    public DCMConfigBuilder<TConfig> HasTotalShards(Func<TConfig, int?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -211,7 +211,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasUseInteractionSnowflakeDate(Func<TConfig, bool?> selector)
+    public DCMConfigBuilder<TConfig> HasUseInteractionSnowflakeDate(Func<TConfig, bool?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
@@ -220,7 +220,7 @@ public class DefaultConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         return this;
     }
 
-    public DefaultConfigBuilder<TConfig> HasUseSystemClock(Func<TConfig, bool?> selector)
+    public DCMConfigBuilder<TConfig> HasUseSystemClock(Func<TConfig, bool?> selector)
     {
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
