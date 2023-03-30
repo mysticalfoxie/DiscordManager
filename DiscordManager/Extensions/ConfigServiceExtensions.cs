@@ -25,22 +25,18 @@ public static class ConfigServiceExtensions
         if (file == null)
             throw new ArgumentNullException(nameof(file));
 
-        dcm.Services.ConfigService.AddConfig<TConfig>(file: file);
-        var config = dcm.Services.ConfigService.ReadConfig<TConfig>();
+        dcm.Services.ConfigService.AddDCMConfig<TConfig>(config: file);
 
-        if (string.IsNullOrWhiteSpace(value: config.LoginToken))
-            throw new NullReferenceException(nameof(config.LoginToken));
-
-        MapDCMConfig(dcm: dcm, data: config);
         return dcm;
+    }
+
+    public static DiscordManager UseGuildConfig<T>(this DiscordManager dcm, string filename)
+    {
+        if (filename == null)
+            throw new ArgumentNullException(nameof(filename));
     }
 
     private static void MapDCMConfig(DiscordManager dcm, DCMConfig data)
     {
-        if (data.DefaultGuild.HasValue && data.DefaultGuild.Value != default)
-            dcm.Services.ConfigService.DefaultGuild = data.DefaultGuild.Value;
-
-        if (!string.IsNullOrWhiteSpace(value: data.LoginToken))
-            dcm.Services.CredentialsService.LoginToken = data.LoginToken;
     }
 }

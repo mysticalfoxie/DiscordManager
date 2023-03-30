@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6f6a4c95-b4b6-4ac8-8884-99bbd498658e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Builder/DefaultConfigBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Builder/DCMConfigBuilder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/DiscordManager.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/DiscordManager.Core.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IConfigService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IConfigService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Models/DCMConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Models/DCMConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Models/JsonDiscordConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Models/DCMDiscordConfig.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/ConfigService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/ConfigService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.sln" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/ConfigServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Extensions/ConfigServiceExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestClient/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestClient/Program.cs" afterDir="false" />
     </list>
@@ -56,29 +51,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DebuggerViewTab_PTCS_FirstProportionKey": "0.3501006",
-    "DebuggerViewTab_PTCS_LastProportionKey": "0.0",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "rider.code.cleanup.on.save": "true",
-    "settings.editor.selected.configurable": "0d570cb2-96df-43cc-80da-7f777e6d0afe",
-    "typescript.add.unambiguous.imports.on.the.fly": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DebuggerViewTab_PTCS_FirstProportionKey&quot;: &quot;0.3501006&quot;,
+    &quot;DebuggerViewTab_PTCS_LastProportionKey&quot;: &quot;0.0&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;rider.code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;0d570cb2-96df-43cc-80da-7f777e6d0afe&quot;,
+    &quot;typescript.add.unambiguous.imports.on.the.fly&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\IFU-Laptop-Schueler\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\IFU-Laptop-Schueler\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\IFU-Laptop-Schueler\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\IFU-Laptop-Schueler\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\IFU-Laptop-Schueler\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\IFU-Laptop-Schueler\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="TestClient" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -129,7 +124,8 @@
       <workItem from="1679603796936" duration="5507000" />
       <workItem from="1680006773892" duration="2666000" />
       <workItem from="1680009528456" duration="130000" />
-      <workItem from="1680009698447" duration="73000" />
+      <workItem from="1680009698447" duration="1725000" />
+      <workItem from="1680178180101" duration="707000" />
     </task>
     <task id="LOCAL-00001" summary="Adjust Events, Fix tiny bugs, Add Test Project">
       <created>1679512173477</created>
@@ -145,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679512877804</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Some new Architecture">
+      <created>1680010898573</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680010898573</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,7 +183,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Adjust Events, Fix tiny bugs, Add Test Project" />
     <MESSAGE value="Finish Discord Config Stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finish Discord Config Stuff" />
+    <MESSAGE value="Some new Architecture" />
+    <option name="LAST_COMMIT_MESSAGE" value="Some new Architecture" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

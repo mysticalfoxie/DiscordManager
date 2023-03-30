@@ -11,18 +11,20 @@ namespace DCM.Core.Services;
 
 public class ConfigService : IConfigService
 {
+    private readonly ICredentialsService _credentialsService;
     private readonly IDependencyService _dependencyService;
 
     public ConfigService(
+        ICredentialsService credentialsService,
         IDependencyService dependencyService)
     {
+        _credentialsService = credentialsService;
         _dependencyService = dependencyService;
     }
 
-    public Dictionary<Type, FileInfo> Configs { get; } = new();
-    public Dictionary<Type, object> Instances { get; } = new();
+    public DCMGuildConfig GuildConfig { get; set; }
+    public DCMConfig GlobalConfig { get; set; }
 
-    public ulong? DefaultGuild { get; set; }
     public DCMDiscordConfig DiscordConfig { get; set; }
 
     public DiscordSocketConfig GetDiscordConfig()
