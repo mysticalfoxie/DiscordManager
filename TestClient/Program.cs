@@ -1,6 +1,5 @@
 ﻿using DCM;
 using DCM.Extensions;
-using TestClient.TestPlugin;
 
 namespace TestClient;
 
@@ -10,9 +9,7 @@ public class Program
     {
         await new DiscordManager()
             //.AddPlugin(@"C:\Source\DiscordManager\TestClient.TestPlugin\bin\Debug\net7.0\TestClient.TestPlugin.dll")
-            .UseDCMConfig<GlobalConfig>("global_config.json")
-            .UseGuildConfig<GuildConfig>("guild_config.json")
-            .UseDiscordConfig<DCConfig>("discord_config.json")
+            .UseConfig<Config>("configuration.json")
             .StartAndWait();
     }
 }

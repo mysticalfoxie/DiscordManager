@@ -1,33 +1,51 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using DCM.Core.Interfaces;
 using DCM.Core.Models;
 using Discord;
 using Discord.WebSocket;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 namespace DCM.Core.Services;
 
 public class ConfigService : IConfigService
 {
-    private readonly ICredentialsService _credentialsService;
-    private readonly IDependencyService _dependencyService;
+    // TODO: ServiceInjection Support for PluginRefs
+    private readonly Dictionary<Type, object> _configurations = new();
 
-    public ConfigService(
-        ICredentialsService credentialsService,
-        IDependencyService dependencyService)
-    {
-        _credentialsService = credentialsService;
-        _dependencyService = dependencyService;
-    }
-
+    public DCMGlobalConfig GlobalConfig { get; set; }
     public DCMGuildConfig GuildConfig { get; set; }
-    public DCMConfig GlobalConfig { get; set; }
-
     public DCMDiscordConfig DiscordConfig { get; set; }
 
-    public DiscordSocketConfig GetDiscordConfig()
+    public void AddConfig<T>(T config) where T : class
+    {
+        SafeAddConfig(config: config);
+    }
+
+    public void AddDCMConfig<T>(T config) where T : DCMGlobalConfig
+    {
+        SafeAddConfig(config: config);
+        GlobalConfig = config;
+    }
+
+    public void AddDiscordConfig<T>(T config) where T : DCMDiscordConfig
+    {
+        SafeAddConfig(config: config);
+        DiscordConfig = config;
+    }
+
+    public void AddGuildConfig<T>(T config) where T : DCMGuildConfig
+    {
+        SafeAddConfig(config: config);
+        GuildConfig = config;
+    }
+
+    public async Task<T> ReadConfig<T>(string filename) where T : class
+    {
+        var json = await File.ReadAllTextAsync(path: filename);
+        return JsonConvert.DeserializeObject<T>(value: json);
+    }
+
+    public DiscordSocketConfig ReadSocketConfig()
     {
         if (DiscordConfig is null)
             return new DiscordSocketConfig();
@@ -101,39 +119,11 @@ public class ConfigService : IConfigService
         return config;
     }
 
-    public T ReadConfig<T>() where T : class
+    private void SafeAddConfig<T>(T config) where T : class
     {
-        if (!Configs.ContainsKey(typeof(T)))
-            throw new InvalidOperationException("Could not find the configuration type.");
+        if (_configurations.ContainsKey(typeof(T)))
+            throw new AmbiguousMatchException("Cannot add the same configuration type twice!");
 
-        var value = Configs[typeof(T)];
-        var json = File.ReadAllText(path: value.FullName);
-
-        return JsonConvert.DeserializeObject<T>(value: json);
-    }
-
-
-    [SuppressMessage("ReSharper", "RedundantAssignment")]
-    public void AddConfig<T>(FileInfo file) where T : class
-    {
-        if (Configs.ContainsKey(typeof(T)))
-            throw new AmbiguousMatchException("Cannot add the same type for a configuration twice!");
-
-        Configs.Add(typeof(T), value: file);
-        var config = ReadConfig<T>();
-        _dependencyService.Services
-            .Configure<T>(options => options = config);
-    }
-
-    [SuppressMessage("ReSharper", "RedundantAssignment")]
-    public void AddConfig<T>(T instance) where T : class
-    {
-        if (Instances.ContainsKey(typeof(T)))
-            throw new AmbiguousMatchException("Cannot add the same type for a configuration twice!");
-
-        Instances.Add(typeof(T), value: instance);
-        var config = ReadConfig<T>();
-        _dependencyService.Services
-            .Configure<T>(options => options = config);
+        _configurations.Add(typeof(T), value: config);
     }
 }

@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f6a4c95-b4b6-4ac8-8884-99bbd498658e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Models/DCMConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Models/DCMConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IConfigService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IConfigService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Models/DCMConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Models/DCMGlobalConfig.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/ConfigService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/ConfigService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/ConfigServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Extensions/ConfigServiceExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestClient/DCConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestClient/GuildConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestClient/Config.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestClient/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestClient/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,8 +34,49 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager.Core/DCMPlugin.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DiscordManager.Core/Events/ChannelCreatedEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager.Core/Models/DCMConfig.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DiscordManager.Core/Models/DCMDiscordConfig.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager.Core/Services/DependencyService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/TestClient/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/110d02838e514a6eadf8b7b3b3dee51ea8400/0f/56f82904/DiscordConfig.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/110d02838e514a6eadf8b7b3b3dee51ea8400/3b/68b4521c/GatewayIntents.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/110d02838e514a6eadf8b7b3b3dee51ea8400/57/fa43da8f/WebSocketProvider.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/110d02838e514a6eadf8b7b3b3dee51ea8400/81/99db3ae9/IDiscordClient.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/382049698ae94833a7769d39460acfd7bf200/42/1646b95b/DiscordSocketConfig.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/382049698ae94833a7769d39460acfd7bf200/5f/2e03a521/DiscordSocketClient.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/382049698ae94833a7769d39460acfd7bf200/8e/04e735bb/BaseSocketClient.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c4b279afda0c47a9a5aefbb14bd5e036146200/30/18e88c66/DiscordRestConfig.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/0f1f87a17c797c7aefb5c86e8db586a9951c8e58b31f2c42ba39dd51ffa0/CallSiteFactory.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/19ba5a289f2afd3f4d5e862cb3f3efee6181683a31ee31b86c2298b1f51114b/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/235b8d206b56acfe04faeb04511585b156981556882336a9a49a871c0722e90/Type.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2a18bfb9bf347c34551ae2ed987a1957b5b91feeb5d9b59badf4706af7fb4e/ServiceCollectionContainerBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2a5cc194fee19ec98ae1c3a8395d4f42f3d0dc84adbe34dcc08c28eec6bc9b1/TaskAwaiter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/35e7e538796eca19115e7f3c2f459e1951ae177d47eb48ebbf393bff3ac/Select.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3e106b33b475f10a6a589247e812d979ea3dbf45f33f0886ed9e17f7520e0/RuntimeMethodInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4330e7d62cad284f6cc1787b7e20741fa221c755e86e4998a15e553c6a58f3a9/RuntimeConstructorInfo.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4393b886a286b7656c92b4aee5d9759858ee3ca3f858a1b518be26bea0c7/String.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/53fde159ba8211bfa732c66683f6d3cd7af7b9ff56a3a1dc1dbe1cee597fe/CallSiteRuntimeResolver.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/621526284d3e4868b98948aff942206525763e57e194a27623b66c384466/ServiceProviderServiceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6879c9ed20391a5ccfea363be5964fbcfe4f1dfde9558aa84b36df6b6ec92c6/List.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/753d44b40e7dfcf2a0534343444ce1ebaac652db5adaf638d71f2ea97e562f/MethodInvoker.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7629111d32825e5f932d2682df155565b0ef2cce8be88acbf56c81b57a603/ConcurrentDictionary.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/767db1e17d404f86c3c73c54c6b20b5ff9ec43b79ef47681ae34b40a6852cf9/Where.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/76a7b4387866adc31f9e317277cff4e5a723e96e76b52dd8afe066edf1abf9c3/Array.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/794bcfedceb3c6d957fbddf0e1c9a04afca77f9b5470c6859466cfba35e1ddb1/Task.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8b4cd237362fbc0cf1618fdb03a779a663bb2e67156389b5ec9eb01980cc26/MethodBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8b59fa60d15ea79167bca4aee77af3ed6b93648c61b472b7a8381c62977ddfdb/Type.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8e2e3f232b3f74cfc56d24ec307aaea234eb831ec23796f1b454eb7e8fe1/CallSiteVisitor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b214c6da8478e8dc94655f42bebc26c7fb3f726c6cb5705c13b39af515c4f85e/Observable_.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b8d2795a624ec1ca285de7c049f728624e8b8a82388f8d67db20c33442b28f53/NullReferenceException.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bb725bcdb6b7d73f11cea8d4d4713b1538c1c465eea8d479ccccdfdc349d774/Observable.Imperative.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c018a1a3af0722da2f22dede3badfa058bc532f9991c982db8493bbe5d34f4/ServiceCollection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cc4c889cc6695421e5ba7380782096616c46a660e8b5c920df3b7564dcef43/ServiceDescriptor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/da4d548bae91dc3840b563c684d4cbc0f52b5c6f173c7d77e43428ec85a8de/FileInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e6641ef64e23bc021c22f7a836547714731db956d18c439bc734695b9e72/SafeFileHandle.Windows.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f9749fe3576a687c3c42f3794cefe8f8d91e62f939c66c0a32dbb3f74255/ManualResetEventSlim.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

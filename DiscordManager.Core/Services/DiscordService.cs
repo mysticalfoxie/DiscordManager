@@ -37,7 +37,7 @@ public class DiscordService : IDisposable, IDiscordService
         if (string.IsNullOrWhiteSpace(value: _credentials.LoginToken))
             throw new InvalidOperationException("The bot is missing a login token.");
 
-        var config = _configService.GetDiscordConfig();
+        var config = _configService.ReadSocketConfig();
 
         Client = new DiscordSocketClient(config: config);
         Client.Connected += () => Task.Run(() => Connect.OnNext(value: Unit.Default));
