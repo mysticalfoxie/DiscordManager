@@ -1311,21 +1311,19 @@ public class EventService : IEventService
 
     private bool ShouldEmit(IChannel channel)
     {
-        if (!_configService.DefaultGuild.HasValue)
+        if (_configService.GuildConfig?.Id is null)
             return true;
 
-        if (channel is not IGuildChannel guildChannel)
-            return false;
-
-        return ShouldEmit(guild: guildChannel.Guild);
+        return channel is IGuildChannel guildChannel
+               && ShouldEmit(guild: guildChannel.Guild);
     }
 
     private bool ShouldEmit(IGuild guild)
     {
-        if (!_configService.DefaultGuild.HasValue)
+        if (_configService.GuildConfig?.Id is null)
             return true;
 
-        return guild.Id == _configService.DefaultGuild!.Value;
+        return guild.Id == _configService.GuildConfig.Id;
     }
 
     private bool ShouldEmit(Cacheable<IGuild, ulong> cacheableGuild)
@@ -1333,9 +1331,9 @@ public class EventService : IEventService
         if (!cacheableGuild.HasValue)
             return true;
 
-        if (!_configService.DefaultGuild.HasValue)
+        if (_configService.GuildConfig?.Id is null)
             return true;
 
-        return cacheableGuild.Id == _configService.DefaultGuild!.Value;
+        return cacheableGuild.Id == _configService.GuildConfig.Id;
     }
 }

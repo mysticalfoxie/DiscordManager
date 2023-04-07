@@ -11,6 +11,12 @@ public class ConfigService : IConfigService
 {
     // TODO: ServiceInjection Support for PluginRefs
     private readonly Dictionary<Type, object> _configurations = new();
+    private readonly ICredentialsService _credentials;
+
+    public ConfigService(ICredentialsService credentials)
+    {
+        _credentials = credentials;
+    }
 
     public DCMGlobalConfig GlobalConfig { get; set; }
     public DCMGuildConfig GuildConfig { get; set; }
@@ -25,6 +31,8 @@ public class ConfigService : IConfigService
     {
         SafeAddConfig(config: config);
         GlobalConfig = config;
+
+        _credentials.LoginToken = GlobalConfig.LoginToken;
     }
 
     public void AddDiscordConfig<T>(T config) where T : DCMDiscordConfig

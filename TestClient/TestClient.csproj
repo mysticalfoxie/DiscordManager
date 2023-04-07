@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\DiscordManager\DiscordManager.csproj" />
+        <ProjectReference Include="..\TestClient.TestPlugin\TestClient.TestPlugin.csproj" />
     </ItemGroup>
 
     <ItemGroup>

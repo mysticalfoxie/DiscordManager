@@ -17,6 +17,21 @@ public static class PluginServiceExtensions
         return dcm;
     }
 
+    public static DiscordManager AddPlugin(this DiscordManager dcm, string filepath)
+    {
+        if (string.IsNullOrWhiteSpace(value: filepath))
+            throw new ArgumentNullException(nameof(filepath));
+
+        var file = new FileInfo(fileName: filepath);
+        if (!file.Exists)
+            throw new FileNotFoundException(nameof(filepath));
+
+        var files = dcm.Services.PluginService.PluginFiles;
+        files.Add(item: file);
+
+        return dcm;
+    }
+
     public static DiscordManager AddPlugin(this DiscordManager dcm, FileInfo file)
     {
         if (file is null)
