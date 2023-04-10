@@ -1,7 +1,11 @@
-﻿namespace DCM.Core;
+﻿using DCM.Core.Models;
 
-public abstract class DCMPlugin : ServiceContainer
+namespace DCM.Core;
+
+public abstract class DCMPlugin : DiscordContainer
 {
+    public DCMPluginConfig PluginConfig { get; internal set; }
+
     public virtual void PostStart()
     {
     }

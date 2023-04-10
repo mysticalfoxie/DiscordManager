@@ -12,25 +12,25 @@ public class DependencyService : IDependencyService
 
     public object CreateInstance(Type type, IServiceCollection dependencies)
     {
-        var constructor = GetConstructor(type: type);
+        var constructor = GetConstructor(type);
         if (constructor is null)
-            return Activator.CreateInstance(type: type);
+            return Activator.CreateInstance(type);
 
-        var parameters = GetParameters(constructor: constructor, secondarySource: dependencies);
-        return constructor.Invoke(parameters: parameters);
+        var parameters = GetParameters(constructor, dependencies);
+        return constructor.Invoke(parameters);
     }
 
     public T CreateInstance<T>(IServiceCollection collection) where T : class
     {
-        return (T)CreateInstance(typeof(T), dependencies: collection);
+        return (T)CreateInstance(typeof(T), collection);
     }
 
     public void PublishServices(
         IDiscordService discordService,
         IEventService eventService)
     {
-        Services.AddSingleton(implementationInstance: discordService);
-        Services.AddSingleton(implementationInstance: eventService);
+        Services.AddSingleton(discordService);
+        Services.AddSingleton(eventService);
     }
 
     public IEnumerable<ServiceDescriptor> SearchInjectables(Assembly assembly)
@@ -45,8 +45,8 @@ public class DependencyService : IDependencyService
                 var @interface = attribute.ConstructorArguments.FirstOrDefault().Value as Type;
                 return new ServiceDescriptor(
                     @interface ?? x,
-                    implementationType: x,
-                    lifetime: ServiceLifetime.Singleton);
+                    x,
+                    ServiceLifetime.Singleton);
             });
     }
 
@@ -64,19 +64,19 @@ public class DependencyService : IDependencyService
 
     private object[] GetParameters(ConstructorInfo constructor, IServiceCollection secondarySource)
     {
-        var provider = MergeServices(secondary: secondarySource);
+        var provider = MergeServices(secondarySource);
         return constructor
             .GetParameters()
             .Select(x => x.ParameterType)
-            .Select(x => provider.GetService(serviceType: x))
+            .Select(x => provider.GetService(x))
             .ToArray();
     }
 
     private ServiceProvider MergeServices(IServiceCollection secondary)
     {
         var source = new ServiceCollection();
-        var services = source.Concat(second: Services).Concat(second: secondary);
-        source.Add(descriptors: services);
+        var services = source.Concat(Services).Concat(secondary);
+        source.Add(services);
         var provider = source.BuildServiceProvider();
         return provider;
     }

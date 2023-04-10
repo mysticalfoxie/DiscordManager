@@ -5,11 +5,11 @@ namespace TestClient;
 
 public class Program
 {
-    public static async Task Main(string[] args)
+    public static async Task Main()
     {
         await new DiscordManager()
-            .AddPlugin(
-                @"C:\Source\Remote\DiscordManager\TestClient.TestPlugin\bin\Debug\net7.0\TestClient.TestPlugin.dll")
+            .AddPlugins(@"C:\Source\Remote\DiscordManager\TestClient.TestPlugin\bin\Debug")
+            .AddPlugins(@"C:\Source\Remote\DiscordManager\TestClient.AnotherPlugin\bin\Debug")
             .UseConfig<Config>("configuration.json")
             .StartAndWait();
     }

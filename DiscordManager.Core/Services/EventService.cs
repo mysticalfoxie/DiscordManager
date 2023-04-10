@@ -175,14 +175,14 @@ public class EventService : IEventService
     public Task OnApplicationCommandCreated(
         SocketApplicationCommand command)
     {
-        if (!ShouldEmit(guild: command.Guild))
+        if (!ShouldEmit(command.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new ApplicationCommandCreatedEvent
         {
             Command = command
         };
-        ApplicationCommandCreated.OnNext(value: eventArgs);
+        ApplicationCommandCreated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -190,14 +190,14 @@ public class EventService : IEventService
     public Task OnApplicationCommandDeleted(
         SocketApplicationCommand command)
     {
-        if (!ShouldEmit(guild: command.Guild))
+        if (!ShouldEmit(command.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new ApplicationCommandDeletedEvent
         {
             Command = command
         };
-        ApplicationCommandDeleted.OnNext(value: eventArgs);
+        ApplicationCommandDeleted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -205,14 +205,14 @@ public class EventService : IEventService
     public Task OnApplicationCommandUpdated(
         SocketApplicationCommand command)
     {
-        if (!ShouldEmit(guild: command.Guild))
+        if (!ShouldEmit(command.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new ApplicationCommandUpdatedEvent
         {
             Command = command
         };
-        ApplicationCommandUpdated.OnNext(value: eventArgs);
+        ApplicationCommandUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -220,14 +220,14 @@ public class EventService : IEventService
     public Task OnAutocompleteExecuted(
         SocketAutocompleteInteraction interaction)
     {
-        if (!ShouldEmit(channel: interaction.Channel))
+        if (!ShouldEmit(interaction.Channel))
             return Task.CompletedTask;
 
         var eventArgs = new AutocompleteExecutedEvent
         {
             Interaction = interaction
         };
-        AutocompleteExecuted.OnNext(value: eventArgs);
+        AutocompleteExecuted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -235,14 +235,14 @@ public class EventService : IEventService
     public Task OnButtonExecuted(
         SocketMessageComponent component)
     {
-        if (!ShouldEmit(channel: component.Channel))
+        if (!ShouldEmit(component.Channel))
             return Task.CompletedTask;
 
         var eventArgs = new ButtonExecutedEvent
         {
             Component = component
         };
-        ButtonExecuted.OnNext(value: eventArgs);
+        ButtonExecuted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -250,14 +250,14 @@ public class EventService : IEventService
     public Task OnChannelCreated(
         SocketChannel channel)
     {
-        if (!ShouldEmit(channel: channel))
+        if (!ShouldEmit(channel))
             return Task.CompletedTask;
 
         var eventArgs = new ChannelCreatedEvent
         {
             Channel = channel
         };
-        ChannelCreated.OnNext(value: eventArgs);
+        ChannelCreated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -265,14 +265,14 @@ public class EventService : IEventService
     public Task OnChannelDestroyed(
         SocketChannel channel)
     {
-        if (!ShouldEmit(channel: channel))
+        if (!ShouldEmit(channel))
             return Task.CompletedTask;
 
         var eventArgs = new ChannelDestroyedEvent
         {
             Channel = channel
         };
-        ChannelDestroyed.OnNext(value: eventArgs);
+        ChannelDestroyed.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -281,7 +281,7 @@ public class EventService : IEventService
         SocketChannel oldChannel,
         SocketChannel newChannel)
     {
-        if (!ShouldEmit(channel: newChannel))
+        if (!ShouldEmit(newChannel))
             return Task.CompletedTask;
 
         var eventArgs = new ChannelUpdatedEvent
@@ -289,7 +289,7 @@ public class EventService : IEventService
             OldChannel = oldChannel,
             NewChannel = newChannel
         };
-        ChannelUpdated.OnNext(value: eventArgs);
+        ChannelUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -303,7 +303,7 @@ public class EventService : IEventService
             OldSelfUser = oldSelfUser,
             NewSelfUser = newSelfUser
         };
-        CurrentUserUpdated.OnNext(value: eventArgs);
+        CurrentUserUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -311,14 +311,14 @@ public class EventService : IEventService
     public Task OnGuildAvailable(
         SocketGuild guild)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildAvailableEvent
         {
             Guild = guild
         };
-        GuildAvailable.OnNext(value: eventArgs);
+        GuildAvailable.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -328,7 +328,7 @@ public class EventService : IEventService
         Cacheable<SocketGuildUser, ulong> guildUser,
         SocketGuild guild)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildJoinRequestDeletedEvent
@@ -336,7 +336,7 @@ public class EventService : IEventService
             GuildUser = guildUser,
             Guild = guild
         };
-        GuildJoinRequestDeleted.OnNext(value: eventArgs);
+        GuildJoinRequestDeleted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -344,14 +344,14 @@ public class EventService : IEventService
     public Task OnGuildMembersDownloaded(
         SocketGuild guild)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildMembersDownloadedEvent
         {
             Guild = guild
         };
-        GuildMembersDownloaded.OnNext(value: eventArgs);
+        GuildMembersDownloaded.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -360,7 +360,7 @@ public class EventService : IEventService
         Cacheable<SocketGuildUser, ulong> oldGuildMember,
         SocketGuildUser newGuildMember)
     {
-        if (!ShouldEmit(guild: newGuildMember.Guild))
+        if (!ShouldEmit(newGuildMember.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildMemberUpdatedEvent
@@ -368,7 +368,7 @@ public class EventService : IEventService
             OldGuildUser = oldGuildMember,
             NewGuildUser = newGuildMember
         };
-        GuildMemberUpdated.OnNext(value: eventArgs);
+        GuildMemberUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -376,14 +376,14 @@ public class EventService : IEventService
     public Task OnGuildScheduledEventCancelled(
         SocketGuildEvent guildEvent)
     {
-        if (!ShouldEmit(guild: guildEvent.Guild))
+        if (!ShouldEmit(guildEvent.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildScheduledEventCancelledEvent
         {
             GuildEvent = guildEvent
         };
-        GuildScheduledEventCancelled.OnNext(value: eventArgs);
+        GuildScheduledEventCancelled.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -391,14 +391,14 @@ public class EventService : IEventService
     public Task OnGuildScheduledEventCompleted(
         SocketGuildEvent guildEvent)
     {
-        if (!ShouldEmit(guild: guildEvent.Guild))
+        if (!ShouldEmit(guildEvent.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildScheduledEventCompletedEvent
         {
             GuildEvent = guildEvent
         };
-        GuildScheduledEventCompleted.OnNext(value: eventArgs);
+        GuildScheduledEventCompleted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -406,14 +406,14 @@ public class EventService : IEventService
     public Task OnGuildScheduledEventCreated(
         SocketGuildEvent guildEvent)
     {
-        if (!ShouldEmit(guild: guildEvent.Guild))
+        if (!ShouldEmit(guildEvent.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildScheduledEventCreatedEvent
         {
             GuildEvent = guildEvent
         };
-        GuildScheduledEventCreated.OnNext(value: eventArgs);
+        GuildScheduledEventCreated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -421,14 +421,14 @@ public class EventService : IEventService
     public Task OnGuildScheduledEventStarted(
         SocketGuildEvent guildEvent)
     {
-        if (!ShouldEmit(guild: guildEvent.Guild))
+        if (!ShouldEmit(guildEvent.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildScheduledEventStartedEvent
         {
             GuildEvent = guildEvent
         };
-        GuildScheduledEventStarted.OnNext(value: eventArgs);
+        GuildScheduledEventStarted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -437,7 +437,7 @@ public class EventService : IEventService
         Cacheable<SocketGuildEvent, ulong> oldGuildEvent,
         SocketGuildEvent newGuildEvent)
     {
-        if (!ShouldEmit(guild: newGuildEvent.Guild))
+        if (!ShouldEmit(newGuildEvent.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildScheduledEventUpdatedEvent
@@ -445,7 +445,7 @@ public class EventService : IEventService
             OldGuildEvent = oldGuildEvent,
             NewGuildEvent = newGuildEvent
         };
-        GuildScheduledEventUpdated.OnNext(value: eventArgs);
+        GuildScheduledEventUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -454,7 +454,7 @@ public class EventService : IEventService
         Cacheable<SocketUser, RestUser, IUser, ulong> user,
         SocketGuildEvent guildEvent)
     {
-        if (!ShouldEmit(guild: guildEvent.Guild))
+        if (!ShouldEmit(guildEvent.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildScheduledEventUserAddEvent
@@ -462,7 +462,7 @@ public class EventService : IEventService
             GuildEvent = guildEvent,
             User = user
         };
-        GuildScheduledEventUserAdd.OnNext(value: eventArgs);
+        GuildScheduledEventUserAdd.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -471,7 +471,7 @@ public class EventService : IEventService
         Cacheable<SocketUser, RestUser, IUser, ulong> user,
         SocketGuildEvent guildEvent)
     {
-        if (!ShouldEmit(guild: guildEvent.Guild))
+        if (!ShouldEmit(guildEvent.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildScheduledEventUserRemoveEvent
@@ -479,7 +479,7 @@ public class EventService : IEventService
             GuildEvent = guildEvent,
             User = user
         };
-        GuildScheduledEventUserRemove.OnNext(value: eventArgs);
+        GuildScheduledEventUserRemove.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -487,14 +487,14 @@ public class EventService : IEventService
     public Task OnGuildStickerCreated(
         SocketCustomSticker sticker)
     {
-        if (!ShouldEmit(guild: sticker.Guild))
+        if (!ShouldEmit(sticker.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildStickerCreatedEvent
         {
             Sticker = sticker
         };
-        GuildStickerCreated.OnNext(value: eventArgs);
+        GuildStickerCreated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -502,14 +502,14 @@ public class EventService : IEventService
     public Task OnGuildStickerDeleted(
         SocketCustomSticker sticker)
     {
-        if (!ShouldEmit(guild: sticker.Guild))
+        if (!ShouldEmit(sticker.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildStickerDeletedEvent
         {
             Sticker = sticker
         };
-        GuildStickerDeleted.OnNext(value: eventArgs);
+        GuildStickerDeleted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -518,7 +518,7 @@ public class EventService : IEventService
         SocketCustomSticker oldSticker,
         SocketCustomSticker newSticker)
     {
-        if (!ShouldEmit(guild: newSticker.Guild))
+        if (!ShouldEmit(newSticker.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildStickerUpdatedEvent
@@ -526,7 +526,7 @@ public class EventService : IEventService
             OldSticker = oldSticker,
             NewSticker = newSticker
         };
-        GuildStickerUpdated.OnNext(value: eventArgs);
+        GuildStickerUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -534,14 +534,14 @@ public class EventService : IEventService
     public Task OnGuildUnavailable(
         SocketGuild guild)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildUnavailableEvent
         {
             Guild = guild
         };
-        GuildUnavailable.OnNext(value: eventArgs);
+        GuildUnavailable.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -550,7 +550,7 @@ public class EventService : IEventService
         SocketGuild oldGuild,
         SocketGuild newGuild)
     {
-        if (!ShouldEmit(guild: newGuild))
+        if (!ShouldEmit(newGuild))
             return Task.CompletedTask;
 
         var eventArgs = new GuildUpdatedEvent
@@ -558,28 +558,28 @@ public class EventService : IEventService
             OldGuild = oldGuild,
             NewGuild = newGuild
         };
-        GuildUpdated.OnNext(value: eventArgs);
+        GuildUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
 
     public Task OnIntegrationCreated(IIntegration integration)
     {
-        if (!ShouldEmit(guild: integration.Guild))
+        if (!ShouldEmit(integration.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new IntegrationCreatedEvent
         {
             Integration = integration
         };
-        IntegrationCreated.OnNext(value: eventArgs);
+        IntegrationCreated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
 
     public Task OnIntegrationDeleted(IGuild guild, ulong id, Optional<ulong> huh)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new IntegrationDeletedEvent
@@ -588,21 +588,21 @@ public class EventService : IEventService
             Id = id,
             Huh = huh
         };
-        IntegrationDeleted.OnNext(value: eventArgs);
+        IntegrationDeleted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
 
     public Task OnIntegrationUpdated(IIntegration integration)
     {
-        if (!ShouldEmit(guild: integration.Guild))
+        if (!ShouldEmit(integration.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new IntegrationUpdatedEvent
         {
             Integration = integration
         };
-        IntegrationUpdated.OnNext(value: eventArgs);
+        IntegrationUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -610,14 +610,14 @@ public class EventService : IEventService
     public Task OnInteractionCreated(
         SocketInteraction interaction)
     {
-        if (!ShouldEmit(channel: interaction.Channel))
+        if (!ShouldEmit(interaction.Channel))
             return Task.CompletedTask;
 
         var eventArgs = new InteractionCreatedEvent
         {
             Interaction = interaction
         };
-        InteractionCreated.OnNext(value: eventArgs);
+        InteractionCreated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -625,14 +625,14 @@ public class EventService : IEventService
     public Task OnInviteCreated(
         SocketInvite invite)
     {
-        if (!ShouldEmit(guild: invite.Guild))
+        if (!ShouldEmit(invite.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new InviteCreatedEvent
         {
             Invite = invite
         };
-        InviteCreated.OnNext(value: eventArgs);
+        InviteCreated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -641,7 +641,7 @@ public class EventService : IEventService
         SocketGuildChannel guildChannel,
         string invite)
     {
-        if (!ShouldEmit(channel: guildChannel))
+        if (!ShouldEmit(guildChannel))
             return Task.CompletedTask;
 
         var eventArgs = new InviteDeletedEvent
@@ -649,7 +649,7 @@ public class EventService : IEventService
             GuildChannel = guildChannel,
             Invite = invite
         };
-        InviteDeleted.OnNext(value: eventArgs);
+        InviteDeleted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -657,14 +657,14 @@ public class EventService : IEventService
     public Task OnJoinedGuild(
         SocketGuild guild)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new JoinedGuildEvent
         {
             Guild = guild
         };
-        JoinedGuild.OnNext(value: eventArgs);
+        JoinedGuild.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -672,14 +672,14 @@ public class EventService : IEventService
     public Task OnLeftGuild(
         SocketGuild guild)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new LeftGuildEvent
         {
             Guild = guild
         };
-        LeftGuild.OnNext(value: eventArgs);
+        LeftGuild.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -687,14 +687,14 @@ public class EventService : IEventService
     public Task OnMessageCommandExecuted(
         SocketMessageCommand command)
     {
-        if (!ShouldEmit(channel: command.Channel))
+        if (!ShouldEmit(command.Channel))
             return Task.CompletedTask;
 
         var eventArgs = new MessageCommandExecutedEvent
         {
             Command = command
         };
-        MessageCommandExecuted.OnNext(value: eventArgs);
+        MessageCommandExecuted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -704,7 +704,7 @@ public class EventService : IEventService
         Cacheable<IMessage, ulong> message,
         Cacheable<IMessageChannel, ulong> channel)
     {
-        if (channel.HasValue && !ShouldEmit(channel: channel.Value))
+        if (channel.HasValue && !ShouldEmit(channel.Value))
             return Task.CompletedTask;
 
         var eventArgs = new MessageDeletedEvent
@@ -712,7 +712,7 @@ public class EventService : IEventService
             Message = message,
             Channel = channel
         };
-        MessageDeleted.OnNext(value: eventArgs);
+        MessageDeleted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -720,14 +720,14 @@ public class EventService : IEventService
     public Task OnMessageReceived(
         SocketMessage message)
     {
-        if (!ShouldEmit(channel: message.Channel))
+        if (!ShouldEmit(message.Channel))
             return Task.CompletedTask;
 
         var eventArgs = new MessageReceivedEvent
         {
             Message = message
         };
-        MessageReceived.OnNext(value: eventArgs);
+        MessageReceived.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -736,7 +736,7 @@ public class EventService : IEventService
         IReadOnlyCollection<Cacheable<IMessage, ulong>> messages,
         Cacheable<IMessageChannel, ulong> channel)
     {
-        if (channel.HasValue && !ShouldEmit(channel: channel.Value))
+        if (channel.HasValue && !ShouldEmit(channel.Value))
             return Task.CompletedTask;
 
         var eventArgs = new MessagesBulkDeletedEvent
@@ -744,7 +744,7 @@ public class EventService : IEventService
             Messages = messages,
             Channel = channel
         };
-        MessagesBulkDeleted.OnNext(value: eventArgs);
+        MessagesBulkDeleted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -754,7 +754,7 @@ public class EventService : IEventService
         SocketMessage newMessage,
         ISocketMessageChannel channel)
     {
-        if (!ShouldEmit(channel: newMessage.Channel))
+        if (!ShouldEmit(newMessage.Channel))
             return Task.CompletedTask;
 
         var eventArgs = new MessageUpdatedEvent
@@ -763,7 +763,7 @@ public class EventService : IEventService
             NewMessage = newMessage,
             Channel = channel
         };
-        MessageUpdated.OnNext(value: eventArgs);
+        MessageUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -771,14 +771,14 @@ public class EventService : IEventService
     public Task OnModalSubmitted(
         SocketModal modal)
     {
-        if (!ShouldEmit(channel: modal.Channel))
+        if (!ShouldEmit(modal.Channel))
             return Task.CompletedTask;
 
         var eventArgs = new ModalSubmittedEvent
         {
             Modal = modal
         };
-        ModalSubmitted.OnNext(value: eventArgs);
+        ModalSubmitted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -794,7 +794,7 @@ public class EventService : IEventService
             OldPresence = oldPresence,
             NewPresence = newPresence
         };
-        PresenceUpdated.OnNext(value: eventArgs);
+        PresenceUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -804,7 +804,7 @@ public class EventService : IEventService
         Cacheable<IMessageChannel, ulong> channel,
         SocketReaction reaction)
     {
-        if (channel.HasValue && !ShouldEmit(channel: channel.Value))
+        if (channel.HasValue && !ShouldEmit(channel.Value))
             return Task.CompletedTask;
 
         var eventArgs = new ReactionAddedEvent
@@ -813,7 +813,7 @@ public class EventService : IEventService
             Channel = channel,
             Reaction = reaction
         };
-        ReactionAdded.OnNext(value: eventArgs);
+        ReactionAdded.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -823,7 +823,7 @@ public class EventService : IEventService
         Cacheable<IMessageChannel, ulong> channel,
         SocketReaction reaction)
     {
-        if (channel.HasValue && !ShouldEmit(channel: channel.Value))
+        if (channel.HasValue && !ShouldEmit(channel.Value))
             return Task.CompletedTask;
 
         var eventArgs = new ReactionRemovedEvent
@@ -832,7 +832,7 @@ public class EventService : IEventService
             Channel = channel,
             Reaction = reaction
         };
-        ReactionRemoved.OnNext(value: eventArgs);
+        ReactionRemoved.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -841,7 +841,7 @@ public class EventService : IEventService
         Cacheable<IUserMessage, ulong> message,
         Cacheable<IMessageChannel, ulong> channel)
     {
-        if (channel.HasValue && !ShouldEmit(channel: channel.Value))
+        if (channel.HasValue && !ShouldEmit(channel.Value))
             return Task.CompletedTask;
 
         var eventArgs = new ReactionsClearedEvent
@@ -849,7 +849,7 @@ public class EventService : IEventService
             Message = message,
             Channel = channel
         };
-        ReactionsCleared.OnNext(value: eventArgs);
+        ReactionsCleared.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -859,7 +859,7 @@ public class EventService : IEventService
         Cacheable<IMessageChannel, ulong> channel,
         IEmote emote)
     {
-        if (channel.HasValue && !ShouldEmit(channel: channel.Value))
+        if (channel.HasValue && !ShouldEmit(channel.Value))
             return Task.CompletedTask;
 
         var eventArgs = new ReactionsRemovedForEmoteEvent
@@ -868,7 +868,7 @@ public class EventService : IEventService
             Message = message,
             Emote = emote
         };
-        ReactionsRemovedForEmote.OnNext(value: eventArgs);
+        ReactionsRemovedForEmote.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -880,7 +880,7 @@ public class EventService : IEventService
         {
             GroupUser = groupUser
         };
-        RecipientAdded.OnNext(value: eventArgs);
+        RecipientAdded.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -892,7 +892,7 @@ public class EventService : IEventService
         {
             GroupUser = groupUser
         };
-        RecipientRemoved.OnNext(value: eventArgs);
+        RecipientRemoved.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -901,7 +901,7 @@ public class EventService : IEventService
         SocketStageChannel stageChannel,
         SocketGuildUser user)
     {
-        if (!ShouldEmit(guild: stageChannel.Guild))
+        if (!ShouldEmit(stageChannel.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new RequestToSpeakEvent
@@ -909,7 +909,7 @@ public class EventService : IEventService
             Channel = stageChannel,
             User = user
         };
-        RequestToSpeak.OnNext(value: eventArgs);
+        RequestToSpeak.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -917,14 +917,14 @@ public class EventService : IEventService
     public Task OnRoleCreated(
         SocketRole role)
     {
-        if (!ShouldEmit(guild: role.Guild))
+        if (!ShouldEmit(role.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new RoleCreatedEvent
         {
             Role = role
         };
-        RoleCreated.OnNext(value: eventArgs);
+        RoleCreated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -932,14 +932,14 @@ public class EventService : IEventService
     public Task OnRoleDeleted(
         SocketRole role)
     {
-        if (!ShouldEmit(guild: role.Guild))
+        if (!ShouldEmit(role.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new RoleDeletedEvent
         {
             Role = role
         };
-        RoleDeleted.OnNext(value: eventArgs);
+        RoleDeleted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -948,7 +948,7 @@ public class EventService : IEventService
         SocketRole oldRole,
         SocketRole newRole)
     {
-        if (!ShouldEmit(guild: newRole.Guild))
+        if (!ShouldEmit(newRole.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new RoleUpdatedEvent
@@ -956,7 +956,7 @@ public class EventService : IEventService
             OldRole = oldRole,
             NewRole = newRole
         };
-        RoleUpdated.OnNext(value: eventArgs);
+        RoleUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -964,14 +964,14 @@ public class EventService : IEventService
     public Task OnSelectMenuExecuted(
         SocketMessageComponent component)
     {
-        if (!ShouldEmit(channel: component.Channel))
+        if (!ShouldEmit(component.Channel))
             return Task.CompletedTask;
 
         var eventArgs = new SelectMenuExecutedEvent
         {
             Component = component
         };
-        SelectMenuExecuted.OnNext(value: eventArgs);
+        SelectMenuExecuted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -979,14 +979,14 @@ public class EventService : IEventService
     public Task OnSlashCommandExecuted(
         SocketSlashCommand command)
     {
-        if (!ShouldEmit(channel: command.Channel))
+        if (!ShouldEmit(command.Channel))
             return Task.CompletedTask;
 
         var eventArgs = new SlashCommandExecutedEvent
         {
             Command = command
         };
-        SlashCommandExecuted.OnNext(value: eventArgs);
+        SlashCommandExecuted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -995,7 +995,7 @@ public class EventService : IEventService
         SocketStageChannel stageChannel,
         SocketGuildUser user)
     {
-        if (!ShouldEmit(guild: stageChannel.Guild))
+        if (!ShouldEmit(stageChannel.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new SpeakerAddedEvent
@@ -1003,7 +1003,7 @@ public class EventService : IEventService
             Channel = stageChannel,
             User = user
         };
-        SpeakerAdded.OnNext(value: eventArgs);
+        SpeakerAdded.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1012,7 +1012,7 @@ public class EventService : IEventService
         SocketStageChannel channel,
         SocketGuildUser user)
     {
-        if (!ShouldEmit(guild: channel.Guild))
+        if (!ShouldEmit(channel.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new SpeakerRemovedEvent
@@ -1020,7 +1020,7 @@ public class EventService : IEventService
             Channel = channel,
             User = user
         };
-        SpeakerRemoved.OnNext(value: eventArgs);
+        SpeakerRemoved.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1028,14 +1028,14 @@ public class EventService : IEventService
     public Task OnStageEnded(
         SocketStageChannel channel)
     {
-        if (!ShouldEmit(channel: channel))
+        if (!ShouldEmit(channel))
             return Task.CompletedTask;
 
         var eventArgs = new StageEndedEvent
         {
             Channel = channel
         };
-        StageEnded.OnNext(value: eventArgs);
+        StageEnded.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1043,14 +1043,14 @@ public class EventService : IEventService
     public Task OnStageStarted(
         SocketStageChannel channel)
     {
-        if (!ShouldEmit(channel: channel))
+        if (!ShouldEmit(channel))
             return Task.CompletedTask;
 
         var eventArgs = new StageStartedEvent
         {
             Channel = channel
         };
-        StageStarted.OnNext(value: eventArgs);
+        StageStarted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1059,7 +1059,7 @@ public class EventService : IEventService
         SocketStageChannel oldStageChannel,
         SocketStageChannel newStageChannel)
     {
-        if (!ShouldEmit(guild: newStageChannel.Guild))
+        if (!ShouldEmit(newStageChannel.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new StageUpdatedEvent
@@ -1067,7 +1067,7 @@ public class EventService : IEventService
             OldStageChannel = oldStageChannel,
             NewStageChannel = newStageChannel
         };
-        StageUpdated.OnNext(value: eventArgs);
+        StageUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1075,14 +1075,14 @@ public class EventService : IEventService
     public Task OnThreadCreated(
         SocketThreadChannel channel)
     {
-        if (!ShouldEmit(guild: channel.Guild))
+        if (!ShouldEmit(channel.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new ThreadCreatedEvent
         {
             Channel = channel
         };
-        ThreadCreated.OnNext(value: eventArgs);
+        ThreadCreated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1090,14 +1090,14 @@ public class EventService : IEventService
     public Task OnThreadDeleted(
         Cacheable<SocketThreadChannel, ulong> thread)
     {
-        if (thread.HasValue && !ShouldEmit(channel: thread.Value))
+        if (thread.HasValue && !ShouldEmit(thread.Value))
             return Task.CompletedTask;
 
         var eventArgs = new ThreadDeletedEvent
         {
             ThreadChannel = thread
         };
-        ThreadDeleted.OnNext(value: eventArgs);
+        ThreadDeleted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1105,14 +1105,14 @@ public class EventService : IEventService
     public Task OnThreadMemberJoined(
         SocketThreadUser user)
     {
-        if (!ShouldEmit(guild: user.Guild))
+        if (!ShouldEmit(user.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new ThreadMemberJoinedEvent
         {
             User = user
         };
-        ThreadMemberJoined.OnNext(value: eventArgs);
+        ThreadMemberJoined.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1120,14 +1120,14 @@ public class EventService : IEventService
     public Task OnThreadMemberLeft(
         SocketThreadUser user)
     {
-        if (!ShouldEmit(guild: user.Guild))
+        if (!ShouldEmit(user.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new ThreadMemberLeftEvent
         {
             User = user
         };
-        ThreadMemberLeft.OnNext(value: eventArgs);
+        ThreadMemberLeft.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1136,7 +1136,7 @@ public class EventService : IEventService
         Cacheable<SocketThreadChannel, ulong> oldThread,
         SocketThreadChannel newThread)
     {
-        if (!ShouldEmit(guild: newThread.Guild))
+        if (!ShouldEmit(newThread.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new ThreadUpdatedEvent
@@ -1144,7 +1144,7 @@ public class EventService : IEventService
             OldThreadChannel = oldThread,
             NewThreadChannel = newThread
         };
-        ThreadUpdated.OnNext(value: eventArgs);
+        ThreadUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1153,7 +1153,7 @@ public class EventService : IEventService
         SocketUser user,
         SocketGuild guild)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new UserBannedEvent
@@ -1161,7 +1161,7 @@ public class EventService : IEventService
             User = user,
             Guild = guild
         };
-        UserBanned.OnNext(value: eventArgs);
+        UserBanned.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1169,14 +1169,14 @@ public class EventService : IEventService
     public Task OnUserCommandExecuted(
         SocketUserCommand command)
     {
-        if (!ShouldEmit(channel: command.Channel))
+        if (!ShouldEmit(command.Channel))
             return Task.CompletedTask;
 
         var eventArgs = new UserCommandExecutedEvent
         {
             Command = command
         };
-        UserCommandExecuted.OnNext(value: eventArgs);
+        UserCommandExecuted.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1185,7 +1185,7 @@ public class EventService : IEventService
         Cacheable<IUser, ulong> user,
         Cacheable<IMessageChannel, ulong> channel)
     {
-        if (channel.HasValue && !ShouldEmit(channel: channel.Value))
+        if (channel.HasValue && !ShouldEmit(channel.Value))
             return Task.CompletedTask;
 
         var eventArgs = new UserIsTypingEvent
@@ -1193,7 +1193,7 @@ public class EventService : IEventService
             User = user,
             Channel = channel
         };
-        UserIsTyping.OnNext(value: eventArgs);
+        UserIsTyping.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1201,14 +1201,14 @@ public class EventService : IEventService
     public Task OnUserJoined(
         SocketGuildUser guildUser)
     {
-        if (!ShouldEmit(guild: guildUser.Guild))
+        if (!ShouldEmit(guildUser.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new UserJoinedEvent
         {
             GuildUser = guildUser
         };
-        UserJoined.OnNext(value: eventArgs);
+        UserJoined.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1217,7 +1217,7 @@ public class EventService : IEventService
         SocketGuild guild,
         SocketUser user)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new UserLeftEvent
@@ -1225,7 +1225,7 @@ public class EventService : IEventService
             Guild = guild,
             User = user
         };
-        UserLeft.OnNext(value: eventArgs);
+        UserLeft.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1234,7 +1234,7 @@ public class EventService : IEventService
         SocketUser user,
         SocketGuild guild)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new UserUnbannedEvent
@@ -1242,7 +1242,7 @@ public class EventService : IEventService
             User = user,
             Guild = guild
         };
-        UserUnbanned.OnNext(value: eventArgs);
+        UserUnbanned.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1256,7 +1256,7 @@ public class EventService : IEventService
             OldUser = oldUser,
             NewUser = newUser
         };
-        UserUpdated.OnNext(value: eventArgs);
+        UserUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1272,7 +1272,7 @@ public class EventService : IEventService
             OldVoiceState = oldVoiceState,
             NewVoiceState = newVoiceState
         };
-        UserVoiceStateUpdated.OnNext(value: eventArgs);
+        UserVoiceStateUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1280,14 +1280,14 @@ public class EventService : IEventService
     public Task OnVoiceServerUpdated(
         SocketVoiceServer voiceServer)
     {
-        if (!ShouldEmit(cacheableGuild: voiceServer.Guild))
+        if (!ShouldEmit(voiceServer.Guild))
             return Task.CompletedTask;
 
         var eventArgs = new VoiceServerUpdatedEvent
         {
             VoiceServer = voiceServer
         };
-        VoiceServerUpdated.OnNext(value: eventArgs);
+        VoiceServerUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1296,7 +1296,7 @@ public class EventService : IEventService
         SocketGuild guild,
         SocketChannel channel)
     {
-        if (!ShouldEmit(guild: guild))
+        if (!ShouldEmit(guild))
             return Task.CompletedTask;
 
         var eventArgs = new WebhooksUpdatedEvent
@@ -1304,7 +1304,7 @@ public class EventService : IEventService
             Guild = guild,
             Channel = channel
         };
-        WebhooksUpdated.OnNext(value: eventArgs);
+        WebhooksUpdated.OnNext(eventArgs);
 
         return Task.CompletedTask;
     }
@@ -1315,7 +1315,7 @@ public class EventService : IEventService
             return true;
 
         return channel is IGuildChannel guildChannel
-               && ShouldEmit(guild: guildChannel.Guild);
+               && ShouldEmit(guildChannel.Guild);
     }
 
     private bool ShouldEmit(IGuild guild)

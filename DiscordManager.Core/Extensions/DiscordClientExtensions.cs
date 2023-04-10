@@ -15,7 +15,7 @@ public static class DiscordClientExtensions
             .Subscribe(x =>
             {
                 var ex = new TimeoutException("The discord client didnt receive within 10 seconds the ready event.");
-                tcs.SetException(exception: ex);
+                tcs.SetException(ex);
             });
 
         client.Ready += () =>

@@ -10,6 +10,7 @@ namespace DCM.Core.Services;
 public class PluginService : IPluginService
 {
     private readonly IAssemblyService _assemblyService;
+    private readonly IConfigService _configService;
     private readonly IDependencyService _dependencyService;
     private readonly IDiscordService _discordService;
     private readonly IEventService _eventService;
@@ -19,33 +20,37 @@ public class PluginService : IPluginService
         IDependencyService dependencyService,
         IEventService eventService,
         IDiscordService discordService,
+        IConfigService configService,
         ILogger<PluginService> logger,
         IAssemblyService assemblyService)
     {
         _dependencyService = dependencyService;
         _eventService = eventService;
         _discordService = discordService;
+        _configService = configService;
         _logger = logger;
         _assemblyService = assemblyService;
     }
 
+    public List<DirectoryInfo> PluginDirectories { get; } = new();
     public List<FileInfo> PluginFiles { get; } = new();
     public List<DCMPlugin> PluginInstances { get; } = new();
     public List<Type> PluginTypes { get; } = new();
 
     public void Invoke(PluginInvokationTarget target)
     {
-        var names = GetMethodNames(target: target);
+        var names = GetMethodNames(target);
         foreach (var plugin in PluginInstances)
         {
-            InvokeSynchronousMethod(instance: plugin, methodName: names.SyncMethodName);
-            InvokeAsynchronousMethod(instance: plugin, methodName: names.AsyncMethodName);
+            InvokeSynchronousMethod(plugin, names.SyncMethodName);
+            InvokeAsynchronousMethod(plugin, names.AsyncMethodName);
         }
     }
 
     public int Load()
     {
-        LoadPluginTypesFromAssemblies();
+        LoadAssembliesFromDirectories();
+        LoadPluginTypesFromAssembly();
         InstantiatePlugins();
 
         return PluginInstances.Count;
@@ -71,17 +76,16 @@ public class PluginService : IPluginService
         try
         {
             var pluginServices = new ServiceCollection();
-            var injectables = _dependencyService.SearchInjectables(assembly: type.Assembly);
-            pluginServices.Add(descriptors: injectables);
+            var injectables = _dependencyService.SearchInjectables(type.Assembly);
+            pluginServices.Add(injectables);
 
-            var plugin = (DCMPlugin)_dependencyService.CreateInstance(type: type, secondary: pluginServices);
+            var plugin = (DCMPlugin)_dependencyService.CreateInstance(type, pluginServices);
 
-            return PropagatePlugin(plugin: plugin, services: pluginServices);
+            return PropagatePlugin(plugin, pluginServices);
         }
         catch (Exception ex)
         {
-            _logger.Log(logLevel: LogLevel.Error, exception: ex,
-                $"An error occured instantiating a plugin of type '{type.FullName}'.");
+            _logger.Log(LogLevel.Error, ex, $"An error occured instantiating a plugin of type '{type.FullName}'");
             return null;
         }
     }
@@ -89,9 +93,9 @@ public class PluginService : IPluginService
     private void InstantiatePlugins()
     {
         var plugins = PluginTypes
-            .Select(selector: InstantiatePlugin)
+            .Select(InstantiatePlugin)
             .Where(x => x is not null);
-        PluginInstances.AddRange(collection: plugins);
+        PluginInstances.AddRange(plugins);
     }
 
     private void InvokeAsynchronousMethod(object instance, string methodName)
@@ -100,14 +104,13 @@ public class PluginService : IPluginService
         {
             try
             {
-                var method = instance.GetType().GetMethod(name: methodName);
-                var task = (Task)method!.Invoke(obj: instance, Array.Empty<object>())!;
+                var method = instance.GetType().GetMethod(methodName);
+                var task = (Task)method!.Invoke(instance, Array.Empty<object>())!;
                 await task;
             }
             catch (Exception ex)
             {
-                _logger.Log(logLevel: LogLevel.Error, exception: ex,
-                    $"An error occured invoking the plugins method '{methodName}'.");
+                _logger.Log(LogLevel.Error, ex, $"An error occured invoking the plugins method '{methodName}'");
             }
         });
     }
@@ -118,27 +121,37 @@ public class PluginService : IPluginService
         {
             try
             {
-                var method = instance.GetType().GetMethod(name: methodName);
-                method!.Invoke(obj: instance, Array.Empty<object>());
+                var method = instance.GetType().GetMethod(methodName);
+                method!.Invoke(instance, Array.Empty<object>());
             }
             catch (Exception ex)
             {
-                _logger.Log(logLevel: LogLevel.Error, exception: ex,
+                _logger.Log(LogLevel.Error, ex,
                     $"An error occured invoking the plugins method '{methodName}'.");
             }
         });
     }
 
-    private void LoadPluginTypesFromAssemblies()
+    private void LoadAssembliesFromDirectories()
+    {
+        var files = PluginDirectories
+            .SelectMany(_assemblyService.FindAssemblyFiles);
+        PluginFiles.AddRange(files);
+    }
+
+    private void LoadPluginTypesFromAssembly()
     {
         var types = _assemblyService
-            .LoadAssemblyTypes(files: PluginFiles)
+            .LoadAssemblyTypes(PluginFiles)
             .Where(x => x.IsSubclassOf(typeof(DCMPlugin)));
-        PluginTypes.AddRange(collection: types);
+        PluginTypes.AddRange(types);
     }
 
     private DCMPlugin PropagatePlugin(DCMPlugin plugin, IServiceCollection services)
     {
+        plugin.GuildConfig = _configService.GuildConfig;
+        plugin.DiscordConfig = _configService.DiscordConfig;
+        plugin.GlobalConfig = _configService.GlobalConfig;
         plugin.Client = _discordService.Client;
         plugin.Events = _eventService;
         plugin.Services = services;

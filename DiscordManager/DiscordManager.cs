@@ -25,8 +25,7 @@ public class DiscordManager : IAsyncDisposable
             }
             catch (Exception ex)
             {
-                Services.Logger.Log(logLevel: LogLevel.Critical, exception: ex,
-                    "An error occured during start pipeline.");
+                Services.Logger.Log(LogLevel.Critical, ex, "An error occured during start pipeline");
                 throw;
             }
         });
@@ -43,21 +42,17 @@ public class DiscordManager : IAsyncDisposable
         return StartInternal();
     }
 
-    // TODO: This has to be done to have legacy support!
-    // public DiscordManager Configure(Action<IDiscordConfigBuilder> configure)
-    // public DiscordManager AddPluginDirectory(DirectoryInfo directory)
-    // public DiscordManager AddPluginCollector(AssemblyCollector pluginCollector)
-
     private async Task StartInternal()
     {
         Services.DependencyService.PublishServices(
-            discordService: Services.DiscordService,
-            eventService: Services.EventService);
+            Services.DiscordService,
+            Services.EventService);
         Services.PluginService.Load();
+        await Services.ConfigService.LoadPluginConfigs(Services.PluginService.PluginInstances);
         Services.DiscordService.Build();
-        Services.PluginService.Invoke(target: PluginInvokationTarget.PreStart);
+        Services.PluginService.Invoke(PluginInvokationTarget.PreStart);
         Services.EventService.MapEvents();
         await Services.DiscordService.StartAsync();
-        Services.PluginService.Invoke(target: PluginInvokationTarget.PostStart);
+        Services.PluginService.Invoke(PluginInvokationTarget.PostStart);
     }
 }

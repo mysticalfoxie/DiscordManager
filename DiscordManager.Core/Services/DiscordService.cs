@@ -34,14 +34,14 @@ public class DiscordService : IDisposable, IDiscordService
 
     public void Build()
     {
-        if (string.IsNullOrWhiteSpace(value: _credentials.LoginToken))
+        if (string.IsNullOrWhiteSpace(_credentials.LoginToken))
             throw new InvalidOperationException("The bot is missing a login token.");
 
         var config = _configService.ReadSocketConfig();
 
-        Client = new DiscordSocketClient(config: config);
-        Client.Connected += () => Task.Run(() => Connect.OnNext(value: Unit.Default));
-        Client.Disconnected += _ => Task.Run(() => Disconnect.OnNext(value: Unit.Default));
+        Client = new DiscordSocketClient(config);
+        Client.Connected += () => Task.Run(() => Connect.OnNext(Unit.Default));
+        Client.Disconnected += _ => Task.Run(() => Disconnect.OnNext(Unit.Default));
     }
 
     public async Task StartAsync()
@@ -49,7 +49,7 @@ public class DiscordService : IDisposable, IDiscordService
         if (Client is null)
             throw new InvalidOperationException("The client is not built yet!");
 
-        await Client.LoginAsync(tokenType: TokenType.Bot, token: _credentials.LoginToken);
+        await Client.LoginAsync(TokenType.Bot, _credentials.LoginToken);
         await Client.StartAsync();
         await Client.WaitForReadyEvent();
     }

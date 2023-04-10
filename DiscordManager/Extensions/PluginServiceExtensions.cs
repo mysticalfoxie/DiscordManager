@@ -12,33 +12,7 @@ public static class PluginServiceExtensions
             throw new ArgumentNullException(nameof(instance));
 
         var instances = dcm.Services.PluginService.PluginInstances;
-        instances.Add(item: instance);
-
-        return dcm;
-    }
-
-    public static DiscordManager AddPlugin(this DiscordManager dcm, string filepath)
-    {
-        if (string.IsNullOrWhiteSpace(value: filepath))
-            throw new ArgumentNullException(nameof(filepath));
-
-        var file = new FileInfo(fileName: filepath);
-        if (!file.Exists)
-            throw new FileNotFoundException(nameof(filepath));
-
-        var files = dcm.Services.PluginService.PluginFiles;
-        files.Add(item: file);
-
-        return dcm;
-    }
-
-    public static DiscordManager AddPlugin(this DiscordManager dcm, FileInfo file)
-    {
-        if (file is null)
-            throw new ArgumentNullException(nameof(file));
-
-        var files = dcm.Services.PluginService.PluginFiles;
-        files.Add(item: file);
+        instances.Add(instance);
 
         return dcm;
     }
@@ -49,7 +23,7 @@ public static class PluginServiceExtensions
             throw new ArgumentNullException(nameof(type));
 
         var types = dcm.Services.PluginService.PluginTypes;
-        types.Add(item: type);
+        types.Add(type);
 
         return dcm;
     }
@@ -58,6 +32,42 @@ public static class PluginServiceExtensions
     {
         var types = dcm.Services.PluginService.PluginTypes;
         types.Add(typeof(TPlugin));
+
+        return dcm;
+    }
+
+    public static DiscordManager AddPlugins(this DiscordManager dcm, string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+            throw new ArgumentNullException(nameof(path));
+
+        if (!File.Exists(path) && !Directory.Exists(path))
+            throw new FileNotFoundException(nameof(path));
+
+        var attributes = File.GetAttributes(path) & FileAttributes.Directory;
+        if (attributes == FileAttributes.Directory)
+        {
+            var directory = new DirectoryInfo(path);
+            dcm.Services.PluginService.PluginDirectories.Add(directory);
+        }
+        else
+        {
+            var file = new FileInfo(path);
+            dcm.Services.PluginService.PluginFiles.Add(file);
+        }
+
+        return dcm;
+    }
+
+    public static DiscordManager AddPlugins(this DiscordManager dcm, DirectoryInfo directory)
+    {
+        if (directory is null)
+            throw new ArgumentNullException(nameof(directory));
+
+        if (!directory.Exists)
+            throw new DirectoryNotFoundException(nameof(directory));
+
+        dcm.Services.PluginService.PluginDirectories.Add(directory);
 
         return dcm;
     }

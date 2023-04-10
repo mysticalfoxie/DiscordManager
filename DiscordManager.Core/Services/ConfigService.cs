@@ -1,4 +1,5 @@
 using System.Reflection;
+using DCM.Core.Attributes;
 using DCM.Core.Interfaces;
 using DCM.Core.Models;
 using Discord;
@@ -13,7 +14,8 @@ public class ConfigService : IConfigService
     private readonly Dictionary<Type, object> _configurations = new();
     private readonly ICredentialsService _credentials;
 
-    public ConfigService(ICredentialsService credentials)
+    public ConfigService(
+        ICredentialsService credentials)
     {
         _credentials = credentials;
     }
@@ -24,12 +26,12 @@ public class ConfigService : IConfigService
 
     public void AddConfig<T>(T config) where T : class
     {
-        SafeAddConfig(config: config);
+        SafeAddConfig(config);
     }
 
     public void AddDCMConfig<T>(T config) where T : DCMGlobalConfig
     {
-        SafeAddConfig(config: config);
+        SafeAddConfig(config);
         GlobalConfig = config;
 
         _credentials.LoginToken = GlobalConfig.LoginToken;
@@ -37,20 +39,37 @@ public class ConfigService : IConfigService
 
     public void AddDiscordConfig<T>(T config) where T : DCMDiscordConfig
     {
-        SafeAddConfig(config: config);
+        SafeAddConfig(config);
         DiscordConfig = config;
     }
 
     public void AddGuildConfig<T>(T config) where T : DCMGuildConfig
     {
-        SafeAddConfig(config: config);
+        SafeAddConfig(config);
         GuildConfig = config;
+    }
+
+    public async Task LoadPluginConfigs(IEnumerable<DCMPlugin> plugins)
+    {
+        foreach (var plugin in plugins)
+        {
+            var attribute = plugin.GetType().GetCustomAttribute<PluginConfigAttribute>();
+            if (attribute is null)
+                continue;
+
+            plugin.PluginConfig = await GetPluginConfig(attribute, plugin);
+        }
     }
 
     public async Task<T> ReadConfig<T>(string filename) where T : class
     {
-        var json = await File.ReadAllTextAsync(path: filename);
-        return JsonConvert.DeserializeObject<T>(value: json);
+        return await ReadConfig(typeof(T), filename) as T;
+    }
+
+    public async Task<object> ReadConfig(Type type, string filename)
+    {
+        var json = await File.ReadAllTextAsync(filename);
+        return JsonConvert.DeserializeObject(json, type);
     }
 
     public DiscordSocketConfig ReadSocketConfig()
@@ -60,7 +79,7 @@ public class ConfigService : IConfigService
 
         var config = new DiscordSocketConfig();
 
-        if (!string.IsNullOrWhiteSpace(value: DiscordConfig.GatewayHost))
+        if (!string.IsNullOrWhiteSpace(DiscordConfig.GatewayHost))
             config.GatewayHost = DiscordConfig.GatewayHost;
 
         if (DiscordConfig.ConnectionTimeout.HasValue)
@@ -127,11 +146,37 @@ public class ConfigService : IConfigService
         return config;
     }
 
+    private async Task<DCMPluginConfig> GetPluginConfig(PluginConfigAttribute attribute, DCMPlugin plugin)
+    {
+        if (attribute.File is not null && attribute.Type is not null)
+            return (DCMPluginConfig)await ReadConfig(attribute.Type, attribute.File.FullName);
+
+        if (attribute.Value is not null && attribute.Type is not null)
+            return (DCMPluginConfig)attribute.Value;
+
+        if (attribute.Filepath is null || attribute.Type is null)
+            throw new InvalidOperationException("Attribute is faulty configured.");
+
+        var filepath = GetPluginFilepath(plugin, attribute.Filepath);
+        return (DCMPluginConfig)await ReadConfig(attribute.Type, filepath);
+    }
+
+    private static string GetPluginFilepath(DCMPlugin plugin, string attribute)
+    {
+        if (Path.IsPathFullyQualified(attribute))
+            return attribute;
+
+        var assembly = plugin.GetType().Assembly;
+        var assemblyFile = new FileInfo(assembly.Location);
+        var pluginFolder = assemblyFile.Directory!.FullName;
+        return Path.Combine(pluginFolder, attribute);
+    }
+
     private void SafeAddConfig<T>(T config) where T : class
     {
         if (_configurations.ContainsKey(typeof(T)))
             throw new AmbiguousMatchException("Cannot add the same configuration type twice!");
 
-        _configurations.Add(typeof(T), value: config);
+        _configurations.Add(typeof(T), config);
     }
 }

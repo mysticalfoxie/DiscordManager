@@ -26,7 +26,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.AlwaysDownloadDefaultStickers = selector(arg: _config);
+        _discordConfig.AlwaysDownloadDefaultStickers = selector(_config);
         return this;
     }
 
@@ -35,7 +35,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.AlwaysDownloadUsers = selector(arg: _config);
+        _discordConfig.AlwaysDownloadUsers = selector(_config);
         return this;
     }
 
@@ -44,7 +44,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.AlwaysResolveStickers = selector(arg: _config);
+        _discordConfig.AlwaysResolveStickers = selector(_config);
         return this;
     }
 
@@ -53,7 +53,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.APIOnRestInteractionCreation = selector(arg: _config);
+        _discordConfig.APIOnRestInteractionCreation = selector(_config);
         return this;
     }
 
@@ -62,7 +62,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.ConnectionTimeout = selector(arg: _config);
+        _discordConfig.ConnectionTimeout = selector(_config);
         return this;
     }
 
@@ -71,7 +71,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.DefaultRetryMode = selector(arg: _config);
+        _discordConfig.DefaultRetryMode = selector(_config);
         return this;
     }
 
@@ -80,7 +80,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.FormatUsersInBidirectionalUnicode = selector(arg: _config);
+        _discordConfig.FormatUsersInBidirectionalUnicode = selector(_config);
         return this;
     }
 
@@ -89,7 +89,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.GatewayHost = selector(arg: _config);
+        _discordConfig.GatewayHost = selector(_config);
         return this;
     }
 
@@ -98,7 +98,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.GatewayIntents = selector(arg: _config);
+        _discordConfig.GatewayIntents = selector(_config);
         return this;
     }
 
@@ -107,7 +107,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.HandlerTimeout = selector(arg: _config);
+        _discordConfig.HandlerTimeout = selector(_config);
         return this;
     }
 
@@ -116,7 +116,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.IdentifyMaxConcurrency = selector(arg: _config);
+        _discordConfig.IdentifyMaxConcurrency = selector(_config);
         return this;
     }
 
@@ -125,7 +125,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.LargeThreshold = selector(arg: _config);
+        _discordConfig.LargeThreshold = selector(_config);
         return this;
     }
 
@@ -134,7 +134,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.LogGatewayIntentWarnings = selector(arg: _config);
+        _discordConfig.LogGatewayIntentWarnings = selector(_config);
         return this;
     }
 
@@ -144,7 +144,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _dcmConfig.LoginToken = selector(arg: _config);
+        _dcmConfig.LoginToken = selector(_config);
         return this;
     }
 
@@ -153,7 +153,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.LogLevel = selector(arg: _config);
+        _discordConfig.LogLevel = selector(_config);
         return this;
     }
 
@@ -162,7 +162,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.MaxWaitBetweenGuildAvailablesBeforeReady = selector(arg: _config);
+        _discordConfig.MaxWaitBetweenGuildAvailablesBeforeReady = selector(_config);
         return this;
     }
 
@@ -171,7 +171,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.MessageCacheSize = selector(arg: _config);
+        _discordConfig.MessageCacheSize = selector(_config);
         return this;
     }
 
@@ -180,7 +180,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.ShardId = selector(arg: _config);
+        _discordConfig.ShardId = selector(_config);
         return this;
     }
 
@@ -189,7 +189,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.SuppressUnknownDispatchWarnings = selector(arg: _config);
+        _discordConfig.SuppressUnknownDispatchWarnings = selector(_config);
         return this;
     }
 
@@ -198,7 +198,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.TotalShards = selector(arg: _config);
+        _discordConfig.TotalShards = selector(_config);
         return this;
     }
 
@@ -207,7 +207,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.UseInteractionSnowflakeDate = selector(arg: _config);
+        _discordConfig.UseInteractionSnowflakeDate = selector(_config);
         return this;
     }
 
@@ -216,7 +216,7 @@ public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig :
         if (selector is null)
             throw new ArgumentNullException(nameof(selector));
 
-        _discordConfig.UseSystemClock = selector(arg: _config);
+        _discordConfig.UseSystemClock = selector(_config);
         return this;
     }
 }

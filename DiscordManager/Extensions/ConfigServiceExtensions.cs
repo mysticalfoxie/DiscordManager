@@ -10,8 +10,8 @@ public static class ConfigServiceExtensions
         if (filename == null)
             throw new ArgumentNullException(nameof(filename));
 
-        var config = dcm.Services.ConfigService.ReadConfig<T>(filename: filename).Result;
-        dcm.Services.ConfigService.AddConfig(config: config);
+        var config = dcm.Services.ConfigService.ReadConfig<T>(filename).Result;
+        dcm.Services.ConfigService.AddConfig(config);
 
         return dcm;
     }
@@ -21,7 +21,7 @@ public static class ConfigServiceExtensions
         if (instance is null)
             throw new ArgumentNullException(nameof(instance));
 
-        dcm.Services.ConfigService.AddConfig(config: instance);
+        dcm.Services.ConfigService.AddConfig(instance);
 
         return dcm;
     }
@@ -31,14 +31,14 @@ public static class ConfigServiceExtensions
         if (filename == null)
             throw new ArgumentNullException(nameof(filename));
 
-        var config = dcm.Services.ConfigService.ReadConfig<T>(filename: filename).Result;
+        var config = dcm.Services.ConfigService.ReadConfig<T>(filename).Result;
         if (config.Discord is not null)
-            dcm.Services.ConfigService.AddDiscordConfig(config: config.Discord);
+            dcm.Services.ConfigService.AddDiscordConfig(config.Discord);
         if (config.Guild is not null)
-            dcm.Services.ConfigService.AddGuildConfig(config: config.Guild);
+            dcm.Services.ConfigService.AddGuildConfig(config.Guild);
 
         var dcmConfig = new DCMGlobalConfig { LoginToken = config.LoginToken };
-        dcm.Services.ConfigService.AddDCMConfig(config: dcmConfig);
+        dcm.Services.ConfigService.AddDCMConfig(dcmConfig);
 
         return dcm;
     }
@@ -49,8 +49,8 @@ public static class ConfigServiceExtensions
         if (filename == null)
             throw new ArgumentNullException(nameof(filename));
 
-        var config = dcm.Services.ConfigService.ReadConfig<T>(filename: filename).Result;
-        dcm.Services.ConfigService.AddDiscordConfig(config: config);
+        var config = dcm.Services.ConfigService.ReadConfig<T>(filename).Result;
+        dcm.Services.ConfigService.AddDiscordConfig(config);
 
         return dcm;
     }
@@ -60,8 +60,8 @@ public static class ConfigServiceExtensions
         if (filename == null)
             throw new ArgumentNullException(nameof(filename));
 
-        var config = dcm.Services.ConfigService.ReadConfig<T>(filename: filename).Result;
-        dcm.Services.ConfigService.AddDCMConfig(config: config);
+        var config = dcm.Services.ConfigService.ReadConfig<T>(filename).Result;
+        dcm.Services.ConfigService.AddDCMConfig(config);
 
         return dcm;
     }
@@ -71,8 +71,8 @@ public static class ConfigServiceExtensions
         if (filename == null)
             throw new ArgumentNullException(nameof(filename));
 
-        var config = dcm.Services.ConfigService.ReadConfig<T>(filename: filename).Result;
-        dcm.Services.ConfigService.AddGuildConfig(config: config);
+        var config = dcm.Services.ConfigService.ReadConfig<T>(filename).Result;
+        dcm.Services.ConfigService.AddGuildConfig(config);
 
         return dcm;
     }

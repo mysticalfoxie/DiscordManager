@@ -8,7 +8,7 @@ public static class DependencyServiceExtensions
     public static DiscordManager AddService<TService>(this DiscordManager dcm, TService instance) where TService : class
     {
         dcm.Services.DependencyService.Services
-            .AddSingleton(implementationInstance: instance);
+            .AddSingleton(instance);
 
         return dcm;
     }
@@ -25,7 +25,7 @@ public static class DependencyServiceExtensions
         where TService : class
     {
         dcm.Services.DependencyService.Services
-            .AddScoped(implementationFactory: fn);
+            .AddScoped(fn);
 
         return dcm;
     }
@@ -61,7 +61,7 @@ public static class DependencyServiceExtensions
         Func<IServiceProvider, TImplementation> fn) where TImplementation : class, TService where TService : class
     {
         dcm.Services.DependencyService.Services
-            .AddScoped<TService, TImplementation>(implementationFactory: fn);
+            .AddScoped<TService, TImplementation>(fn);
 
         return dcm;
     }

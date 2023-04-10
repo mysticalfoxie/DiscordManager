@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "TestClient\Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient.TestPlugin", "TestClient.TestPlugin\TestClient.TestPlugin.csproj", "{88E5913B-A2B3-4A97-B7DE-6D5AB5681E66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient.Data", "TestClient.Data\TestClient.Data.csproj", "{6B5C1CFA-596B-4380-9671-2C13C800AC84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,12 @@ Global
 		{88E5913B-A2B3-4A97-B7DE-6D5AB5681E66}.Include Plugins|Any CPU.Build.0 = Debug|Any CPU
 		{88E5913B-A2B3-4A97-B7DE-6D5AB5681E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88E5913B-A2B3-4A97-B7DE-6D5AB5681E66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B5C1CFA-596B-4380-9671-2C13C800AC84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B5C1CFA-596B-4380-9671-2C13C800AC84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B5C1CFA-596B-4380-9671-2C13C800AC84}.Include Plugins|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B5C1CFA-596B-4380-9671-2C13C800AC84}.Include Plugins|Any CPU.Build.0 = Debug|Any CPU
+		{6B5C1CFA-596B-4380-9671-2C13C800AC84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B5C1CFA-596B-4380-9671-2C13C800AC84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

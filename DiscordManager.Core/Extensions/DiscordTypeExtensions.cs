@@ -8,7 +8,7 @@ public static class GuildExtensions
     {
         Task.Factory.StartNew(async () =>
         {
-            await Task.Delay(millisecondsDelay: delay);
+            await Task.Delay(delay);
             await deleteable.DeleteAsync();
         });
     }
@@ -28,7 +28,7 @@ public static class GuildExtensions
 
     public static string GetAvatar(this IUser user, ImageFormat format = ImageFormat.Auto, ushort size = 128)
     {
-        return user.GetAvatarUrl(format: format, size: size) ?? user.GetDefaultAvatarUrl();
+        return user.GetAvatarUrl(format, size) ?? user.GetDefaultAvatarUrl();
     }
 
     public static string GetDisplayFormat(this IUser user)
@@ -44,7 +44,7 @@ public static class GuildExtensions
         CacheMode mode = CacheMode.AllowDownload,
         RequestOptions options = null)
     {
-        return await guild.GetChannelAsync(id: id, mode: mode, options: options)
+        return await guild.GetChannelAsync(id, mode, options)
                ?? throw new NullReferenceException(nameof(id));
     }
 
@@ -53,7 +53,7 @@ public static class GuildExtensions
         ulong id,
         RequestOptions options = null)
     {
-        return await guild.GetEmoteAsync(id: id, options: options)
+        return await guild.GetEmoteAsync(id, options)
                ?? throw new NullReferenceException(nameof(id));
     }
 
@@ -63,13 +63,13 @@ public static class GuildExtensions
         CacheMode mode = CacheMode.AllowDownload,
         RequestOptions options = null)
     {
-        return await client.GetGuildAsync(id: id, mode: mode, options: options)
+        return await client.GetGuildAsync(id, mode, options)
                ?? throw new NullReferenceException();
     }
 
     public static async Task<IPrivateChannel> GetRequiredPrivateChannelAsync(this IDiscordClient client, ulong id)
     {
-        return await client.GetPrivateChannelAsync(id: id)
+        return await client.GetPrivateChannelAsync(id)
                ?? throw new NullReferenceException();
     }
 
@@ -77,7 +77,7 @@ public static class GuildExtensions
         this IGuild guild,
         ulong id)
     {
-        return guild.GetRole(id: id)
+        return guild.GetRole(id)
                ?? throw new NullReferenceException(nameof(id));
     }
 
@@ -87,7 +87,7 @@ public static class GuildExtensions
         CacheMode mode = CacheMode.AllowDownload,
         RequestOptions options = null)
     {
-        return await guild.GetTextChannelAsync(id: id, mode: mode, options: options)
+        return await guild.GetTextChannelAsync(id, mode, options)
                ?? throw new NullReferenceException(nameof(id));
     }
 
@@ -97,14 +97,14 @@ public static class GuildExtensions
         CacheMode mode = CacheMode.AllowDownload,
         RequestOptions options = null)
     {
-        return await guild.GetUserAsync(id: id, mode: mode, options: options)
+        return await guild.GetUserAsync(id, mode, options)
                ?? throw new NullReferenceException(nameof(id));
     }
 
     public static async Task<IUser> GetRequiredUserAsync(this IDiscordClient client, ulong id,
         CacheMode mode = CacheMode.AllowDownload, RequestOptions options = null)
     {
-        return await client.GetUserAsync(id: id, mode: mode, options: options)
+        return await client.GetUserAsync(id, mode, options)
                ?? throw new NullReferenceException();
     }
 
@@ -114,12 +114,12 @@ public static class GuildExtensions
         CacheMode mode = CacheMode.AllowDownload,
         RequestOptions options = null)
     {
-        return await guild.GetVoiceChannelAsync(id: id, mode: mode, options: options)
+        return await guild.GetVoiceChannelAsync(id, mode, options)
                ?? throw new NullReferenceException(nameof(id));
     }
 
     public static bool IsAdmin(this IGuildUser user)
     {
-        return user.Guild.Roles.Where(r => user.RoleIds.Contains(value: r.Id)).Any(r => r.Permissions.Administrator);
+        return user.Guild.Roles.Where(r => user.RoleIds.Contains(r.Id)).Any(r => r.Permissions.Administrator);
     }
 }
