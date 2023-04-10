@@ -1,5 +1,6 @@
 using System;
 using DCM.Core.Models;
+using Microsoft.Extensions.Logging;
 
 namespace DCM.Extensions;
 
@@ -22,6 +23,16 @@ public static class ConfigServiceExtensions
             throw new ArgumentNullException(nameof(instance));
 
         dcm.Services.ConfigService.AddConfig(instance);
+
+        return dcm;
+    }
+
+    public static DiscordManager ConfigureLogging(this DiscordManager dcm, Action<ILoggingBuilder> builder)
+    {
+        if (builder is null)
+            throw new ArgumentNullException(nameof(builder));
+
+        dcm.Services.ConfigureLogging(builder);
 
         return dcm;
     }

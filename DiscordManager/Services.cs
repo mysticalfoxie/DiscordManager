@@ -8,38 +8,39 @@ namespace DCM;
 
 internal class Services
 {
+    private IServiceProvider _provider;
+
     public Services()
     {
-        Provider = new ServiceCollection()
+        Collection = new ServiceCollection()
             .AddSingleton<IConfigService, ConfigService>()
             .AddSingleton<IDependencyService, DependencyService>()
             .AddSingleton<ICredentialsService, CredentialsService>()
             .AddSingleton<IAssemblyService, AssemblyService>()
             .AddSingleton<IPluginService, PluginService>()
             .AddSingleton<IDiscordService, DiscordService>()
-            .AddSingleton<IEventService, EventService>()
-            .AddLogging()
-            .BuildServiceProvider();
-
-        ConfigService = Provider.GetService<IConfigService>();
-        DependencyService = Provider.GetService<IDependencyService>();
-        CredentialsService = Provider.GetService<ICredentialsService>();
-        AssemblyService = Provider.GetService<IAssemblyService>();
-        PluginService = Provider.GetService<IPluginService>();
-        DiscordService = Provider.GetService<IDiscordService>();
-        EventService = Provider.GetService<IEventService>();
-        Logger = Provider.GetService<ILogger<DiscordManager>>();
+            .AddSingleton<IEventService, EventService>();
     }
 
+    public IServiceProvider Provider => _provider ??= Collection.BuildServiceProvider();
 
-    public IServiceProvider Provider { get; }
+    public IServiceCollection Collection { get; }
 
-    public ILogger<DiscordManager> Logger { get; }
-    public IConfigService ConfigService { get; }
-    public IDependencyService DependencyService { get; }
-    public ICredentialsService CredentialsService { get; }
-    public IAssemblyService AssemblyService { get; }
-    public IPluginService PluginService { get; }
-    public IDiscordService DiscordService { get; }
-    public IEventService EventService { get; }
+    public ILogger<DiscordManager> Logger { get; private set; }
+    public IConfigService ConfigService => Provider.GetRequiredService<IConfigService>();
+    public IDependencyService DependencyService => Provider.GetRequiredService<IDependencyService>();
+    public ICredentialsService CredentialsService => Provider.GetRequiredService<ICredentialsService>();
+    public IAssemblyService AssemblyService => Provider.GetRequiredService<IAssemblyService>();
+    public IPluginService PluginService => Provider.GetRequiredService<IPluginService>();
+    public IDiscordService DiscordService => Provider.GetRequiredService<IDiscordService>();
+    public IEventService EventService => Provider.GetRequiredService<IEventService>();
+
+    public void ConfigureLogging(Action<ILoggingBuilder> configure)
+    {
+        _provider = Collection
+            .AddLogging(configure)
+            .BuildServiceProvider();
+
+        Logger = Provider.GetService<ILogger<DiscordManager>>();
+    }
 }

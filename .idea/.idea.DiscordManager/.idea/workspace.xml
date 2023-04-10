@@ -8,36 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f6a4c95-b4b6-4ac8-8884-99bbd498658e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TestClient.TestPlugin/MainPluginConfig.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Attributes/InjectableAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Attributes/InjectableAttribute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Builder/DCConfigBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Builder/DCConfigBuilder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/DCMPlugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/DCMPlugin.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Extensions/DiscordClientExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Extensions/DiscordClientExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Extensions/DiscordTypeExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Extensions/DiscordTypeExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IAssemblyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IAssemblyService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IConfigService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IConfigService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IPluginService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IPluginService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Models/DCMPluginConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Models/DCMPluginConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Models/GuildConfig.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/ServiceContainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/ServiceContainer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/AssemblyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/AssemblyService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/ConfigService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/ConfigService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/DependencyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/DependencyService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/EventService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/EventService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.sln" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager/DiscordManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/DiscordManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/DiscordManager.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/DiscordManager.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/ConfigServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Extensions/ConfigServiceExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/CredentialsServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Extensions/CredentialsServiceExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/DependencyServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Extensions/DependencyServiceExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/PluginServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Extensions/PluginServiceExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestClient.TestPlugin/MainPlugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestClient.TestPlugin/MainPlugin.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestClient.TestPlugin/PluginConfig.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestClient.TestPlugin/TestClient.TestPlugin.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TestClient.TestPlugin/TestClient.TestPlugin.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/Services.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Services.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestClient/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestClient/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestClient/TestClient.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TestClient/TestClient.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,11 +41,25 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/DiscordManager.Core/Events/ChannelCreatedEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DiscordManager.Core/Models/DCMDiscordConfig.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager.Core/Services/AssemblyService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager/Services.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager/Services.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager/Services.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager/Services.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager/Services.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager/Services.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager/Services.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TestClient.AnotherPlugin/PrivatePlugin.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TestClient.AnotherPlugin/PublicPluginOne.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TestClient.AnotherPlugin/PublicPluginTwo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TestClient/configuration.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/197852119cb5d81aae9df72c4565dd7540f2f483a16f97b174a246b0125392b7/SelectMany.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/22e631a6386fdbddfec2a36f4ab669cd441eb8b7d4cfc816b4ef67432ce6a3/LargeArrayBuilder.SpeedOpt.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5f4f8962d427163b1a68e6c6b1769f4fc9f935c53dfa2e61d89dfa5ec6e641b/Concat.SpeedOpt.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6879c9ed20391a5ccfea363be5964fbcfe4f1dfde9558aa84b36df6b6ec92c6/List.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d9d3ee3ae4e1e7b33ed8e1c86959d67a32cc63c302954fba34668dd9d6edfe/AssemblyName.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f5e93fdc574479e2039b7fcfbc2b6f4d9c61f7b4958157b1d1a6f85b8969/SparseArrayBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f9749fe3576a687c3c42f3794cefe8f8d91e62f939c66c0a32dbb3f74255/ManualResetEventSlim.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -167,7 +161,7 @@
       <workItem from="1680975834193" duration="291000" />
       <workItem from="1680979072102" duration="4322000" />
       <workItem from="1681061855526" duration="10355000" />
-      <workItem from="1681120401231" duration="6618000" />
+      <workItem from="1681120401231" duration="16363000" />
     </task>
     <task id="LOCAL-00001" summary="Adjust Events, Fix tiny bugs, Add Test Project">
       <created>1679512173477</created>
@@ -190,7 +184,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680010898573</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add Folder Loading Feature, Fix many bugs and add some Features">
+      <created>1681134593377</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1681134593377</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,7 +228,8 @@
     <MESSAGE value="Finish Discord Config Stuff" />
     <MESSAGE value="Some new Architecture" />
     <MESSAGE value="Fix some Bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix some Bugs" />
+    <MESSAGE value="Add Folder Loading Feature, Fix many bugs and add some Features" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Folder Loading Feature, Fix many bugs and add some Features" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -247,29 +249,42 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/DiscordManager/DiscordManager.cs</url>
-          <line>49</line>
+          <line>35</line>
           <properties documentPath="C:\Source\Remote\DiscordManager\DiscordManager\DiscordManager.cs" initialLine="55" containingFunctionPresentation="Method 'StartInternal'">
             <startOffsets>
-              <option value="1089" />
+              <option value="741" />
             </startOffsets>
             <endOffsets>
-              <option value="1119" />
+              <option value="771" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs</url>
-          <line>139</line>
+          <line>156</line>
           <properties documentPath="C:\Source\Remote\DiscordManager\DiscordManager.Core\Services\PluginService.cs" initialLine="139" containingFunctionPresentation="Method 'LoadAssembliesFromDirectories'">
             <startOffsets>
-              <option value="4507" />
+              <option value="5081" />
             </startOffsets>
             <endOffsets>
-              <option value="4508" />
+              <option value="5082" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/DiscordManager.Core/Services/AssemblyService.cs</url>
+          <line>17</line>
+          <properties documentPath="C:\Source\Remote\DiscordManager\DiscordManager.Core\Services\AssemblyService.cs" initialLine="17" containingFunctionPresentation="Method 'FindAssemblyFiles'">
+            <startOffsets>
+              <option value="413" />
+            </startOffsets>
+            <endOffsets>
+              <option value="414" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

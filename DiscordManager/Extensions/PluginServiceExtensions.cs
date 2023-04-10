@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using DCM.Core;
 
@@ -32,6 +33,17 @@ public static class PluginServiceExtensions
     {
         var types = dcm.Services.PluginService.PluginTypes;
         types.Add(typeof(TPlugin));
+
+        return dcm;
+    }
+
+    public static DiscordManager AddPlugins(this DiscordManager dcm, IEnumerable<string> paths)
+    {
+        if (paths is null)
+            throw new ArgumentNullException(nameof(paths));
+
+        foreach (var path in paths)
+            AddPlugins(dcm, path);
 
         return dcm;
     }

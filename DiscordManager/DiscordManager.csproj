@@ -31,12 +31,12 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Include Plugins|AnyCPU'">
-        <PlatformTarget/>
+        <PlatformTarget />
         <DefineConstants>TRACE</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DiscordManager.Core\DiscordManager.Core.csproj"/>
+        <ProjectReference Include="..\DiscordManager.Core\DiscordManager.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -46,9 +46,15 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.EventSource" Version="7.0.0" />
+    </ItemGroup>
+
     <ProjectExtensions>
         <VisualStudio>
-            <UserProperties models_4jsonobjects_4embedjsonschema_1json__JsonSchema="https://json-schema.org/draft/2019-09/schema"/>
+            <UserProperties models_4jsonobjects_4embedjsonschema_1json__JsonSchema="https://json-schema.org/draft/2019-09/schema" />
         </VisualStudio>
     </ProjectExtensions>
 

@@ -28,14 +28,10 @@ public class AssemblyService : IAssemblyService
 
     public IEnumerable<Type> LoadAssemblyTypes(IEnumerable<FileInfo> files)
     {
-        foreach (var file in files)
-        {
-            if (!TryLoadAssembly(file, out var assembly))
-                continue;
-
-            foreach (var type in assembly.GetExportedTypes())
-                yield return type;
-        }
+        return files
+            .Select(x => TryLoadAssembly(x, out var assembly) ? assembly : null)
+            .Where(x => x is not null)
+            .SelectMany(x => x.GetExportedTypes());
     }
 
     private bool TryLoadAssembly(FileInfo file, out Assembly assembly)
@@ -47,7 +43,7 @@ public class AssemblyService : IAssemblyService
         }
         catch (Exception ex)
         {
-            _logger.Log(LogLevel.Error, ex, "Failed to load assembly");
+            _logger.LogError(ex, $"assembly load failed for file '{file.FullName}'");
             assembly = null;
             return false;
         }

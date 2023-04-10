@@ -40,20 +40,25 @@ public class PluginService : IPluginService
     public void Invoke(PluginInvokationTarget target)
     {
         var names = GetMethodNames(target);
+
+        _logger.LogTrace($"invoking '{Enum.GetName(target)}' method for all plugins");
+
         foreach (var plugin in PluginInstances)
         {
             InvokeSynchronousMethod(plugin, names.SyncMethodName);
             InvokeAsynchronousMethod(plugin, names.AsyncMethodName);
         }
+
+        _logger.LogTrace($"invocation of '{Enum.GetName(target)}' method completed");
     }
 
-    public int Load()
+    public void Load()
     {
         LoadAssembliesFromDirectories();
         LoadPluginTypesFromAssembly();
         InstantiatePlugins();
 
-        return PluginInstances.Count;
+        _logger.LogInformation($"{PluginInstances.Count} plugin(s) loaded");
     }
 
 
@@ -81,11 +86,15 @@ public class PluginService : IPluginService
 
             var plugin = (DCMPlugin)_dependencyService.CreateInstance(type, pluginServices);
 
-            return PropagatePlugin(plugin, pluginServices);
+            _logger.LogTrace($"plugin {type.FullName} instantiated");
+
+            return plugin;
+
+            // TODO:  return PropagatePlugin(plugin, pluginServices);
         }
         catch (Exception ex)
         {
-            _logger.Log(LogLevel.Error, ex, $"An error occured instantiating a plugin of type '{type.FullName}'");
+            _logger.LogError(ex, $"could not instantiate a plugin of type '{type.FullName}'");
             return null;
         }
     }
@@ -110,7 +119,7 @@ public class PluginService : IPluginService
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex, $"An error occured invoking the plugins method '{methodName}'");
+                _logger.LogError(ex, $"an error occured invoking '{methodName}' in plugin '{instance.GetType().Name}'");
             }
         });
     }
@@ -126,8 +135,7 @@ public class PluginService : IPluginService
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex,
-                    $"An error occured invoking the plugins method '{methodName}'.");
+                _logger.LogError(ex, $"an error occured invoking '{methodName}' in plugin '{instance.GetType().Name}'");
             }
         });
     }
@@ -135,7 +143,16 @@ public class PluginService : IPluginService
     private void LoadAssembliesFromDirectories()
     {
         var files = PluginDirectories
-            .SelectMany(_assemblyService.FindAssemblyFiles);
+            .SelectMany(directory =>
+            {
+                var files = _assemblyService
+                    .FindAssemblyFiles(directory)
+                    .ToArray();
+
+                _logger.LogTrace($"found {files.Length} library files(s) in source '{directory.FullName}'");
+                return files;
+            });
+
         PluginFiles.AddRange(files);
     }
 
@@ -143,7 +160,10 @@ public class PluginService : IPluginService
     {
         var types = _assemblyService
             .LoadAssemblyTypes(PluginFiles)
-            .Where(x => x.IsSubclassOf(typeof(DCMPlugin)));
+            .Where(x => x.IsSubclassOf(typeof(DCMPlugin)))
+            .ToArray();
+
+        _logger.LogTrace($"found {types.Length} plugin(s) in '{PluginFiles.Count}' file(s)");
         PluginTypes.AddRange(types);
     }
 

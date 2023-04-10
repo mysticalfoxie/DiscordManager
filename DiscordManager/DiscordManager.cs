@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DCM.Core.Enums;
-using Microsoft.Extensions.Logging;
 
 namespace DCM;
 
@@ -17,18 +16,7 @@ public class DiscordManager : IAsyncDisposable
 
     public void Start()
     {
-        Task.Factory.StartNew(async () =>
-        {
-            try
-            {
-                await StartInternal();
-            }
-            catch (Exception ex)
-            {
-                Services.Logger.Log(LogLevel.Critical, ex, "An error occured during start pipeline");
-                throw;
-            }
-        });
+        Task.Factory.StartNew(StartInternal);
     }
 
     public async Task StartAndWait()
@@ -44,9 +32,7 @@ public class DiscordManager : IAsyncDisposable
 
     private async Task StartInternal()
     {
-        Services.DependencyService.PublishServices(
-            Services.DiscordService,
-            Services.EventService);
+        Services.DependencyService.PublishServices(Services.DiscordService, Services.EventService);
         Services.PluginService.Load();
         await Services.ConfigService.LoadPluginConfigs(Services.PluginService.PluginInstances);
         Services.DiscordService.Build();

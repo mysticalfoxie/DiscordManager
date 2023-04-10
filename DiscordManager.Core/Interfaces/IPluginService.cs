@@ -9,5 +9,5 @@ public interface IPluginService
     List<DCMPlugin> PluginInstances { get; }
     List<Type> PluginTypes { get; }
     void Invoke(PluginInvokationTarget target);
-    int Load();
+    void Load();
 }
