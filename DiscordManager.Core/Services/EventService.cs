@@ -12,14 +12,14 @@ namespace DCM.Core.Services;
 public class EventService : IEventService
 {
     private readonly IConfigService _configService;
-    private readonly IDiscordService _discordService;
+    private readonly IDiscordClientService _discordClientService;
 
     public EventService(
         IConfigService configService,
-        IDiscordService discordService)
+        IDiscordClientService discordClientService)
     {
         _configService = configService;
-        _discordService = discordService;
+        _discordClientService = discordClientService;
     }
 
 
@@ -98,78 +98,78 @@ public class EventService : IEventService
 
     public void MapEvents()
     {
-        _discordService.Client.ChannelCreated += OnChannelCreated;
-        _discordService.Client.ChannelDestroyed += OnChannelDestroyed;
-        _discordService.Client.MessageReceived += OnMessageReceived;
-        _discordService.Client.RoleCreated += OnRoleCreated;
-        _discordService.Client.RoleDeleted += OnRoleDeleted;
-        _discordService.Client.JoinedGuild += OnJoinedGuild;
-        _discordService.Client.LeftGuild += OnLeftGuild;
-        _discordService.Client.GuildAvailable += OnGuildAvailable;
-        _discordService.Client.GuildUnavailable += OnGuildUnavailable;
-        _discordService.Client.GuildMembersDownloaded += OnGuildMembersDownloaded;
-        _discordService.Client.GuildScheduledEventCancelled += OnGuildScheduledEventCancelled;
-        _discordService.Client.GuildScheduledEventCompleted += OnGuildScheduledEventCompleted;
-        _discordService.Client.GuildScheduledEventStarted += OnGuildScheduledEventStarted;
-        _discordService.Client.IntegrationCreated += OnIntegrationCreated;
-        _discordService.Client.IntegrationUpdated += OnIntegrationUpdated;
-        _discordService.Client.UserJoined += OnUserJoined;
-        _discordService.Client.VoiceServerUpdated += OnVoiceServerUpdated;
-        _discordService.Client.RecipientAdded += OnRecipientAdded;
-        _discordService.Client.RecipientRemoved += OnRecipientRemoved;
-        _discordService.Client.InviteCreated += OnInviteCreated;
-        _discordService.Client.InteractionCreated += OnInteractionCreated;
-        _discordService.Client.ButtonExecuted += OnButtonExecuted;
-        _discordService.Client.SelectMenuExecuted += OnSelectMenuExecuted;
-        _discordService.Client.SlashCommandExecuted += OnSlashCommandExecuted;
-        _discordService.Client.UserCommandExecuted += OnUserCommandExecuted;
-        _discordService.Client.MessageCommandExecuted += OnMessageCommandExecuted;
-        _discordService.Client.AutocompleteExecuted += OnAutocompleteExecuted;
-        _discordService.Client.ModalSubmitted += OnModalSubmitted;
-        _discordService.Client.ApplicationCommandCreated += OnApplicationCommandCreated;
-        _discordService.Client.ApplicationCommandUpdated += OnApplicationCommandUpdated;
-        _discordService.Client.ApplicationCommandDeleted += OnApplicationCommandDeleted;
-        _discordService.Client.ThreadCreated += OnThreadCreated;
-        _discordService.Client.ThreadMemberJoined += OnThreadMemberJoined;
-        _discordService.Client.ThreadMemberLeft += OnThreadMemberLeft;
-        _discordService.Client.StageStarted += OnStageStarted;
-        _discordService.Client.StageEnded += OnStageEnded;
-        _discordService.Client.GuildStickerCreated += OnGuildStickerCreated;
-        _discordService.Client.GuildStickerDeleted += OnGuildStickerDeleted;
-        _discordService.Client.RoleUpdated += OnRoleUpdated;
-        _discordService.Client.GuildUpdated += OnGuildUpdated;
-        _discordService.Client.UserLeft += OnUserLeft;
-        _discordService.Client.UserBanned += OnUserBanned;
-        _discordService.Client.UserUnbanned += OnUserUnbanned;
-        _discordService.Client.InviteDeleted += OnInviteDeleted;
-        _discordService.Client.UserUpdated += OnUserUpdated;
-        _discordService.Client.StageUpdated += OnStageUpdated;
-        _discordService.Client.RequestToSpeak += OnRequestToSpeak;
-        _discordService.Client.SpeakerAdded += OnSpeakerAdded;
-        _discordService.Client.SpeakerRemoved += OnSpeakerRemoved;
-        _discordService.Client.GuildStickerUpdated += OnGuildStickerUpdated;
-        _discordService.Client.ChannelUpdated += OnChannelUpdated;
-        _discordService.Client.WebhooksUpdated += OnWebhooksUpdated;
-        _discordService.Client.MessageDeleted += OnMessageDeleted;
-        _discordService.Client.MessagesBulkDeleted += OnMessagesBulkDeleted;
-        _discordService.Client.MessageUpdated += OnMessageUpdated;
-        _discordService.Client.ReactionAdded += OnReactionAdded;
-        _discordService.Client.ReactionRemoved += OnReactionRemoved;
-        _discordService.Client.ReactionsRemovedForEmote += OnReactionsRemovedForEmote;
-        _discordService.Client.ReactionsCleared += OnReactionsCleared;
-        _discordService.Client.GuildJoinRequestDeleted += OnGuildJoinRequestDeleted;
-        _discordService.Client.GuildScheduledEventCreated += OnGuildScheduledEventCreated;
-        _discordService.Client.GuildScheduledEventUpdated += OnGuildScheduledEventUpdated;
-        _discordService.Client.GuildScheduledEventUserAdd += OnGuildScheduledEventUserAdd;
-        _discordService.Client.GuildScheduledEventUserRemove += OnGuildScheduledEventUserRemove;
-        _discordService.Client.IntegrationDeleted += OnIntegrationDeleted;
-        _discordService.Client.GuildMemberUpdated += OnGuildMemberUpdated;
-        _discordService.Client.UserVoiceStateUpdated += OnUserVoiceStateUpdated;
-        _discordService.Client.CurrentUserUpdated += OnCurrentUserUpdated;
-        _discordService.Client.UserIsTyping += OnUserIsTyping;
-        _discordService.Client.PresenceUpdated += OnPresenceUpdated;
-        _discordService.Client.ThreadUpdated += OnThreadUpdated;
-        _discordService.Client.ThreadDeleted += OnThreadDeleted;
+        _discordClientService.Client.ChannelCreated += OnChannelCreated;
+        _discordClientService.Client.ChannelDestroyed += OnChannelDestroyed;
+        _discordClientService.Client.MessageReceived += OnMessageReceived;
+        _discordClientService.Client.RoleCreated += OnRoleCreated;
+        _discordClientService.Client.RoleDeleted += OnRoleDeleted;
+        _discordClientService.Client.JoinedGuild += OnJoinedGuild;
+        _discordClientService.Client.LeftGuild += OnLeftGuild;
+        _discordClientService.Client.GuildAvailable += OnGuildAvailable;
+        _discordClientService.Client.GuildUnavailable += OnGuildUnavailable;
+        _discordClientService.Client.GuildMembersDownloaded += OnGuildMembersDownloaded;
+        _discordClientService.Client.GuildScheduledEventCancelled += OnGuildScheduledEventCancelled;
+        _discordClientService.Client.GuildScheduledEventCompleted += OnGuildScheduledEventCompleted;
+        _discordClientService.Client.GuildScheduledEventStarted += OnGuildScheduledEventStarted;
+        _discordClientService.Client.IntegrationCreated += OnIntegrationCreated;
+        _discordClientService.Client.IntegrationUpdated += OnIntegrationUpdated;
+        _discordClientService.Client.UserJoined += OnUserJoined;
+        _discordClientService.Client.VoiceServerUpdated += OnVoiceServerUpdated;
+        _discordClientService.Client.RecipientAdded += OnRecipientAdded;
+        _discordClientService.Client.RecipientRemoved += OnRecipientRemoved;
+        _discordClientService.Client.InviteCreated += OnInviteCreated;
+        _discordClientService.Client.InteractionCreated += OnInteractionCreated;
+        _discordClientService.Client.ButtonExecuted += OnButtonExecuted;
+        _discordClientService.Client.SelectMenuExecuted += OnSelectMenuExecuted;
+        _discordClientService.Client.SlashCommandExecuted += OnSlashCommandExecuted;
+        _discordClientService.Client.UserCommandExecuted += OnUserCommandExecuted;
+        _discordClientService.Client.MessageCommandExecuted += OnMessageCommandExecuted;
+        _discordClientService.Client.AutocompleteExecuted += OnAutocompleteExecuted;
+        _discordClientService.Client.ModalSubmitted += OnModalSubmitted;
+        _discordClientService.Client.ApplicationCommandCreated += OnApplicationCommandCreated;
+        _discordClientService.Client.ApplicationCommandUpdated += OnApplicationCommandUpdated;
+        _discordClientService.Client.ApplicationCommandDeleted += OnApplicationCommandDeleted;
+        _discordClientService.Client.ThreadCreated += OnThreadCreated;
+        _discordClientService.Client.ThreadMemberJoined += OnThreadMemberJoined;
+        _discordClientService.Client.ThreadMemberLeft += OnThreadMemberLeft;
+        _discordClientService.Client.StageStarted += OnStageStarted;
+        _discordClientService.Client.StageEnded += OnStageEnded;
+        _discordClientService.Client.GuildStickerCreated += OnGuildStickerCreated;
+        _discordClientService.Client.GuildStickerDeleted += OnGuildStickerDeleted;
+        _discordClientService.Client.RoleUpdated += OnRoleUpdated;
+        _discordClientService.Client.GuildUpdated += OnGuildUpdated;
+        _discordClientService.Client.UserLeft += OnUserLeft;
+        _discordClientService.Client.UserBanned += OnUserBanned;
+        _discordClientService.Client.UserUnbanned += OnUserUnbanned;
+        _discordClientService.Client.InviteDeleted += OnInviteDeleted;
+        _discordClientService.Client.UserUpdated += OnUserUpdated;
+        _discordClientService.Client.StageUpdated += OnStageUpdated;
+        _discordClientService.Client.RequestToSpeak += OnRequestToSpeak;
+        _discordClientService.Client.SpeakerAdded += OnSpeakerAdded;
+        _discordClientService.Client.SpeakerRemoved += OnSpeakerRemoved;
+        _discordClientService.Client.GuildStickerUpdated += OnGuildStickerUpdated;
+        _discordClientService.Client.ChannelUpdated += OnChannelUpdated;
+        _discordClientService.Client.WebhooksUpdated += OnWebhooksUpdated;
+        _discordClientService.Client.MessageDeleted += OnMessageDeleted;
+        _discordClientService.Client.MessagesBulkDeleted += OnMessagesBulkDeleted;
+        _discordClientService.Client.MessageUpdated += OnMessageUpdated;
+        _discordClientService.Client.ReactionAdded += OnReactionAdded;
+        _discordClientService.Client.ReactionRemoved += OnReactionRemoved;
+        _discordClientService.Client.ReactionsRemovedForEmote += OnReactionsRemovedForEmote;
+        _discordClientService.Client.ReactionsCleared += OnReactionsCleared;
+        _discordClientService.Client.GuildJoinRequestDeleted += OnGuildJoinRequestDeleted;
+        _discordClientService.Client.GuildScheduledEventCreated += OnGuildScheduledEventCreated;
+        _discordClientService.Client.GuildScheduledEventUpdated += OnGuildScheduledEventUpdated;
+        _discordClientService.Client.GuildScheduledEventUserAdd += OnGuildScheduledEventUserAdd;
+        _discordClientService.Client.GuildScheduledEventUserRemove += OnGuildScheduledEventUserRemove;
+        _discordClientService.Client.IntegrationDeleted += OnIntegrationDeleted;
+        _discordClientService.Client.GuildMemberUpdated += OnGuildMemberUpdated;
+        _discordClientService.Client.UserVoiceStateUpdated += OnUserVoiceStateUpdated;
+        _discordClientService.Client.CurrentUserUpdated += OnCurrentUserUpdated;
+        _discordClientService.Client.UserIsTyping += OnUserIsTyping;
+        _discordClientService.Client.PresenceUpdated += OnPresenceUpdated;
+        _discordClientService.Client.ThreadUpdated += OnThreadUpdated;
+        _discordClientService.Client.ThreadDeleted += OnThreadDeleted;
     }
 
     public Task OnApplicationCommandCreated(

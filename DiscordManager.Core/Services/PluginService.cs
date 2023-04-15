@@ -12,22 +12,25 @@ public class PluginService : IPluginService
     private readonly IAssemblyService _assemblyService;
     private readonly IConfigService _configService;
     private readonly IDependencyService _dependencyService;
-    private readonly IDiscordService _discordService;
+    private readonly IDiscordClientService _discordClientService;
     private readonly IEventService _eventService;
+    private readonly IGuildService _guildService;
     private readonly ILogger<PluginService> _logger;
 
     public PluginService(
         IDependencyService dependencyService,
         IEventService eventService,
-        IDiscordService discordService,
+        IDiscordClientService discordClientService,
         IConfigService configService,
+        IGuildService guildService,
         ILogger<PluginService> logger,
         IAssemblyService assemblyService)
     {
         _dependencyService = dependencyService;
         _eventService = eventService;
-        _discordService = discordService;
+        _discordClientService = discordClientService;
         _configService = configService;
+        _guildService = guildService;
         _logger = logger;
         _assemblyService = assemblyService;
     }
@@ -41,7 +44,7 @@ public class PluginService : IPluginService
     {
         var names = GetMethodNames(target);
 
-        _logger.LogTrace($"invoking '{Enum.GetName(target)}' method for all plugins");
+        _logger.LogTrace($"Invoking '{Enum.GetName(target)}' method for all plugins");
 
         foreach (var plugin in PluginInstances)
         {
@@ -49,7 +52,7 @@ public class PluginService : IPluginService
             InvokeAsynchronousMethod(plugin, names.AsyncMethodName);
         }
 
-        _logger.LogTrace($"invocation of '{Enum.GetName(target)}' method completed");
+        _logger.LogTrace($"Invocation of '{Enum.GetName(target)}' method completed");
     }
 
     public void Load()
@@ -59,6 +62,28 @@ public class PluginService : IPluginService
         InstantiatePlugins();
 
         _logger.LogInformation($"{PluginInstances.Count} plugin(s) loaded");
+    }
+
+    public async Task PropagateDiscordContainer()
+    {
+        if (_configService.GuildConfig is not null)
+        {
+            await _guildService.Load();
+            foreach (var plugin in PluginInstances)
+                _guildService.PropagateContainerFromCache(plugin);
+        }
+    }
+
+    public void PropagatePluginServices()
+    {
+        foreach (var plugin in PluginInstances)
+        {
+            plugin.GuildConfig = _configService.GuildConfig;
+            plugin.DiscordConfig = _configService.DiscordConfig;
+            plugin.GlobalConfig = _configService.GlobalConfig;
+            plugin.Client = _discordClientService.Client;
+            plugin.Events = _eventService;
+        }
     }
 
 
@@ -85,8 +110,9 @@ public class PluginService : IPluginService
             pluginServices.Add(injectables);
 
             var plugin = (DCMPlugin)_dependencyService.CreateInstance(type, pluginServices);
+            plugin.Services = pluginServices;
 
-            _logger.LogTrace($"plugin {type.FullName} instantiated");
+            _logger.LogTrace($"Plugin {type.FullName} instantiated");
 
             return plugin;
 
@@ -94,7 +120,7 @@ public class PluginService : IPluginService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"could not instantiate a plugin of type '{type.FullName}'");
+            _logger.LogError(ex, $"Could not instantiate a plugin of type '{type.FullName}'");
             return null;
         }
     }
@@ -149,7 +175,7 @@ public class PluginService : IPluginService
                     .FindAssemblyFiles(directory)
                     .ToArray();
 
-                _logger.LogTrace($"found {files.Length} library files(s) in source '{directory.FullName}'");
+                _logger.LogTrace($"Found {files.Length} library files(s) in source '{directory.FullName}'");
                 return files;
             });
 
@@ -163,19 +189,7 @@ public class PluginService : IPluginService
             .Where(x => x.IsSubclassOf(typeof(DCMPlugin)))
             .ToArray();
 
-        _logger.LogTrace($"found {types.Length} plugin(s) in '{PluginFiles.Count}' file(s)");
+        _logger.LogTrace($"Found {types.Length} plugin(s) in {PluginFiles.Count} file(s)");
         PluginTypes.AddRange(types);
-    }
-
-    private DCMPlugin PropagatePlugin(DCMPlugin plugin, IServiceCollection services)
-    {
-        plugin.GuildConfig = _configService.GuildConfig;
-        plugin.DiscordConfig = _configService.DiscordConfig;
-        plugin.GlobalConfig = _configService.GlobalConfig;
-        plugin.Client = _discordService.Client;
-        plugin.Events = _eventService;
-        plugin.Services = services;
-
-        return plugin;
     }
 }

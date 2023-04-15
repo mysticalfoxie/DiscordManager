@@ -18,8 +18,10 @@ internal class Services
             .AddSingleton<ICredentialsService, CredentialsService>()
             .AddSingleton<IAssemblyService, AssemblyService>()
             .AddSingleton<IPluginService, PluginService>()
+            .AddSingleton<IDiscordClientService, DiscordClientService>()
             .AddSingleton<IDiscordService, DiscordService>()
-            .AddSingleton<IEventService, EventService>();
+            .AddSingleton<IEventService, EventService>()
+            .AddSingleton<IGuildService, GuildService>();
     }
 
     public IServiceProvider Provider => _provider ??= Collection.BuildServiceProvider();
@@ -32,7 +34,7 @@ internal class Services
     public ICredentialsService CredentialsService => Provider.GetRequiredService<ICredentialsService>();
     public IAssemblyService AssemblyService => Provider.GetRequiredService<IAssemblyService>();
     public IPluginService PluginService => Provider.GetRequiredService<IPluginService>();
-    public IDiscordService DiscordService => Provider.GetRequiredService<IDiscordService>();
+    public IDiscordClientService DiscordClientService => Provider.GetRequiredService<IDiscordClientService>();
     public IEventService EventService => Provider.GetRequiredService<IEventService>();
 
     public void ConfigureLogging(Action<ILoggingBuilder> configure)

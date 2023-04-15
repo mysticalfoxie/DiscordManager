@@ -1,16 +1,8 @@
-using System.Reactive;
-using System.Reactive.Subjects;
-using Discord.WebSocket;
+using Discord;
 
 namespace DCM.Core.Interfaces;
 
 public interface IDiscordService
 {
-    DiscordSocketClient Client { get; }
-    bool Running { get; }
-    ISubject<Unit> Connect { get; }
-    ISubject<Unit> Disconnect { get; }
-    void Build();
-    Task StartAsync();
-    Task StopAsync();
+    IGuild GetRequiredGuild(ulong id);
 }

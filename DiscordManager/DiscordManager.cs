@@ -10,7 +10,7 @@ public class DiscordManager : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        await Services.DiscordService.StopAsync();
+        await Services.DiscordClientService.StopAsync();
         GC.SuppressFinalize(this);
     }
 
@@ -32,13 +32,15 @@ public class DiscordManager : IAsyncDisposable
 
     private async Task StartInternal()
     {
-        Services.DependencyService.PublishServices(Services.DiscordService, Services.EventService);
+        Services.DependencyService.PublishServices(Services.DiscordClientService, Services.EventService);
         Services.PluginService.Load();
+        Services.PluginService.PropagatePluginServices();
         await Services.ConfigService.LoadPluginConfigs(Services.PluginService.PluginInstances);
-        Services.DiscordService.Build();
+        Services.DiscordClientService.Build();
         Services.PluginService.Invoke(PluginInvokationTarget.PreStart);
         Services.EventService.MapEvents();
-        await Services.DiscordService.StartAsync();
+        await Services.DiscordClientService.StartAsync();
         Services.PluginService.Invoke(PluginInvokationTarget.PostStart);
+        await Services.PluginService.PropagateDiscordContainer();
     }
 }

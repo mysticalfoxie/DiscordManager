@@ -26,10 +26,10 @@ public class DependencyService : IDependencyService
     }
 
     public void PublishServices(
-        IDiscordService discordService,
+        IDiscordClientService discordClientService,
         IEventService eventService)
     {
-        Services.AddSingleton(discordService);
+        Services.AddSingleton(discordClientService);
         Services.AddSingleton(eventService);
     }
 

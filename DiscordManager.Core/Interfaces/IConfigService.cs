@@ -5,9 +5,9 @@ namespace DCM.Core.Interfaces;
 
 public interface IConfigService
 {
-    DCMGlobalConfig GlobalConfig { get; set; }
-    DCMGuildConfig GuildConfig { get; set; }
-    DCMDiscordConfig DiscordConfig { get; set; }
+    DCMGlobalConfig GlobalConfig { get; }
+    DCMGuildConfig GuildConfig { get; }
+    DCMDiscordConfig DiscordConfig { get; }
 
     void AddConfig<T>(T config) where T : class;
 
@@ -16,7 +16,6 @@ public interface IConfigService
     void AddGuildConfig<T>(T config) where T : DCMGuildConfig;
     Task LoadPluginConfigs(IEnumerable<DCMPlugin> plugins);
     Task<T> ReadConfig<T>(string filename) where T : class;
-    Task<object> ReadConfig(Type type, string filename);
 
     DiscordSocketConfig ReadSocketConfig();
 }

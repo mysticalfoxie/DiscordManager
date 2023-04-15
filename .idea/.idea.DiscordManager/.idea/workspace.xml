@@ -7,18 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f6a4c95-b4b6-4ac8-8884-99bbd498658e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IPluginService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Interfaces/IPluginService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/AssemblyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/AssemblyService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/DiscordManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/DiscordManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/DiscordManager.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/DiscordManager.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/ConfigServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Extensions/ConfigServiceExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Extensions/PluginServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Extensions/PluginServiceExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordManager/Services.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/Services.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestClient/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestClient/Program.cs" afterDir="false" />
-    </list>
+    <list default="true" id="6f6a4c95-b4b6-4ac8-8884-99bbd498658e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,6 +31,7 @@
     <setting file="file://$PROJECT_DIR$/DiscordManager.Core/Events/ChannelCreatedEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DiscordManager.Core/Models/DCMDiscordConfig.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager.Core/Services/AssemblyService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager.Core/Services/AssemblyService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager/Services.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager/Services.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Source/Remote/DiscordManager/DiscordManager/Services.cs" root0="SKIP_HIGHLIGHTING" />
@@ -55,6 +45,7 @@
     <setting file="file://$PROJECT_DIR$/TestClient/configuration.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/197852119cb5d81aae9df72c4565dd7540f2f483a16f97b174a246b0125392b7/SelectMany.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/22e631a6386fdbddfec2a36f4ab669cd441eb8b7d4cfc816b4ef67432ce6a3/LargeArrayBuilder.SpeedOpt.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2a5cc194fee19ec98ae1c3a8395d4f42f3d0dc84adbe34dcc08c28eec6bc9b1/TaskAwaiter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5f4f8962d427163b1a68e6c6b1769f4fc9f935c53dfa2e61d89dfa5ec6e641b/Concat.SpeedOpt.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6879c9ed20391a5ccfea363be5964fbcfe4f1dfde9558aa84b36df6b6ec92c6/List.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
@@ -161,7 +152,7 @@
       <workItem from="1680975834193" duration="291000" />
       <workItem from="1680979072102" duration="4322000" />
       <workItem from="1681061855526" duration="10355000" />
-      <workItem from="1681120401231" duration="16363000" />
+      <workItem from="1681120401231" duration="16689000" />
     </task>
     <task id="LOCAL-00001" summary="Adjust Events, Fix tiny bugs, Add Test Project">
       <created>1679512173477</created>
@@ -191,7 +182,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681134593377</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Get some Logging in">
+      <created>1681153445020</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681153445020</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,7 +227,8 @@
     <MESSAGE value="Some new Architecture" />
     <MESSAGE value="Fix some Bugs" />
     <MESSAGE value="Add Folder Loading Feature, Fix many bugs and add some Features" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Folder Loading Feature, Fix many bugs and add some Features" />
+    <MESSAGE value="Get some Logging in" />
+    <option name="LAST_COMMIT_MESSAGE" value="Get some Logging in" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -285,6 +284,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/DiscordManager/Services.cs</url>
+          <line>38</line>
+          <properties documentPath="C:\Source\Remote\DiscordManager\DiscordManager\Services.cs" initialLine="38" containingFunctionPresentation="Method 'ConfigureLogging'">
+            <startOffsets>
+              <option value="1691" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1692" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

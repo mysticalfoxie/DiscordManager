@@ -14,3 +14,15 @@ public class DCMGuildConfigIdMapping
     public ulong Id { get; set; }
     public string Name { get; set; }
 }
+
+public class DCMGuildConfigValue<TValue> : DCMGuildConfigIdMapping
+{
+    public DCMGuildConfigValue(TValue value, DCMGuildConfigIdMapping entry)
+    {
+        Id = entry.Id;
+        Name = entry.Name;
+        Value = value;
+    }
+
+    public TValue Value { get; set; }
+}

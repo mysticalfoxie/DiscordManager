@@ -10,4 +10,6 @@ public interface IPluginService
     List<Type> PluginTypes { get; }
     void Invoke(PluginInvokationTarget target);
     void Load();
+    Task PropagateDiscordContainer();
+    void PropagatePluginServices();
 }

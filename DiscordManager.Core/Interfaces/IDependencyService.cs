@@ -10,7 +10,7 @@ public interface IDependencyService
     T CreateInstance<T>(IServiceCollection secondary = null) where T : class;
 
     void PublishServices(
-        IDiscordService discordService,
+        IDiscordClientService discordClientService,
         IEventService eventService);
 
     IEnumerable<ServiceDescriptor> SearchInjectables(Assembly assembly);

@@ -20,9 +20,9 @@ public class ConfigService : IConfigService
         _credentials = credentials;
     }
 
-    public DCMGlobalConfig GlobalConfig { get; set; }
-    public DCMGuildConfig GuildConfig { get; set; }
-    public DCMDiscordConfig DiscordConfig { get; set; }
+    public DCMGlobalConfig GlobalConfig { get; private set; }
+    public DCMGuildConfig GuildConfig { get; private set; }
+    public DCMDiscordConfig DiscordConfig { get; private set; }
 
     public void AddConfig<T>(T config) where T : class
     {
@@ -64,12 +64,6 @@ public class ConfigService : IConfigService
     public async Task<T> ReadConfig<T>(string filename) where T : class
     {
         return await ReadConfig(typeof(T), filename) as T;
-    }
-
-    public async Task<object> ReadConfig(Type type, string filename)
-    {
-        var json = await File.ReadAllTextAsync(filename);
-        return JsonConvert.DeserializeObject(json, type);
     }
 
     public DiscordSocketConfig ReadSocketConfig()
@@ -146,7 +140,13 @@ public class ConfigService : IConfigService
         return config;
     }
 
-    private async Task<DCMPluginConfig> GetPluginConfig(PluginConfigAttribute attribute, DCMPlugin plugin)
+    public static async Task<object> ReadConfig(Type type, string filename)
+    {
+        var json = await File.ReadAllTextAsync(filename);
+        return JsonConvert.DeserializeObject(json, type);
+    }
+
+    private static async Task<DCMPluginConfig> GetPluginConfig(PluginConfigAttribute attribute, DCMPlugin plugin)
     {
         if (attribute.File is not null && attribute.Type is not null)
             return (DCMPluginConfig)await ReadConfig(attribute.Type, attribute.File.FullName);
