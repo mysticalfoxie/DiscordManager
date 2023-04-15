@@ -13,24 +13,30 @@ public class PluginService : IPluginService
     private readonly IConfigService _configService;
     private readonly IDependencyService _dependencyService;
     private readonly IDiscordClientService _discordClientService;
+    private readonly IDiscordService _discordService;
     private readonly IEventService _eventService;
     private readonly IGuildService _guildService;
     private readonly ILogger<PluginService> _logger;
+    private readonly ILoggerFactory _loggerFactory;
 
     public PluginService(
         IDependencyService dependencyService,
         IEventService eventService,
         IDiscordClientService discordClientService,
+        IDiscordService discordService,
         IConfigService configService,
         IGuildService guildService,
+        ILoggerFactory loggerFactory,
         ILogger<PluginService> logger,
         IAssemblyService assemblyService)
     {
         _dependencyService = dependencyService;
         _eventService = eventService;
         _discordClientService = discordClientService;
+        _discordService = discordService;
         _configService = configService;
         _guildService = guildService;
+        _loggerFactory = loggerFactory;
         _logger = logger;
         _assemblyService = assemblyService;
     }
@@ -68,9 +74,13 @@ public class PluginService : IPluginService
     {
         if (_configService.GuildConfig is not null)
         {
+            _logger.LogTrace("Loading all guild objects from configuration");
+
             await _guildService.Load();
             foreach (var plugin in PluginInstances)
                 _guildService.PropagateContainerFromCache(plugin);
+
+            _logger.LogInformation("Main guild has been downloaded and cached");
         }
     }
 
@@ -83,6 +93,9 @@ public class PluginService : IPluginService
             plugin.GlobalConfig = _configService.GlobalConfig;
             plugin.Client = _discordClientService.Client;
             plugin.Events = _eventService;
+            plugin.DependencyService = _dependencyService;
+            plugin.DiscordService = _discordService;
+            plugin.Logger = _loggerFactory.CreateLogger(plugin.GetType());
         }
     }
 

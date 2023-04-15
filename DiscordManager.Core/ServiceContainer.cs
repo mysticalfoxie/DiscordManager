@@ -16,6 +16,7 @@ public abstract class ServiceContainer
     public DCMGlobalConfig GlobalConfig { get; internal set; }
     public DCMDiscordConfig DiscordConfig { get; internal set; }
 
+    internal IDiscordService DiscordService { get; set; }
     internal IDependencyService DependencyService { get; set; }
     internal IServiceCollection Services { get; set; }
 

@@ -40,7 +40,7 @@ public class DiscordManager : IAsyncDisposable
         Services.PluginService.Invoke(PluginInvokationTarget.PreStart);
         Services.EventService.MapEvents();
         await Services.DiscordClientService.StartAsync();
-        Services.PluginService.Invoke(PluginInvokationTarget.PostStart);
         await Services.PluginService.PropagateDiscordContainer();
+        Services.PluginService.Invoke(PluginInvokationTarget.PostStart);
     }
 }

@@ -7,7 +7,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f6a4c95-b4b6-4ac8-8884-99bbd498658e" name="Changes" comment="" />
+    <list default="true" id="6f6a4c95-b4b6-4ac8-8884-99bbd498658e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiscordManager/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/DiscordContainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/DiscordContainer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/ServiceContainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/ServiceContainer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordClientService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/DiscordClientService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscordManager/DiscordManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscordManager/DiscordManager.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,7 +91,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "rider.code.cleanup.on.save": "true",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "settings.editor.selected.configurable": "0d570cb2-96df-43cc-80da-7f777e6d0afe",
     "typescript.add.unambiguous.imports.on.the.fly": "true",
     "vue.rearranger.settings.migration": "true"
   },
@@ -153,6 +160,7 @@
       <workItem from="1680979072102" duration="4322000" />
       <workItem from="1681061855526" duration="10355000" />
       <workItem from="1681120401231" duration="16689000" />
+      <workItem from="1681585481266" duration="651000" />
     </task>
     <task id="LOCAL-00001" summary="Adjust Events, Fix tiny bugs, Add Test Project">
       <created>1679512173477</created>
@@ -261,13 +269,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/DiscordManager.Core/Services/PluginService.cs</url>
-          <line>156</line>
+          <line>165</line>
           <properties documentPath="C:\Source\Remote\DiscordManager\DiscordManager.Core\Services\PluginService.cs" initialLine="139" containingFunctionPresentation="Method 'LoadAssembliesFromDirectories'">
             <startOffsets>
-              <option value="5081" />
+              <option value="5514" />
             </startOffsets>
             <endOffsets>
-              <option value="5082" />
+              <option value="5515" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="11" />

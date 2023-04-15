@@ -54,8 +54,13 @@ public class DiscordClientService : IDisposable, IDiscordClientService
             throw new InvalidOperationException("The client is not built yet!");
 
         await Client.LoginAsync(TokenType.Bot, _credentials.LoginToken);
+        _logger.LogTrace("Discord client logged in");
         await Client.StartAsync();
+        _logger.LogTrace("Discord client started");
         await Client.WaitForReadyEvent();
+        _logger.LogTrace("Discord received 'READY' feedback");
+
+        _logger.LogInformation("Discord client has been started");
     }
 
     public async Task StopAsync()
@@ -65,6 +70,8 @@ public class DiscordClientService : IDisposable, IDiscordClientService
 
         await Client.StopAsync();
         await Client.DisposeAsync();
+
+        _logger.LogInformation("Discord client has been stopped");
     }
 
     public void Dispose()
