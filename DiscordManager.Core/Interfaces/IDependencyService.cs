@@ -14,4 +14,5 @@ public interface IDependencyService
         IEventService eventService);
 
     IEnumerable<ServiceDescriptor> SearchInjectables(Assembly assembly);
+    IEnumerable<ServiceDescriptor> SearchPluginServices(Assembly typeAssembly);
 }

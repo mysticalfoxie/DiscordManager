@@ -1,23 +1,27 @@
 using DCM.Core;
-using DCM.Core.Attributes;
 using DCM.Core.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace TestClient.TestPlugin;
 
-[Injectable]
-public class WorldService : ServiceContainer
+public class WorldService : DCMPluginService, IWorldService
 {
-    private readonly IDiscordService _service;
+    private readonly IDiscordClientService _service;
 
     public WorldService(
-        IDiscordService service)
+        IDiscordClientService service)
     {
         _service = service;
     }
 
-    public async Task WriteIT()
+    public async Task WriteIt()
     {
-        Console.WriteLine("Hello World!");
+        Logger.LogInformation("Hello World!");
         await _service.StopAsync();
     }
+}
+
+public interface IWorldService
+{
+    public Task WriteIt();
 }

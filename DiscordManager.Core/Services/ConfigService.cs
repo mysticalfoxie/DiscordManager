@@ -158,7 +158,22 @@ public class ConfigService : IConfigService
             throw new InvalidOperationException("Attribute is faulty configured.");
 
         var filepath = GetPluginFilepath(plugin, attribute.Filepath);
-        return (DCMPluginConfig)await ReadConfig(attribute.Type, filepath);
+        var config = (DCMPluginConfig)await ReadConfig(attribute.Type, filepath);
+
+        var keyValues = config
+            .GetType()
+            .GetProperties()
+            .Where(x => x.CanRead && x.CanWrite)
+            .Select(x => new
+            {
+                Key = x.Name,
+                Value = x.GetMethod!.Invoke(config, Array.Empty<object>())
+            });
+
+        foreach (var keyValue in keyValues)
+            config.Entries.Add(keyValue.Key, keyValue.Value);
+
+        return config;
     }
 
     private static string GetPluginFilepath(DCMPlugin plugin, string attribute)

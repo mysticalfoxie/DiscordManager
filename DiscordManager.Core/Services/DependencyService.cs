@@ -38,16 +38,31 @@ public class DependencyService : IDependencyService
         return assembly
             .GetTypes()
             .Where(x => x.IsClass)
-            .Where(x => x.CustomAttributes.Any(y => y.AttributeType == typeof(InjectableAttribute)))
-            .Select(x =>
+            .Select(x => new
             {
-                var attribute = x.CustomAttributes.First(y => y.AttributeType == typeof(InjectableAttribute));
-                var @interface = attribute.ConstructorArguments.FirstOrDefault().Value as Type;
-                return new ServiceDescriptor(
-                    @interface ?? x,
-                    x,
-                    ServiceLifetime.Singleton);
-            });
+                Attribute = x.GetCustomAttribute<InjectableAttribute>(),
+                ServiceType = x
+            })
+            .Where(x => x.Attribute is not null)
+            .Select(x => x.Attribute.Interface is not null
+                ? new ServiceDescriptor(x.Attribute.Interface, x.ServiceType, ServiceLifetime.Singleton)
+                : new ServiceDescriptor(x.ServiceType, ServiceLifetime.Singleton));
+    }
+
+    public IEnumerable<ServiceDescriptor> SearchPluginServices(Assembly assembly)
+    {
+        return assembly
+            .GetTypes()
+            .Where(x => x.IsClass)
+            .Where(x => x.IsAssignableTo(typeof(DCMPluginService)))
+            .Select(x => new
+            {
+                Interface = x.GetInterfaces().FirstOrDefault(),
+                ServiceType = x
+            })
+            .Select(x => x.Interface is not null
+                ? new ServiceDescriptor(x.Interface, x.ServiceType, ServiceLifetime.Singleton)
+                : new ServiceDescriptor(x.ServiceType, ServiceLifetime.Singleton));
     }
 
     private static ConstructorInfo GetConstructor(Type type)

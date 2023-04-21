@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace DCM.Core.Extensions;
 
-public static class DiscordClientExtensions
+internal static class DiscordClientExtensions
 {
     public static Task WaitForReadyEvent(this DiscordSocketClient client)
     {
@@ -11,8 +11,8 @@ public static class DiscordClientExtensions
 
         Observable
             .Timer(TimeSpan.FromSeconds(10))
-            .Where(x => !tcs.Task.IsCompleted)
-            .Subscribe(x =>
+            .Where(_ => !tcs.Task.IsCompleted)
+            .Subscribe(_ =>
             {
                 var ex = new TimeoutException("The discord client didnt receive within 10 seconds the ready event.");
                 tcs.SetException(ex);

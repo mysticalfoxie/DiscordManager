@@ -986,6 +986,10 @@ public class EventService : IEventService
         {
             Command = command
         };
+
+        foreach (var option in eventArgs.Command.Data.Options)
+            eventArgs.Arguments.Add(option.Name, option.Value);
+
         SlashCommandExecuted.OnNext(eventArgs);
 
         return Task.CompletedTask;

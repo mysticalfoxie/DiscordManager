@@ -43,7 +43,9 @@ public class PluginService : IPluginService
 
     public List<DirectoryInfo> PluginDirectories { get; } = new();
     public List<FileInfo> PluginFiles { get; } = new();
+    public List<Type> PluginServiceTypes { get; } = new();
     public List<DCMPlugin> PluginInstances { get; } = new();
+    public List<DCMPluginService> PluginServiceInstances { get; } = new();
     public List<Type> PluginTypes { get; } = new();
 
     public void Invoke(PluginInvokationTarget target)
@@ -64,10 +66,26 @@ public class PluginService : IPluginService
     public void Load()
     {
         LoadAssembliesFromDirectories();
-        LoadPluginTypesFromAssembly();
+        LoadDCMTypesFromAssembly();
+        InstantiatePluginServices();
         InstantiatePlugins();
 
         _logger.LogInformation($"{PluginInstances.Count} plugin(s) loaded");
+    }
+
+    public void PropagateDCMContainers()
+    {
+        foreach (var plugin in PluginInstances.Concat<ServiceContainer>(PluginServiceInstances))
+        {
+            plugin.GuildConfig = _configService.GuildConfig;
+            plugin.DiscordConfig = _configService.DiscordConfig;
+            plugin.GlobalConfig = _configService.GlobalConfig;
+            plugin.Client = _discordClientService.Client;
+            plugin.Events = _eventService;
+            plugin.DependencyService = _dependencyService;
+            plugin.DiscordService = _discordService;
+            plugin.Logger = _loggerFactory.CreateLogger(plugin.GetType());
+        }
     }
 
     public async Task PropagateDiscordContainer()
@@ -79,23 +97,10 @@ public class PluginService : IPluginService
             await _guildService.Load();
             foreach (var plugin in PluginInstances)
                 _guildService.PropagateContainerFromCache(plugin);
+            foreach (var service in PluginServiceInstances)
+                _guildService.PropagateContainerFromCache(service);
 
             _logger.LogInformation("Main guild has been downloaded and cached");
-        }
-    }
-
-    public void PropagatePluginServices()
-    {
-        foreach (var plugin in PluginInstances)
-        {
-            plugin.GuildConfig = _configService.GuildConfig;
-            plugin.DiscordConfig = _configService.DiscordConfig;
-            plugin.GlobalConfig = _configService.GlobalConfig;
-            plugin.Client = _discordClientService.Client;
-            plugin.Events = _eventService;
-            plugin.DependencyService = _dependencyService;
-            plugin.DiscordService = _discordService;
-            plugin.Logger = _loggerFactory.CreateLogger(plugin.GetType());
         }
     }
 
@@ -120,16 +125,16 @@ public class PluginService : IPluginService
         {
             var pluginServices = new ServiceCollection();
             var injectables = _dependencyService.SearchInjectables(type.Assembly);
+            var dcmServices = _dependencyService.SearchPluginServices(type.Assembly);
             pluginServices.Add(injectables);
+            pluginServices.Add(dcmServices);
 
             var plugin = (DCMPlugin)_dependencyService.CreateInstance(type, pluginServices);
             plugin.Services = pluginServices;
 
-            _logger.LogTrace($"Plugin {type.FullName} instantiated");
+            _logger.LogTrace($"Plugin {type.Name} instantiated");
 
             return plugin;
-
-            // TODO:  return PropagatePlugin(plugin, pluginServices);
         }
         catch (Exception ex)
         {
@@ -146,6 +151,35 @@ public class PluginService : IPluginService
         PluginInstances.AddRange(plugins);
     }
 
+    private DCMPluginService InstantiatePluginService(Type type)
+    {
+        try
+        {
+            var additionalServices = new ServiceCollection();
+            var injectables = _dependencyService.SearchInjectables(type.Assembly);
+            additionalServices.Add(injectables);
+
+            var service = (DCMPluginService)_dependencyService.CreateInstance(type, additionalServices);
+
+            _logger.LogTrace($"Plugin service {type.FullName} instantiated");
+
+            return service;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Could not instantiate a plugin service of type '{type.FullName}'");
+            return null;
+        }
+    }
+
+    private void InstantiatePluginServices()
+    {
+        var services = PluginServiceTypes
+            .Select(InstantiatePluginService)
+            .Where(x => x is not null);
+        PluginServiceInstances.AddRange(services);
+    }
+
     private void InvokeAsynchronousMethod(object instance, string methodName)
     {
         Task.Factory.StartNew(async () =>
@@ -158,7 +192,7 @@ public class PluginService : IPluginService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"an error occured invoking '{methodName}' in plugin '{instance.GetType().Name}'");
+                _logger.LogError(ex, $"An error occured invoking '{methodName}' in plugin '{instance.GetType().Name}'");
             }
         });
     }
@@ -174,7 +208,7 @@ public class PluginService : IPluginService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"an error occured invoking '{methodName}' in plugin '{instance.GetType().Name}'");
+                _logger.LogError(ex, $"An error occured invoking '{methodName}' in plugin '{instance.GetType().Name}'");
             }
         });
     }
@@ -195,14 +229,21 @@ public class PluginService : IPluginService
         PluginFiles.AddRange(files);
     }
 
-    private void LoadPluginTypesFromAssembly()
+    private void LoadDCMTypesFromAssembly()
     {
         var types = _assemblyService
             .LoadAssemblyTypes(PluginFiles)
-            .Where(x => x.IsSubclassOf(typeof(DCMPlugin)))
+            .Where(x => x.IsClass)
+            .Where(x => !x.IsAbstract)
             .ToArray();
 
-        _logger.LogTrace($"Found {types.Length} plugin(s) in {PluginFiles.Count} file(s)");
-        PluginTypes.AddRange(types);
+        var plugins = types.Where(x => x.IsAssignableTo(typeof(DCMPlugin))).ToArray();
+        var services = types.Where(x => x.IsAssignableTo(typeof(DCMPluginService))).ToArray();
+
+        PluginTypes.AddRange(plugins);
+        PluginServiceTypes.AddRange(services);
+
+        _logger.LogTrace(
+            $"Found {plugins.Length} plugin(s) and {services.Length} service(s) in {PluginFiles.Count} file(s)");
     }
 }

@@ -2,7 +2,7 @@ using DCM.Core.Interfaces;
 using DCM.Core.Models;
 using Discord;
 
-namespace DCM.Core.Builder;
+namespace DCM.Core.Builders;
 
 public class DiscordConfigBuilder<TConfig> : IBuilder<DCMConfig> where TConfig : class
 {

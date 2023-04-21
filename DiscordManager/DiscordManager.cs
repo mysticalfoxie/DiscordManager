@@ -34,7 +34,7 @@ public class DiscordManager : IAsyncDisposable
     {
         Services.DependencyService.PublishServices(Services.DiscordClientService, Services.EventService);
         Services.PluginService.Load();
-        Services.PluginService.PropagatePluginServices();
+        Services.PluginService.PropagateDCMContainers();
         await Services.ConfigService.LoadPluginConfigs(Services.PluginService.PluginInstances);
         Services.DiscordClientService.Build();
         Services.PluginService.Invoke(PluginInvokationTarget.PreStart);

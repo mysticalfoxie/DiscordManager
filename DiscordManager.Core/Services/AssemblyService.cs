@@ -43,7 +43,7 @@ public class AssemblyService : IAssemblyService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"assembly load failed for file '{file.FullName}'");
+            _logger.LogError(ex, $"Assembly load failed for file '{file.FullName}'");
             assembly = null;
             return false;
         }
