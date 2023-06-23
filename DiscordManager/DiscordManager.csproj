@@ -1,50 +1,61 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <OutputType>Library</OutputType>
-    <Nullable>disable</Nullable>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Michelle Becker</Authors>
-    <Company>MichelleBecker2003@gmail.com</Company>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-    <FileVersion>4.0.0.0</FileVersion>
-    <Version>4.0.0</Version>
-    <RootNamespace>DCM</RootNamespace>
-    <Description>A package to start and handle a discord client with a plugin based architecture.</Description>
-    <Product>Discord Manager</Product>
-    <Copyright>©Michelle Becker</Copyright>
-    <Configurations>Debug;Release;Include Plugins</Configurations>
-    <ApplicationIcon>DCM-Icon.ico</ApplicationIcon>
-    <PackageIcon>DCM-Icon.png</PackageIcon>
-    <PackageIconUrl />
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <OutputType>Library</OutputType>
+        <Nullable>disable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Michelle Becker</Authors>
+        <Company>MichelleBecker2003@gmail.com</Company>
+        <AssemblyVersion>5.0.0.0</AssemblyVersion>
+        <FileVersion>5.0.0.0</FileVersion>
+        <Version>5.0.0</Version>
+        <RootNamespace>DCM</RootNamespace>
+        <Description>A package to start and handle a discord client with a plugin based architecture.</Description>
+        <Product>DiscordManager</Product>
+        <Copyright>©Michelle Becker</Copyright>
+        <Configurations>Debug;Release;Include Plugins</Configurations>
+        <ApplicationIcon>favicon.ico</ApplicationIcon>
+        <PackageIcon>favicon.png</PackageIcon>
+        <LangVersion>latest</LangVersion>
+        <Title>Discord Manager</Title>
+        <PackageProjectUrl>https://github.com/M1chelle99/DiscordManager</PackageProjectUrl>
+        <PackageLicenseUrl></PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/M1chelle99/DiscordManager</RepositoryUrl>
+        <PackageTags>Discord, Plugins</PackageTags>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget></PlatformTarget>
-    <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <PlatformTarget></PlatformTarget>
+        <DefineConstants>TRACE</DefineConstants>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Include Plugins|AnyCPU'">
-    <PlatformTarget />
-    <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Include Plugins|AnyCPU'">
+        <PlatformTarget />
+        <DefineConstants>TRACE</DefineConstants>
+    </PropertyGroup>
 
-  <ItemGroup>
-	<PackageReference Include="Discord.Net" Version="3.7.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\DiscordManager.Core\DiscordManager.Core.csproj" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\Assets\DCM-Icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Update="favicon.png">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+    </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties models_4jsonobjects_4embedjsonschema_1json__JsonSchema="https://json-schema.org/draft/2019-09/schema" /></VisualStudio></ProjectExtensions>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.EventSource" Version="7.0.0" />
+    </ItemGroup>
+
+    <ProjectExtensions>
+        <VisualStudio>
+            <UserProperties models_4jsonobjects_4embedjsonschema_1json__JsonSchema="https://json-schema.org/draft/2019-09/schema" />
+        </VisualStudio>
+    </ProjectExtensions>
 
 </Project>

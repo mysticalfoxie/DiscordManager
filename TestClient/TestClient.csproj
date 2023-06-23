@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DiscordManager\DiscordManager.csproj" />
+        <ProjectReference Include="..\TestClient.Data\TestClient.Data.csproj" />
+        <ProjectReference Include="..\TestClient.TestPlugin\TestClient.TestPlugin.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="configuration.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+</Project>
